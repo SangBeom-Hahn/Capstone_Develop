@@ -51,6 +51,6 @@ feat: 회원 CRUD 기능을 구현
 ---
 
 ### branch 전략
-| <img title="" src="./images/branch_plan.png" alt="" data-align="center"> |
+| <img title="" src="./image/branch_plan.png" alt="" data-align="center"> |
 |:---------------------------------------------------------------------------------:|
 |                              < 그림 1 : PB Branch 전략 >                           |
