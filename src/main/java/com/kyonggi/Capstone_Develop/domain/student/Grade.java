@@ -2,8 +2,6 @@ package com.kyonggi.Capstone_Develop.domain.student;
 
 import lombok.Getter;
 
-import javax.annotation.processing.Generated;
-
 @Getter
 public enum Grade {
     ONE("1th Grade"),

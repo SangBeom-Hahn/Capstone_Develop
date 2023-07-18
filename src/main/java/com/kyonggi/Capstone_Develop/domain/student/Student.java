@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @Entity
 @Getter
 @Table(name = "student")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Student extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
