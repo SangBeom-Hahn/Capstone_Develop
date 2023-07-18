@@ -3,7 +3,7 @@ CREATE TABLE admin
     `admin_id` BIGINT NOT NULL AUTO_INCREMENT,
     `login_id` VARCHAR(45) NULL DEFAULT NULL,
     `password` VARCHAR(45) NULL DEFAULT NULL,
-    `admin_name` VARCHAR(45) NULL DEFAULT NULL,
+    `name` VARCHAR(45) NULL DEFAULT NULL,
     `created_date` DATETIME NULL DEFAULT NULL,
     `last_modified_date` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`admin_id`)
