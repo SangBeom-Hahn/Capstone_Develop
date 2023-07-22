@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.domain.utils.validator;
+package com.kyonggi.Capstone_Develop.utils.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

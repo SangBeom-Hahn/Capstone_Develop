@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.domain.utils.validator;
+package com.kyonggi.Capstone_Develop.utils.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -7,7 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.text.MessageFormat;
 
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
