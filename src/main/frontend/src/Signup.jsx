@@ -15,6 +15,7 @@ const SignUp = () => {
     const [questionPw, setQuestionPw] = useState('');
     const [answerPw, setAnswerPw] = useState('');
 
+
     // 학과 선택 함수
     const majorOptions = () => {
         const majorOptions = [
