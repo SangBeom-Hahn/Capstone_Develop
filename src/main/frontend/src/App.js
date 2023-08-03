@@ -18,7 +18,7 @@ const App = () => {
         {/* 로그인 화면 */}
         <Route path="/api/login" element={<Login />} />
         {/* 회원가입 화면 */}
-        <Route path="/api/Signup" element={<SignUp />} />
+        <Route path="/api/signup" element={<SignUp />} />
         {/* 공지사항 화면 */}
         <Route path="/api/notice" element={<Notice />} />
       </Routes>
