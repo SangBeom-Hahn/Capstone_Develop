@@ -4,6 +4,8 @@ import Home from './Home';
 import Login from './Login';
 import SignUp from './Signup';
 import Notice from './Notice';
+import Guide from './Guide';
+import Schedule from './Schedule';
 
 import './App.css';
 
@@ -21,6 +23,10 @@ const App = () => {
         <Route path="/api/Signup" element={<SignUp />} />
         {/* 공지사항 화면 */}
         <Route path="/api/notice" element={<Notice />} />
+        {/* 안내 및 내규 화면 */}
+        <Route path="/api/graduation/guide" element={<Guide />} />
+        {/* 진행일정 화면 */}
+        <Route path="/api/graduation/schedule" element={<Schedule />} />
       </Routes>
     </Router>
   );
