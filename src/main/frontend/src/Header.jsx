@@ -34,7 +34,7 @@ const Header = () => {
                 </Link>
               </li>
               <li class="nav-item bold">
-                <Link to="/graduation/schedule" className="nav-link" style={linkStyles}>
+                <Link to="/api/graduation/schedule" className="nav-link" style={linkStyles}>
                   진행일정
                 </Link>
               </li>
