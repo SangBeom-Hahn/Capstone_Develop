@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Header from './Header';
 
-const Guide = ({ userId, data }) => {
+const Guide = ({ userId }) => {
+  const [data, setData] = useState({ text: '', id: '' });
+
+  useEffect(() => {
+    axios.get('/api/graduation/guide')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, []);
+
   return (
     <div>
       <Header />
@@ -34,7 +48,8 @@ const Guide = ({ userId, data }) => {
                       <div className="card-body">
                         <div className="row mt-2">
                           <div className="col-12">
-                            <div className="card-text" style={{ height: '1300px' }}>
+                            <div className="card-text" style={{ height: '400px' }}>
+                              {data.text}
                             </div>
                           </div>
                         </div>
@@ -42,7 +57,11 @@ const Guide = ({ userId, data }) => {
                     </div>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <a className="btn btn-primary text-white">수정</a>
+                    {userId && userId.includes('admin') && (
+                      <Link to={`modifyGuide/${data.id}`} className="btn btn-primary text-white float-right">
+                        수정
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
