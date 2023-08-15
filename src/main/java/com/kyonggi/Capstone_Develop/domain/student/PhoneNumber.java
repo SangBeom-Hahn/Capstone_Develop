@@ -1,11 +1,11 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -12,11 +13,13 @@ import java.time.LocalDate;
 public class TestDataInit {
     private final StudentRepository studentRepository;
     
+    protected final PasswordEncoder passwordEncoder;
+
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
         Student student = new Student(
-                "jack",
-                "123#a",
+                "cherry2",
+                passwordEncoder.encode("123#a2"),
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
                 Grade.FOURTH,
@@ -24,7 +27,7 @@ public class TestDataInit {
                 Sex.FEMAIL,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20181111"
+                "20182222"
         );
         studentRepository.save(student);
     }

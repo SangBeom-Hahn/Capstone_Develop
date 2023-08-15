@@ -1,12 +1,10 @@
 package com.kyonggi.Capstone_Develop.domain;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.persistence.*;
 
 @Getter
 @Entity

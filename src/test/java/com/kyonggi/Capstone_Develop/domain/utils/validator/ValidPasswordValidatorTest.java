@@ -1,11 +1,12 @@
 package com.kyonggi.Capstone_Develop.domain.utils.validator;
 
 import com.kyonggi.Capstone_Develop.utils.validator.ValidPasswordValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import javax.validation.ConstraintValidatorContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
