@@ -87,7 +87,6 @@ class AuthServiceTest {
         
         // when
         TokenResponseDto tokenResponseDto = authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
-        log.info("토크 = {}", tokenResponseDto);
         
         // then
         assertThat(tokenResponseDto).isNotNull();
