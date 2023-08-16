@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
+import com.kyonggi.Capstone_Develop.exception.InvalidEmailFormatException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class Email {
         Pattern pattern = Pattern.compile("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException(value);
+            throw new InvalidEmailFormatException(value);
         }
     }
 }

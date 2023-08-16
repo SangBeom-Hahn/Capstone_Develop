@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
+import com.kyonggi.Capstone_Develop.exception.InvalidPhoneNumberFormatException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class PhoneNumber {
         Pattern pattern = Pattern.compile("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$");
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException(value);
+            throw new InvalidPhoneNumberFormatException(value);
         }
     }
 }

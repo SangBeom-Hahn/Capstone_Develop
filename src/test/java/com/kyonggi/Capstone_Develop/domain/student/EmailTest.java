@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
+import com.kyonggi.Capstone_Develop.exception.InvalidEmailFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ class EmailTest {
     @DisplayName("잘못된 이메일 형식을 입력하면 예외가 발생한다.")
     void throwException_invalidEmailFormat() {
         assertThatThrownBy(() -> Email.from("abc"))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InvalidEmailFormatException.class);
     }
     
     @Test

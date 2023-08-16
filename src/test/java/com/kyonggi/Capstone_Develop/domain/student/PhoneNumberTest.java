@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
+import com.kyonggi.Capstone_Develop.exception.InvalidPhoneNumberFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ class PhoneNumberTest {
     @DisplayName("잘못된 형식의 전화번호를 입력하면 예외가 발생한다.")
     void throwException_invalidPhoneNumberFormat() {
         assertThatThrownBy(() -> PhoneNumber.from("01011111111"))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InvalidPhoneNumberFormatException.class);
     }
     
     @Test
