@@ -1,5 +1,9 @@
 package com.kyonggi.Capstone_Develop.support;
 
+import com.kyonggi.Capstone_Develop.exception.InvalidTokenException;
+import com.kyonggi.Capstone_Develop.exception.TokenInvalidExpiredException;
+import com.kyonggi.Capstone_Develop.exception.TokenInvalidFormException;
+import com.kyonggi.Capstone_Develop.exception.TokenInvalidSecretKeyException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
@@ -45,8 +49,8 @@ public class JwtTokenProvider {
             final Jws<Claims> claims = tokenToJws(token);
             
             validateExpiredToken(claims);
-        } catch (final JwtException | IllegalArgumentException e) {
-            throw new IllegalArgumentException("D");
+        } catch (final JwtException | InvalidTokenException e) {
+            throw new TokenInvalidSecretKeyException(token);
         }
     }
     
@@ -57,17 +61,17 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token);
         } catch (final IllegalArgumentException | MalformedJwtException e) {
-            throw new IllegalArgumentException("A");
+            throw new TokenInvalidFormException();
         } catch (final SignatureException e) {
-            throw new IllegalArgumentException("B");
+            throw new TokenInvalidSecretKeyException(token);
         } catch (final ExpiredJwtException e) {
-            throw new IllegalArgumentException("C");
+            throw new TokenInvalidExpiredException();
         }
     }
     
     private void validateExpiredToken(final Jws<Claims> claims) {
         if (claims.getBody().getExpiration().before(new Date())) {
-            throw new IllegalArgumentException();
+            throw new TokenInvalidExpiredException();
         }
     }
 }
