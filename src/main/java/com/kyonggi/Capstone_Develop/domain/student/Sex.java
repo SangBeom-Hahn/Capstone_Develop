@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Sex {
-    MAIL("남"),
-    FEMAIL("여");
+    MALE("남"),
+    FEMALE("여");
     
     private final String desc;
     

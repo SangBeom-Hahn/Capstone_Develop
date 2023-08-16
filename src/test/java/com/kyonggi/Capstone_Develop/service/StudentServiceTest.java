@@ -34,7 +34,7 @@ class StudentServiceTest {
                 "dummy",
                 Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMAIL,
+                Sex.FEMALE,
                 "dummy",
                 Email.from("dummy1@naver.com"),
                 "dummy"
@@ -47,7 +47,7 @@ class StudentServiceTest {
                 "dummy",
                 Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMAIL,
+                Sex.FEMALE,
                 "dummy",
                 Email.from("dummy1@naver.com"),
                 "dummy"
@@ -72,7 +72,7 @@ class StudentServiceTest {
                 "컴퓨터공학부",
                 Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMAIL,
+                Sex.FEMALE,
                 "한상범",
                 Email.from("1@naver.com"),
                 "20182222"
