@@ -6,7 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate();
+
+  const setToken = (token) => {
+    sessionStorage.setItem('token', token);
+    setIsLoggedIn(true);
+  };
 
   const handleLogin = async () => {
 	try {
@@ -17,7 +23,7 @@ const Login = () => {
 
 	  const response = await axios.post('/api/login/auth', account);
 	  const token = response.data.accessToken;
-	  sessionStorage.setItem('token', token);
+	  setToken(token);
 	  alert('로그인 성공');
 	  navigate('/api/home');
 	} catch (error) {
@@ -57,9 +63,9 @@ const Login = () => {
 				</div>
 				<br />
 				<div className="d-grid">
-				  <button className="btn btn-primary" type="button" onClick={handleLogin} id="submit-button">
-					로그인
-				  </button>
+				   <button className="btn btn-primary" type="button" onClick={handleLogin} id="submit-button">
+                     로그인
+                   </button>
 				</div>
 				<div className="d-xxl-flex justify-content-end mt-4">
 				  <span className="text-muted font-15 mb-0">
