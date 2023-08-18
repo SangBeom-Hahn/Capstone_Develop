@@ -1,30 +1,47 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const token = sessionStorage.getItem('token');
 
-  const handleHomeClick = () => {
+  useEffect(() => {
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [token]);
+
+  const handleHome = () => {
        navigate('/api/home');
      };
-  const handleLoginClick = () => {
+  const handleLogin = () => {
      navigate('/api/Login');
    };
-  const handleNoticeClick = () => {
+   const handleLogout = () => {
+     sessionStorage.removeItem('token');
+     setIsLoggedIn(false);
+     alert('로그아웃 되었습니다.');
+     navigate('/api/home');
+   };
+  const handleNotice = () => {
     navigate('/api/notice');
   };
-  const handleKutisClick = () => {
+  const handleKutis = () => {
       window.location.href = 'https://kutis.kyonggi.ac.kr/webkutis/view/indexWeb.jsp';
    };
-  const handleLMSClick = () => {
+  const handleLMS = () => {
     window.location.href = 'https://lms.kyonggi.ac.kr/login.php';
   };
-  const handleKGUClick = () => {
+  const handleKGU = () => {
       window.location.href = 'https://www.kyonggi.ac.kr/www/index.do';
    };
-   const handleAIHOMEClick = () => {
+   const handleAIHOME = () => {
        window.location.href = 'http://cs.kyonggi.ac.kr:8080/Index';
    };
-   const handleSWUNIVClick = () => {
+   const handleSWUNIV = () => {
        window.location.href = 'https://swuniv.kyonggi.ac.kr/';
     };
 
@@ -35,15 +52,21 @@ const Home = () => {
         {/* navigation start */}
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-default">
-            <a className="navbar-brand" onClick={handleHomeClick}>
+            <a className="navbar-brand" onClick={handleHome}>
               <img src="/img/cspop_logo.png" width="110" height="40" alt="" />
             </a>
             <ul className="navbar-nav ms-auto me-lg-3">
             </ul>
             <div className="header-btn">
-              <button onClick={handleLoginClick} className="btn btn-primary">
-                Login
-              </button>
+              {isLoggedIn ? (
+                <button className="btn btn-primary" type="button" onClick={handleLogout} id="submit-button">
+              	  Logout
+              	</button>
+              ) : (
+                <button className="btn btn-primary" type="button" onClick={handleLogin} id="submit-button">
+                  Login
+                </button>
+              )}
             </div>
           </nav>
         </div>
@@ -69,7 +92,7 @@ const Home = () => {
               <p className="mb-4">
                 당신의 졸업 요건을 확인해 보세요.
               </p>
-              <button className="btn btn-success" onClick={handleNoticeClick}>
+              <button className="btn btn-success" onClick={handleNotice}>
                 Graduation Start
               </button>
             </div>
@@ -82,27 +105,27 @@ const Home = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-2 col-md-4 col-6">
-              <div className="mb-4" onClick={handleKutisClick}>
+              <div className="mb-4" onClick={handleKutis}>
                 <h4 className="mb-4 text-white">Kutis</h4>
               </div>
             </div>
             <div className="col-lg-2 col-md-4 col-6">
-              <div className="mb-4" onClick={handleLMSClick}>
+              <div className="mb-4" onClick={handleLMS}>
                 <h4 className="mb-4 text-white">LMS</h4>
               </div>
             </div>
             <div className="col-lg-2 col-md-4 col-6">
-              <div className="mb-4" onClick={handleKGUClick}>
+              <div className="mb-4" onClick={handleKGU}>
                 <h4 className="mb-4 text-white">KGU</h4>
               </div>
             </div>
             <div className="col-lg-2 col-md-4 col-6">
-              <div className="mb-4" onClick={handleAIHOMEClick}>
+              <div className="mb-4" onClick={handleAIHOME}>
                 <h4 className="mb-4 text-white">AI-HOME</h4>
               </div>
             </div>
             <div className="col-lg-2 col-md-4 col-6">
-              <div className="mb-4" onClick={handleSWUNIVClick}>
+              <div className="mb-4" onClick={handleSWUNIV}>
                 <h4 className="mb-4 text-white">SW-UNIV</h4>
               </div>
             </div>
