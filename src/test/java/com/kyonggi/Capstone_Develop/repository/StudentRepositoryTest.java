@@ -43,5 +43,4 @@ class StudentRepositoryTest {
         // then
         assertThat(sangbeom).isEqualTo(saveStudent);
     }
-    
 }

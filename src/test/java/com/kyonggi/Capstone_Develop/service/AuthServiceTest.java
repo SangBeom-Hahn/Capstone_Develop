@@ -1,9 +1,11 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginRequest;
+import com.kyonggi.Capstone_Develop.domain.refreshtoken.RefreshToken;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.IdPasswordMismatchException;
-import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
+import com.kyonggi.Capstone_Develop.exception.NoSuchMemberIdException;
+import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -32,6 +35,9 @@ class AuthServiceTest {
     
     @Autowired
     private StudentRepository studentRepository;
+    
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
     
     private Student dummyStudent;
     
@@ -61,7 +67,7 @@ class AuthServiceTest {
         // then
         assertThatThrownBy(() -> authService.login(
                 loginRequest.getLoginId(), loginRequest.getLoginPassword()
-        )).isInstanceOf(NoSuchMemberException.class)
+        )).isInstanceOf(NoSuchMemberIdException.class)
                 .hasMessage("없는 ID 입니다. 다시 로그인 해주세요. loginId={no}");
     }
     
@@ -90,5 +96,20 @@ class AuthServiceTest {
         
         // then
         assertThat(tokenResponseDto).isNotNull();
+    }
+    
+    @Test
+    @DisplayName("리프레시 토큰을 무효화한다.")
+    void logout() {
+        // given
+        final RefreshToken refreshToken = RefreshToken.createBy(dummyStudent.getId(), () -> "refreshToken");
+        
+        // when
+        refreshTokenRepository.save(refreshToken);
+        refreshTokenRepository.deleteByTokenValue(refreshToken.getTokenValue());
+        final Optional<RefreshToken> findRefreshToken = refreshTokenRepository.findByTokenValue(refreshToken.getTokenValue());
+        
+        // then
+        assertThat(findRefreshToken).isEmpty();
     }
 }

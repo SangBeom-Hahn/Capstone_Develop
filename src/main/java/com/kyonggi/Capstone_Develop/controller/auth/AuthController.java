@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.controller.auth;
 
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.auth.RefreshTokenRequest;
 import com.kyonggi.Capstone_Develop.service.AuthService;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,11 @@ public class AuthController {
     public ResponseEntity<TokenResponseDto> login(@RequestBody @Valid final LoginRequest loginRequest) {
         TokenResponseDto tokenResponseDto = authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
         return ResponseEntity.ok(tokenResponseDto);
+    }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody @Valid final RefreshTokenRequest refreshTokenRequest) {
+        authService.logout(refreshTokenRequest.getRefreshToken());
+        return ResponseEntity.noContent().build();
     }
 }
