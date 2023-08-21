@@ -35,7 +35,11 @@ const Home = () => {
        }
    };
   const handleNotice = () => {
-    navigate('/api/notice');
+    if (isLoggedIn) {
+      navigate('/api/notice');
+    } else {
+        alert('로그인이 필요합니다.');
+    }
   };
   const handleKutis = () => {
       window.location.href = 'https://kutis.kyonggi.ac.kr/webkutis/view/indexWeb.jsp';
