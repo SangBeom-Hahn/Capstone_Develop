@@ -9,8 +9,8 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate();
 
-  const setToken = (token) => {
-    sessionStorage.setItem('token', token);
+  const setToken = (accessToken) => {
+    sessionStorage.setItem('accessToken', accessToken);
     setIsLoggedIn(true);
   };
 
@@ -22,8 +22,10 @@ const Login = () => {
 	  };
 
 	  const response = await axios.post('/api/login/auth', account);
-	  const token = response.data.accessToken;
-	  setToken(token);
+	  const accessToken = response.data.accessToken;
+	  const refreshToken = response.data.refreshToken;
+	  setToken(accessToken);
+	  sessionStorage.setItem('refreshToken', refreshToken);
 	  alert('로그인 성공');
 	  navigate('/api/home');
 	} catch (error) {

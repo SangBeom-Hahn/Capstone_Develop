@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Home = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const token = sessionStorage.getItem('token');
+  const accessToken = sessionStorage.getItem('accessToken');
+  const refreshToken = sessionStorage.getItem('refreshToken');
 
   useEffect(() => {
-    if (token) {
+    if (accessToken) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
-  }, [token]);
+  }, [accessToken]);
 
   const handleHome = () => {
        navigate('/api/home');
@@ -20,14 +22,24 @@ const Home = () => {
   const handleLogin = () => {
      navigate('/api/Login');
    };
-   const handleLogout = () => {
-     sessionStorage.removeItem('token');
-     setIsLoggedIn(false);
-     alert('로그아웃 되었습니다.');
-     navigate('/api/home');
+   const handleLogout = async () => {
+     try {
+       await axios.post('/api/logout', { refreshToken });
+       sessionStorage.removeItem('accessToken');
+       sessionStorage.removeItem('refreshToken');
+       setIsLoggedIn(false);
+       alert('로그아웃 되었습니다.');
+       navigate('/api/home');
+     } catch (error) {
+       console.error('Error during logout:', error);
+       }
    };
   const handleNotice = () => {
-    navigate('/api/notice');
+    if (isLoggedIn) {
+      navigate('/api/notice');
+    } else {
+        alert('로그인이 필요합니다.');
+    }
   };
   const handleKutis = () => {
       window.location.href = 'https://kutis.kyonggi.ac.kr/webkutis/view/indexWeb.jsp';
