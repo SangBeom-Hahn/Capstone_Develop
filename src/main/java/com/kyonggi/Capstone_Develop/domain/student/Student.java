@@ -1,12 +1,15 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
 import com.kyonggi.Capstone_Develop.domain.BaseEntity;
+import com.kyonggi.Capstone_Develop.domain.Comment;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,6 +55,9 @@ public class Student extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "roletype", length = 255, nullable = false)
     private RoleType roleType;
+    
+    @OneToMany(mappedBy = "student")
+    private List<Comment> comments = new ArrayList<>();
 
     public Student(String loginId, String password, LocalDate birth, String department, Grade grade, PhoneNumber phoneNumber, Sex sex, String name, Email email, String studentNumber, RoleType roleType) {
         this.loginId = loginId;
