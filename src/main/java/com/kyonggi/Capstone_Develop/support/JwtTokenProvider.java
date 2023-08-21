@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -28,12 +29,13 @@ public class JwtTokenProvider {
         this.validityInMilliseconds = validityInMilliseconds;
     }
     
-    public String createToken(final String payload) {
+    public String createToken(Map<String, Object> payload) {
+        Claims claims = Jwts.claims(payload);
         final Date now = new Date();
         final Date validity = new Date(now.getTime() + validityInMilliseconds);
         
         return Jwts.builder()
-                .setSubject(payload)
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -41,7 +43,16 @@ public class JwtTokenProvider {
     }
     
     public String getPayload(final String token) {
-        return tokenToJws(token).getBody().getSubject();
+        return tokenToJws(token)
+                .getBody()
+                .getSubject();
+    }
+    
+    public String getRolePayload(final String token) {
+        return tokenToJws(token)
+                .getBody()
+                .get("role")
+                .toString();
     }
     
     public void validateAbleToken(final String token) {
@@ -72,6 +83,32 @@ public class JwtTokenProvider {
     private void validateExpiredToken(final Jws<Claims> claims) {
         if (claims.getBody().getExpiration().before(new Date())) {
             throw new TokenInvalidExpiredException();
+        }
+    }
+    
+    public static PayloadBuilder payloadBuilder() {
+        return new PayloadBuilder();
+    }
+    
+    public static class PayloadBuilder {
+        private final Claims claims;
+        
+        private PayloadBuilder() {
+            this.claims = Jwts.claims();
+        }
+        
+        public PayloadBuilder setSubject(String subject) {
+            claims.setSubject(subject);
+            return this;
+        }
+    
+        public PayloadBuilder put(String payload) {
+            claims.put("role", payload);
+            return this;
+        }
+        
+        public Map<String, Object> build() {
+            return claims;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.domain.student.RoleType;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.DuplicateLoginIdException;
 import com.kyonggi.Capstone_Develop.exception.DuplicateStudentNumberException;
@@ -33,7 +34,8 @@ public class StudentService {
                 studentRequestDto.getSex(),
                 studentRequestDto.getName(),
                 studentRequestDto.getEmail(),
-                studentRequestDto.getStudentNumber()
+                studentRequestDto.getStudentNumber(),
+                RoleType.STUDENT
         );
         Student saveStudent = studentRepository.save(student);
         return StudentSignUpResponseDto.from(saveStudent);

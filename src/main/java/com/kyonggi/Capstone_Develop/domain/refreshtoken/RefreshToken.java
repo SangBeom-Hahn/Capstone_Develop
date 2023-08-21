@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken {
     private static final int EXPIRED_DAYS = 7;
-    private static final int REMAINING_DAYS_TO_EXTENDS = 2;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +35,10 @@ public class RefreshToken {
     }
     
     public static RefreshToken createBy(final Long memberId, final RefreshTokenGenerator generator) {
-        return new RefreshToken(generator.generate(), memberId, LocalDateTime.now().plusDays(EXPIRED_DAYS));
+        return new RefreshToken(
+                generator.generate(),
+                memberId,
+                LocalDateTime.now().plusDays(EXPIRED_DAYS)
+        );
     }
 }

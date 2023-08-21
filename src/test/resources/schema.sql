@@ -1,14 +1,3 @@
-CREATE TABLE admin
-(
-    `admin_id` BIGINT NOT NULL AUTO_INCREMENT,
-    `login_id` VARCHAR(45) NULL DEFAULT NULL,
-    `password` VARCHAR(45) NULL DEFAULT NULL,
-    `name` VARCHAR(45) NULL DEFAULT NULL,
-    `created_date` DATETIME NULL DEFAULT NULL,
-    `last_modified_date` DATETIME NULL DEFAULT NULL,
-    PRIMARY KEY (`admin_id`)
-);
-
 CREATE TABLE student
 (
     `student_id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -22,6 +11,7 @@ CREATE TABLE student
     `name` VARCHAR(45) NULL DEFAULT NULL,
     `email` VARCHAR(45) NULL DEFAULT NULL,
     `student_number` VARCHAR(45) NULL DEFAULT NULL,
+    `roletype` varchar(255) not null,
     `created_date` DATETIME NULL DEFAULT NULL,
     `last_modified_date` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`student_id`)

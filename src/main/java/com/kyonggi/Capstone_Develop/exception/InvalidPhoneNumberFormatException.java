@@ -8,7 +8,7 @@ public class InvalidPhoneNumberFormatException extends CspopException{
                 String.format("올바르지 않은 전화번호 형식입니다. phoneNumber={%s}", phoneNumber),
                 "올바르지 않은 전화번호 형식입니다.",
                 HttpStatus.BAD_REQUEST,
-                "10"
+                "11"
         );
     }
 }

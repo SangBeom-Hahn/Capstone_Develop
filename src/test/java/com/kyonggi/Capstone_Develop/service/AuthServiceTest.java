@@ -53,7 +53,8 @@ class AuthServiceTest {
                 Sex.FEMALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222"
+                "20182222",
+                RoleType.STUDENT
         );
         studentRepository.save(dummyStudent);
     }

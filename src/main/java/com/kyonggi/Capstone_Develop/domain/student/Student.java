@@ -48,8 +48,12 @@ public class Student extends BaseEntity {
 
     @Column(name = "student_number", length = 255, nullable = false)
     private String studentNumber;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roletype", length = 255, nullable = false)
+    private RoleType roleType;
 
-    public Student(String loginId, String password, LocalDate birth, String department, Grade grade, PhoneNumber phoneNumber, Sex sex, String name, Email email, String studentNumber) {
+    public Student(String loginId, String password, LocalDate birth, String department, Grade grade, PhoneNumber phoneNumber, Sex sex, String name, Email email, String studentNumber, RoleType roleType) {
         this.loginId = loginId;
         this.password = password;
         this.birth = birth;
@@ -60,5 +64,6 @@ public class Student extends BaseEntity {
         this.name = name;
         this.email = email;
         this.studentNumber = studentNumber;
+        this.roleType = roleType;
     }
 }

@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.support;
 
+import com.kyonggi.Capstone_Develop.domain.student.RoleType;
 import com.kyonggi.Capstone_Develop.exception.TokenInvalidExpiredException;
 import com.kyonggi.Capstone_Develop.exception.TokenInvalidFormException;
 import com.kyonggi.Capstone_Develop.exception.TokenInvalidSecretKeyException;
@@ -16,10 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Map;
 
+import static com.kyonggi.Capstone_Develop.domain.student.RoleType.STUDENT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 @SpringBootTest
 @Transactional
@@ -36,6 +38,15 @@ class JwtTokenProviderTest {
             "invalidSecretKeyInvalidSecretKeyInvalidSecretKeyInvalidSecretKey",
             8640000L
     );
+    
+    private Map<String, Object> createPayloadMap(Long studentId, RoleType roleType) {
+        Map<String, Object> payload = JwtTokenProvider.payloadBuilder()
+                .setSubject(String.valueOf(studentId))
+                .put(roleType.name())
+                .build();
+        
+        return payload;
+    }
     
     @Test
     @DisplayName("유효하지 않은 토큰 형식의 토큰으로 payload를 조회할 경우 예외가 발생한다.")
@@ -65,7 +76,8 @@ class JwtTokenProviderTest {
     @DisplayName("시크릿 키가 틀린 토큰 정보로 payload를 조회할 경우 예외를 발생시킨다.")
     void getPayloadByWrongSecretKeyToken() {
         // given
-        final String invalidSecretToken = invalidSecretKeyJwtTokenProvider.createToken(String.valueOf(1L));
+        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        final String invalidSecretToken = invalidSecretKeyJwtTokenProvider.createToken(payloadMap);
         
         // then
         assertThatThrownBy(() -> jwtTokenProvider.getPayload(invalidSecretToken))
@@ -76,20 +88,29 @@ class JwtTokenProviderTest {
     @Test
     @DisplayName("토큰이 올바르게 생성된다.")
     void createToken() {
-        final String payload = String.valueOf(1L);
+        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
         
-        final String token = jwtTokenProvider.createToken(payload);
+        final String token = jwtTokenProvider.createToken(payloadMap);
         assertThat(token).isNotNull();
     }
     
-    @DisplayName("올바른 토큰 정보로 payload를 조회한다.")
     @Test
+    @DisplayName("올바른 토큰 정보로 payload를 조회한다.")
     void getPayloadByValidToken() {
-        final String payload = String.valueOf(1L);
-        
-        final String token = jwtTokenProvider.createToken(payload);
+        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        final String token = jwtTokenProvider.createToken(payloadMap);
         
         assertThat(jwtTokenProvider.getPayload(token))
-                .isEqualTo(payload);
+                .isEqualTo(String.valueOf(1L));
+    }
+    
+    @Test
+    @DisplayName("올바른 토큰 정보로 role을 조회한다.")
+    void getRolePayloadValidToken() {
+        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        final String token = jwtTokenProvider.createToken(payloadMap);
+    
+        assertThat(jwtTokenProvider.getRolePayload(token))
+                .isEqualTo(STUDENT.name());
     }
 }
