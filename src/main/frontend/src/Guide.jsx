@@ -9,7 +9,8 @@ const Guide = ({ userId }) => {
   useEffect(() => {
     axios.get('/api/graduation/guide')
       .then(response => {
-        setData(response.data);
+        setData({ text: response.data.text });
+        console.log('데이터 가져오기 성공');
       })
       .catch(error => {
         console.error('데이터 가져오기 실패:', error);
@@ -57,11 +58,11 @@ const Guide = ({ userId }) => {
                     </div>
                   </div>
                   <div className="d-flex justify-content-end">
-                    {userId && userId.includes('admin') && (
-                      <Link to={`modifyGuide/${data.id}`} className="btn btn-primary text-white float-right">
+                    {/*userId && userId.includes('admin') && (*/}
+                      <Link to={'/api/graduation/modifyGuide'} className="btn btn-primary text-white float-right">
                         수정
                       </Link>
-                    )}
+                   {/* )*/}
                   </div>
                 </div>
               </div>

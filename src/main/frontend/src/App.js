@@ -5,6 +5,7 @@ import Login from './Login';
 import SignUp from './Signup';
 import Notice from './Notice';
 import Guide from './Guide';
+import ModifyGuide from './ModifyGuide';
 import Schedule from './Schedule';
 
 import './App.css';
@@ -25,6 +26,8 @@ const App = () => {
         <Route path="/api/notice" element={<Notice />} />
         {/* 안내 및 내규 화면 */}
         <Route path="/api/graduation/guide" element={<Guide />} />
+        {/* 안내 및 내규 수정 화면 */}
+        <Route path="/api/graduation/modifyGuide" element={<ModifyGuide />} />
         {/* 진행일정 화면 */}
         <Route path="/api/graduation/schedule" element={<Schedule />} />
       </Routes>
