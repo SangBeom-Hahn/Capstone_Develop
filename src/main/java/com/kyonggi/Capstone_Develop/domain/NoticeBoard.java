@@ -15,6 +15,7 @@ import java.util.List;
 public class NoticeBoard extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notice_board_id")
     private Long id;
     
     @Column(name = "content", length = 255, nullable = false)
@@ -29,7 +30,7 @@ public class NoticeBoard extends BaseEntity {
     @Column(name = "views", nullable = false)
     private Integer views;
     
-    @OneToMany(mappedBy = "noticeBoard")
+    @OneToMany(mappedBy = "noticeBoard", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
     
     public NoticeBoard(String content, boolean fix, String title, Integer views) {

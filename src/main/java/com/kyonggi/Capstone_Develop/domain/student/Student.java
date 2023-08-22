@@ -56,7 +56,7 @@ public class Student extends BaseEntity {
     @Column(name = "roletype", length = 255, nullable = false)
     private RoleType roleType;
     
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
     public Student(String loginId, String password, LocalDate birth, String department, Grade grade, PhoneNumber phoneNumber, Sex sex, String name, Email email, String studentNumber, RoleType roleType) {
