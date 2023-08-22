@@ -1,22 +1,25 @@
 package com.kyonggi.Capstone_Develop.repository;
 
+import com.kyonggi.Capstone_Develop.config.JpaAuditingConfig;
 import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+@DataJpaTest
 @Transactional
-@SpringBootTest
+@Import(JpaAuditingConfig.class)
 class CommentRepositoryTest {
     @Autowired
     CommentRepository commentRepository;
@@ -73,44 +76,53 @@ class CommentRepositoryTest {
         Comment saveComment = commentRepository.save(dummyComment);
     
         // then
-        assertThat(dummyComment).isSameAs(saveComment);
+        assertAll(
+                () -> assertThat(saveComment.getId()).isNotNull(),
+                () -> assertThat(saveComment).isEqualTo(dummyComment)
+        );
     }
     
     @Test
     @DisplayName("id로 댓글을 찾는다.")
     void findById() {
         // given
-        Long commentId = commentRepository.save(dummyComment).getId();
+        Long commentId = commentRepository.save(dummyComment)
+                .getId();
     
         // when
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow();
     
         // then
-        assertThat(findComment).isEqualTo(dummyComment);
+        assertThat(findComment)
+                .extracting("id", "content")
+                .containsExactly(commentId, "content");
     }
     
     @Test
     @DisplayName("id로 찾은 댓글을 수정한다.")
     void updateComment() {
         // given
-        Long commentId = commentRepository.save(dummyComment).getId();
+        Long commentId = commentRepository.save(dummyComment)
+                .getId();
         String changeContent = "changeContent";
     
         // when
+        dummyComment.changeContent(changeContent);
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow();
-        findComment.changeContent(changeContent);
     
         // then
-        assertThat(findComment.getContent()).isEqualTo(changeContent);
+        assertThat(findComment.getContent())
+                .isEqualTo(changeContent);
     }
     
     @Test
     @DisplayName("댓글을 삭제한다.")
     void deleteComment() {
         // given
-        Long commentId = commentRepository.save(dummyComment).getId();
+        Long commentId = commentRepository.save(dummyComment)
+                .getId();
     
         // when
         commentRepository.deleteById(commentId);

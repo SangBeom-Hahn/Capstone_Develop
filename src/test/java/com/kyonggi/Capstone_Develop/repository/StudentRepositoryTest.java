@@ -1,17 +1,21 @@
 package com.kyonggi.Capstone_Develop.repository;
 
+import com.kyonggi.Capstone_Develop.config.JpaAuditingConfig;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-@SpringBootTest
+@DataJpaTest
+@Import(JpaAuditingConfig.class)
 class StudentRepositoryTest {
     @Autowired
     private StudentRepository studentRepository;
@@ -19,7 +23,7 @@ class StudentRepositoryTest {
     private Student sangbeom;
     
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         sangbeom = new Student(
                 "cherry",
                 "123#a",
@@ -40,8 +44,11 @@ class StudentRepositoryTest {
     void save() {
         // when
         Student saveStudent = studentRepository.save(sangbeom);
-    
+        
         // then
-        assertThat(sangbeom).isEqualTo(saveStudent);
+        assertAll(
+                () -> assertThat(saveStudent.getId()).isNotNull(),
+                () -> assertThat(saveStudent).isEqualTo(sangbeom)
+        );
     }
 }
