@@ -13,38 +13,40 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
+import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.*;
+
 @Getter
 @NoArgsConstructor
 public class StudentRequest {
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String loginId;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{2,16}$",
-            message = "2자 이상의 16자 이하의 숫자, 영문자, 특수문자를 포함한 비밀번호를 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
+    @Pattern(regexp = PASSWORD_FORMAT,
+            message = MEMBER_PW_MESSAGE)
     private String password;
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotNull(message = EMPTY_MESSAGE)
     private LocalDate birth;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String department;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String grade;
     
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotNull(message = EMPTY_MESSAGE)
     private String phoneNumber;
     
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotNull(message = EMPTY_MESSAGE)
     private String sex;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String name;
     
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotNull(message = EMPTY_MESSAGE)
     private String email;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String studentNumber;
     
     public StudentRequestDto toServiceDto() {
