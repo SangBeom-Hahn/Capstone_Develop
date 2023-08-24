@@ -38,6 +38,11 @@ const Header = () => {
                   진행일정
                 </Link>
               </li>
+              <li class="nav-item bold">
+                <Link to="/api/graduation/graduate_management" className="nav-link" style={linkStyles}>
+                  졸업자조회
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>
