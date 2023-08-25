@@ -72,4 +72,8 @@ public class Student extends BaseEntity {
         this.studentNumber = studentNumber;
         this.roleType = roleType;
     }
+    
+    public boolean isSameStudent(Long studentId) {
+        return this.id.equals(studentId);
+    }
 }

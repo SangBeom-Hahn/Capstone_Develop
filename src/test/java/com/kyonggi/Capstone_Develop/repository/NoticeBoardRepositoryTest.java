@@ -1,35 +1,45 @@
 package com.kyonggi.Capstone_Develop.repository;
 
-import com.kyonggi.Capstone_Develop.config.JpaAuditingConfig;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@DataJpaTest
-@Transactional
-@Import(JpaAuditingConfig.class)
-class NoticeBoardRepositoryTest {
-    @Autowired
-    NoticeBoardRepository noticeBoardRepository;
+class NoticeBoardRepositoryTest extends RepositoryTest{
+    private Student sangbeom;
     
     private NoticeBoard noticeBoard;
     
     @BeforeEach
     void setUp() {
+        sangbeom = new Student(
+                "cherry",
+                "123#a",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222"
+                ,RoleType.STUDENT
+        );
+        
         noticeBoard = new NoticeBoard(
                 "content",
                 false,
                 "title",
-                1
+                1,
+                sangbeom
         );
+        sangbeom = studentRepository.save(sangbeom);
     }
     
     @Test
@@ -112,7 +122,7 @@ class NoticeBoardRepositoryTest {
                 .orElseThrow();
         
         // then
-        assertThat(findNoticeBoard.isFix())
+        assertThat(findNoticeBoard.getFix())
                 .isEqualTo(changeFix);
     }
     

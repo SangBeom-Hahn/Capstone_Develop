@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
 
@@ -25,6 +27,37 @@ CREATE TABLE refresh_token (
                                member_id bigint not null,
                                expired_time datetime not null,
                                primary key (refresh_token_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `notice_board` (
+    `notice_board_id` bigint NOT NULL AUTO_INCREMENT,
+    `student_id` bigint NOT NULL,
+    `content` VARCHAR(255) NULL DEFAULT NULL,
+    `fix` BIT(1) NULL DEFAULT NULL,
+    `title` VARCHAR(45) NULL DEFAULT NULL,
+    `views` INTEGER NULL DEFAULT NULL,
+    `created_date` datetime(6) NULL DEFAULT NULL,
+    `last_modified_date` datetime(6) NULL DEFAULT NULL,
+    PRIMARY KEY (`notice_board_id`),
+    CONSTRAINT `fk_notice_board_student`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `student` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `comment` (
+    `comment_id` bigint NOT NULL AUTO_INCREMENT,
+    `notice_board_id` bigint NOT NULL,
+    `student_id` bigint NOT NULL,
+    `content` VARCHAR(225) NULL DEFAULT NULL,
+    `created_date` datetime(6) NULL DEFAULT NULL,
+    `last_modified_date` datetime(6) NULL DEFAULT NULL,
+    PRIMARY KEY (`comment_id`),
+    CONSTRAINT `fk_comment_notice_board`
+    FOREIGN KEY (`notice_board_id`)
+        REFERENCES `notice_board` (`notice_board_id`),
+    CONSTRAINT `fk_comment_student`
+        FOREIGN KEY (`student_id`)
+            REFERENCES `student` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO student

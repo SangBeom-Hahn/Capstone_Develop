@@ -13,13 +13,6 @@ class CommentTest {
     @DisplayName("댓글을 생성한다.")
     void construct() {
         // given
-        NoticeBoard noticeBoard = new NoticeBoard(
-                "공지사항",
-                false,
-                "제목",
-                1
-        );
-        
         Student student = new Student(
                 "cherry1",
                 "dummyPassword",
@@ -34,7 +27,16 @@ class CommentTest {
                 RoleType.STUDENT
         );
         
+        NoticeBoard noticeBoard = new NoticeBoard(
+                "공지사항",
+                false,
+                "제목",
+                1,
+                student
+        );
+        
         // then
-        assertDoesNotThrow(() -> new Comment(noticeBoard, student, "content"));
+        assertDoesNotThrow(() ->
+                new Comment(noticeBoard, student, "content"));
     }
 }

@@ -1,8 +1,11 @@
 package com.kyonggi.Capstone_Develop.domain;
 
+import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,11 +13,28 @@ class NoticeBoardTest {
     @Test
     @DisplayName("공지사항을 생성한다.")
     void construct() {
+        // given
+        Student student = new Student(
+                "cherry1",
+                "dummyPassword",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222",
+                RoleType.STUDENT
+        );
+        
+        // then
         Assertions.assertDoesNotThrow(() -> new NoticeBoard(
                 "content",
                 false,
                 "제목",
-                1
+                1,
+                student
         ));
     }
     
@@ -22,11 +42,26 @@ class NoticeBoardTest {
     @DisplayName("공지사항 내용을 변경한다.")
     void changeContent() {
         // given
+        Student student = new Student(
+                "cherry1",
+                "dummyPassword",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222",
+                RoleType.STUDENT
+        );
+        
         NoticeBoard noticeBoard = new NoticeBoard(
                 "content",
                 false,
                 "제목",
-                1
+                1,
+                student
         );
         String changeContent = "changeContent";
     
@@ -41,11 +76,26 @@ class NoticeBoardTest {
     @DisplayName("공지사항 고정 여부를 변경한다.")
     void changeFix() {
         // given
+        Student student = new Student(
+                "cherry1",
+                "dummyPassword",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222",
+                RoleType.STUDENT
+        );
+        
         NoticeBoard noticeBoard = new NoticeBoard(
                 "content",
                 false,
                 "제목",
-                1
+                1,
+                student
         );
         boolean changeFix = true;
         
@@ -53,18 +103,33 @@ class NoticeBoardTest {
         noticeBoard.changeFix(changeFix);
         
         // then
-        assertThat(noticeBoard.isFix()).isEqualTo(changeFix);
+        assertThat(noticeBoard.getFix()).isEqualTo(changeFix);
     }
     
     @Test
     @DisplayName("공지사항 제목을 변경한다.")
     void changeTitel() {
         // given
+        Student student = new Student(
+                "cherry1",
+                "dummyPassword",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222",
+                RoleType.STUDENT
+        );
+        
         NoticeBoard noticeBoard = new NoticeBoard(
                 "content",
                 false,
                 "제목",
-                1
+                1,
+                student
         );
         String changeTitle = "changeTitle";
         
@@ -72,6 +137,7 @@ class NoticeBoardTest {
         noticeBoard.changeTitle(changeTitle);
         
         // then
-        assertThat(noticeBoard.getTitle()).isEqualTo(changeTitle);
+        assertThat(noticeBoard.getTitle())
+                .isEqualTo(changeTitle);
     }
 }
