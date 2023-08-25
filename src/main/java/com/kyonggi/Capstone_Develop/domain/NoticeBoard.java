@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain;
 
+import com.kyonggi.Capstone_Develop.domain.student.Student;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class NoticeBoard extends BaseEntity {
     private String content;
     
     @Column(name = "fix", nullable = false)
-    private boolean fix;
+    private Boolean fix;
     
     @Column(name = "title", length = 255, nullable = false)
     private String title;
@@ -30,25 +31,44 @@ public class NoticeBoard extends BaseEntity {
     @Column(name = "views", nullable = false)
     private Integer views;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "fk_notice_board_student"), nullable = false)
+    private Student author;
+    
     @OneToMany(mappedBy = "noticeBoard", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
     
-    public NoticeBoard(String content, boolean fix, String title, Integer views) {
+    public NoticeBoard(String content, Boolean fix, String title, Integer views, Student author) {
         this.content = content;
         this.fix = fix;
         this.title = title;
         this.views = views;
+        this.author = author;
     }
+    
+    
     
     public void changeContent(String content) {
         this.content = content;
     }
     
-    public void changeFix(boolean fix) {
+    public void changeFix(Boolean fix) {
         this.fix = fix;
     }
     
     public void changeTitle(String title) {
         this.title = title;
+    }
+    
+    public void view() {
+        this.views += 1;
+    }
+    
+    public boolean isAuthor(Long authorId) {
+        return this.author.isSameStudent(authorId);
+    }
+    
+    public String getAuthorLoginId() {
+        return this.author.getLoginId();
     }
 }

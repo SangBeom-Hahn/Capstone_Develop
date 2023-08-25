@@ -18,11 +18,11 @@ public class Comment extends BaseEntity{
     private Long id;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notice_board_id", nullable = false)
+    @JoinColumn(name = "notice_board_id", foreignKey = @ForeignKey(name = "fk_comment_notice_board"), nullable = false)
     private NoticeBoard noticeBoard;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "fk_comment_student"), nullable = false)
     private Student student;
     
     @Column(name = "content", length = 255, nullable = false)

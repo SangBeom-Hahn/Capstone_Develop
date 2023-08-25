@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.domain.student.Grade;
 import com.kyonggi.Capstone_Develop.domain.student.PhoneNumber;
 import com.kyonggi.Capstone_Develop.domain.student.Sex;
 import com.kyonggi.Capstone_Develop.service.dto.student.StudentRequestDto;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StudentRequest {
     @NotBlank(message = EMPTY_MESSAGE)
     private String loginId;
