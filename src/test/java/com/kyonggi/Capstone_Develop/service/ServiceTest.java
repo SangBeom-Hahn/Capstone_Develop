@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public abstract class ServiceTest {
     
     @Autowired
     protected StudentRepository studentRepository;
+    
+    @Autowired
+    protected NoticeBoardRepository noticeBoardRepository;
     
     @Autowired
     protected AuthService authService;

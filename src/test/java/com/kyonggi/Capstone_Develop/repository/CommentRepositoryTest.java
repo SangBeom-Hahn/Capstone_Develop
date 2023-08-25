@@ -1,35 +1,18 @@
 package com.kyonggi.Capstone_Develop.repository;
 
-import com.kyonggi.Capstone_Develop.config.JpaAuditingConfig;
 import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@DataJpaTest
-@Transactional
-@Import(JpaAuditingConfig.class)
-class CommentRepositoryTest {
-    @Autowired
-    CommentRepository commentRepository;
-    
-    @Autowired
-    StudentRepository studentRepository;
-    
-    @Autowired
-    NoticeBoardRepository noticeBoardRepository;
-    
+class CommentRepositoryTest extends RepositoryTest{
     private Comment dummyComment;
     
     private NoticeBoard dummyNoticeBoard;
@@ -38,13 +21,6 @@ class CommentRepositoryTest {
     
     @BeforeEach
     void setUp() {
-        dummyNoticeBoard = new NoticeBoard(
-                "공지사항",
-                false,
-                "제목",
-                1
-        );
-    
         dummyStudent = new Student(
                 "cherry1",
                 "dummyPassword",
@@ -57,6 +33,14 @@ class CommentRepositoryTest {
                 Email.from("1@naver.com"),
                 "20182222",
                 RoleType.STUDENT
+        );
+        
+        dummyNoticeBoard = new NoticeBoard(
+                "공지사항",
+                false,
+                "제목",
+                1,
+                dummyStudent
         );
     
         dummyComment = new Comment(

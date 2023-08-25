@@ -5,17 +5,10 @@ import com.kyonggi.Capstone_Develop.domain.refreshtoken.RefreshToken;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.IdPasswordMismatchException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberIdException;
-import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
-import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -23,22 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Slf4j
-@SpringBootTest
-@Transactional
-class AuthServiceTest {
-    @Autowired
-    private AuthService authService;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private StudentRepository studentRepository;
-    
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
-    
+class AuthServiceTest extends ServiceTest{
     private Student dummyStudent;
     
     @BeforeEach

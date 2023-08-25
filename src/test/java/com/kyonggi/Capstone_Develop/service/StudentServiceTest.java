@@ -8,50 +8,19 @@ import com.kyonggi.Capstone_Develop.exception.DuplicateLoginIdException;
 import com.kyonggi.Capstone_Develop.service.dto.student.StudentRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-@SpringBootTest
-class StudentServiceTest {
-    @Autowired
-    private StudentService studentService;
-    
-    /**
-     * 이건 jpa 레포 이슈로 아직 중복 회원가입 처리 불가
-     */
+
+class StudentServiceTest extends ServiceTest{
     @Test
     @DisplayName("중복된 아이디로 회원가입하면 예외가 발행한다.")
     void throwException_duplicateLoginId() {
         // given
-        StudentRequestDto studentRequestDto1 = new StudentRequestDto(
-                "dummy",
-                "dummy123#a",
-                LocalDate.of(2023, 07, 18),
-                "dummy",
-                Grade.FOURTH,
-                PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
-                "dummy",
-                Email.from("dummy1@naver.com"),
-                "dummy"
-        );
-    
-        StudentRequestDto studentRequestDto2 = new StudentRequestDto(
-                "dummy",
-                "dummy123#a",
-                LocalDate.of(2023, 07, 18),
-                "dummy",
-                Grade.FOURTH,
-                PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
-                "dummy",
-                Email.from("dummy1@naver.com"),
-                "dummy"
-        );
+        StudentRequestDto studentRequestDto1 = createStudentRequestDto();
+        StudentRequestDto studentRequestDto2 = createStudentRequestDto();
     
         // when
         studentService.save(studentRequestDto1);
@@ -80,5 +49,20 @@ class StudentServiceTest {
     
         // when
         assertDoesNotThrow(() -> studentService.save(studentRequestDto));
+    }
+    
+    private static StudentRequestDto createStudentRequestDto() {
+        return new StudentRequestDto(
+                "dummy",
+                "dummy123#a",
+                LocalDate.of(2023, 07, 18),
+                "dummy",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "dummy",
+                Email.from("dummy1@naver.com"),
+                "dummy"
+        );
     }
 }
