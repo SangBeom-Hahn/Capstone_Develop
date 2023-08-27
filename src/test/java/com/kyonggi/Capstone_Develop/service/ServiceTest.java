@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.repository.CommentRepository;
 import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
@@ -31,4 +32,7 @@ public abstract class ServiceTest {
     
     @Autowired
     protected StudentService studentService;
+    
+    @Autowired
+    protected CommentRepository commentRepository;
 }

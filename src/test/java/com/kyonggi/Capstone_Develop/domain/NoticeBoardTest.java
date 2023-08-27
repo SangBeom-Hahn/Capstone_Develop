@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -139,5 +140,45 @@ class NoticeBoardTest {
         // then
         assertThat(noticeBoard.getTitle())
                 .isEqualTo(changeTitle);
+    }
+    
+    @Test
+    @DisplayName("공지사항에 댓글을 추가한다.")
+    void addComment() {
+        // given
+        Student student = new Student(
+                "cherry1",
+                "dummyPassword",
+                LocalDate.of(2023, 07, 18),
+                "컴퓨터공학부",
+                Grade.FOURTH,
+                PhoneNumber.from("010-1111-1111"),
+                Sex.FEMALE,
+                "한상범",
+                Email.from("1@naver.com"),
+                "20182222",
+                RoleType.STUDENT
+        );
+    
+        NoticeBoard noticeBoard = new NoticeBoard(
+                "content",
+                false,
+                "제목",
+                1,
+                student
+        );
+    
+        Comment comment1 = new Comment(noticeBoard, student, "내용1");
+        Comment comment2 = new Comment(noticeBoard, student, "내용2");
+    
+        List<Comment> expected = List.of(
+                comment1,
+                comment2
+        );
+      
+        // then
+        assertThat(noticeBoard.getComments())
+                .usingRecursiveComparison()
+                .isEqualTo(expected);
     }
 }

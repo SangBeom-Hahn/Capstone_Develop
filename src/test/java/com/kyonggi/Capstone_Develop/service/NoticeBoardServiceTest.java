@@ -2,10 +2,13 @@ package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
+import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
+import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.noticeboard.AllNoticeBoardResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,15 +29,9 @@ class NoticeBoardServiceTest extends ServiceTest{
     
     private NoticeBoard noticeBoard3;
     
-    private NoticeBoard noticeBoard4;
+    private Comment comment1;
     
-    private NoticeBoard noticeBoard5;
-    
-    private NoticeBoard noticeBoard6;
-    
-    private NoticeBoard noticeBoard7;
-    
-    private NoticeBoard noticeBoard8;
+    private Comment comment2;
     
     @BeforeEach
     void setUp() {
@@ -57,26 +54,17 @@ class NoticeBoardServiceTest extends ServiceTest{
         noticeBoard2 = new NoticeBoard("content", false, "title", 0, student);
     
         noticeBoard3 = new NoticeBoard("content", false, "title", 0, student);
-        
-        noticeBoard4 = new NoticeBoard("content", false, "title", 0, student);
-        
-        noticeBoard5 = new NoticeBoard("content", false, "title", 0, student);
-        
-        noticeBoard6 = new NoticeBoard("content", false, "title", 0, student);
     
-        noticeBoard7 = new NoticeBoard("content", false, "title", 0, student);
+        comment1 = new Comment(noticeBoard1, student, "내용1");
     
-        noticeBoard8 = new NoticeBoard("content", false, "title", 0, student);
+        comment2 = new Comment(noticeBoard1, student, "내용2");
         
         studentRepository.save(student);
         noticeBoardRepository.save(noticeBoard1);
         noticeBoardRepository.save(noticeBoard2);
         noticeBoardRepository.save(noticeBoard3);
-        noticeBoardRepository.save(noticeBoard4);
-        noticeBoardRepository.save(noticeBoard5);
-        noticeBoardRepository.save(noticeBoard6);
-        noticeBoardRepository.save(noticeBoard7);
-        noticeBoardRepository.save(noticeBoard8);
+        commentRepository.save(comment1);
+        commentRepository.save(comment2);
     }
     
     @Test
@@ -102,15 +90,34 @@ class NoticeBoardServiceTest extends ServiceTest{
     @DisplayName("모든 모임을 페이지 단위로 조회한다.")
     void findAll() {
         // given
-        List<NoticeBoardResponseDto> actual = noticeBoardService.findAllNoticeBoard(0, 3)
+        List<AllNoticeBoardResponseDto> actual = noticeBoardService.findAllNoticeBoard(0, 3)
                 .getNoticeBoards();
     
-        List<NoticeBoardResponseDto> expected = List.of(
-                NoticeBoardResponseDto.from(noticeBoard8),
-                NoticeBoardResponseDto.from(noticeBoard7),
-                NoticeBoardResponseDto.from(noticeBoard6)
+        List<AllNoticeBoardResponseDto> expected = List.of(
+                AllNoticeBoardResponseDto.from(noticeBoard3),
+                AllNoticeBoardResponseDto.from(noticeBoard2),
+                AllNoticeBoardResponseDto.from(noticeBoard1)
         );
       
+        // then
+        assertThat(actual)
+                .usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+    
+    @Test
+    @DisplayName("게시물을 조회할 때 댓글도 함께 조회한다.")
+    void findNoticeBoardWithComment() {
+        // given
+        List<CommentResponseDto> actual =
+                noticeBoardService.findNoticeBoard(noticeBoard1.getId())
+                        .getComments();
+    
+        List<CommentResponseDto> expected = List.of(
+                CommentResponseDto.from(comment1),
+                CommentResponseDto.from(comment2)
+        );
+    
         // then
         assertThat(actual)
                 .usingRecursiveComparison()

@@ -8,9 +8,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class NoticeBoardsResponseDto {
-    List<NoticeBoardResponseDto> noticeBoards;
+    List<AllNoticeBoardResponseDto> noticeBoards;
     
-    public static NoticeBoardsResponseDto from(List<NoticeBoardResponseDto> noticeBoards) {
+    public static NoticeBoardsResponseDto from(List<AllNoticeBoardResponseDto> noticeBoards) {
         return new NoticeBoardsResponseDto(noticeBoards);
     }
 }

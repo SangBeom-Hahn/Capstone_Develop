@@ -46,8 +46,6 @@ public class NoticeBoard extends BaseEntity {
         this.author = author;
     }
     
-    
-    
     public void changeContent(String content) {
         this.content = content;
     }
@@ -62,6 +60,10 @@ public class NoticeBoard extends BaseEntity {
     
     public void view() {
         this.views += 1;
+    }
+    
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
     
     public boolean isAuthor(Long authorId) {

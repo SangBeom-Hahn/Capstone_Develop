@@ -7,6 +7,7 @@ import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
 import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,8 +44,8 @@ public class NoticeBoardService {
         PageRequest pageRequest = PageRequest.of(page, count);
         Page<NoticeBoard> noticeBoards = noticeBoardRepository.findAllByOrderByIdDesc(pageRequest);
     
-        List<NoticeBoardResponseDto> noticeBoardResponseDtos = noticeBoards.stream()
-                .map(noticeBoard -> NoticeBoardResponseDto.from(noticeBoard))
+        List<AllNoticeBoardResponseDto> noticeBoardResponseDtos = noticeBoards.stream()
+                .map(noticeBoard -> AllNoticeBoardResponseDto.from(noticeBoard))
                 .collect(Collectors.toList());
     
         return NoticeBoardsResponseDto.from(noticeBoardResponseDtos);
@@ -54,8 +55,9 @@ public class NoticeBoardService {
         NoticeBoard noticeBoard = noticeBoardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(id));
         noticeBoard.view();
-    
-        return NoticeBoardResponseDto.from(noticeBoard);
+        
+        List<CommentResponseDto> commentResponses = findCommentResponse(noticeBoard);
+        return NoticeBoardResponseDto.of(noticeBoard, commentResponses);
     }
     
     public void updateNoticeBoard(NoticeBoardUpdateRequestDto noticeUpdateRequestDto, Long id) {
@@ -89,5 +91,12 @@ public class NoticeBoardService {
         if (!noticeBoard.isAuthor(authorId)) {
             throw new NotAuthorException(authorId);
         }
+    }
+    
+    private List<CommentResponseDto> findCommentResponse(NoticeBoard noticeBoard) {
+        return noticeBoard.getComments()
+                .stream()
+                .map(comment -> CommentResponseDto.from(comment))
+                .collect(Collectors.toList());
     }
 }

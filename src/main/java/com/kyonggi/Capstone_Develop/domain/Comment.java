@@ -31,10 +31,15 @@ public class Comment extends BaseEntity{
     public Comment(NoticeBoard noticeBoard, Student student, String content) {
         this.noticeBoard = noticeBoard;
         this.student = student;
+        this.noticeBoard.addComment(this);
         this.content = content;
     }
     
     public void changeContent(String content) {
         this.content = content;
+    }
+    
+    public String getStudentLoginId() {
+        return this.student.getLoginId();
     }
 }
