@@ -1,7 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.domain.student.Classification;
 import com.kyonggi.Capstone_Develop.domain.student.Email;
-import com.kyonggi.Capstone_Develop.domain.student.Grade;
 import com.kyonggi.Capstone_Develop.domain.student.PhoneNumber;
 import com.kyonggi.Capstone_Develop.domain.student.Sex;
 import com.kyonggi.Capstone_Develop.exception.DuplicateLoginIdException;
@@ -35,16 +35,16 @@ class StudentServiceTest extends ServiceTest{
     void save() {
         // given
         StudentRequestDto studentRequestDto = new StudentRequestDto(
-                "cherry",
+                "201812709",
                 "123#a",
-                LocalDate.of(2023, 07, 18),
-                "컴퓨터공학부",
-                Grade.FOURTH,
-                PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
                 "한상범",
+                Sex.FEMALE,
+                LocalDate.of(2023, 07, 18),
                 Email.from("1@naver.com"),
-                "20182222"
+                PhoneNumber.from("010-1111-1111"),
+                Classification.from("UNDERGRADUATE_STUDENT"),
+                "컴퓨터공학부",
+                "서울"
         );
     
         // when
@@ -55,13 +55,13 @@ class StudentServiceTest extends ServiceTest{
         return new StudentRequestDto(
                 "dummy",
                 "dummy123#a",
-                LocalDate.of(2023, 07, 18),
                 "dummy",
-                Grade.FOURTH,
-                PhoneNumber.from("010-1111-1111"),
                 Sex.FEMALE,
-                "dummy",
+                LocalDate.of(2023, 07, 18),
                 Email.from("dummy1@naver.com"),
+                PhoneNumber.from("010-1111-1111"),
+                Classification.from("UNDERGRADUATE_STUDENT"),
+                "dummy",
                 "dummy"
         );
     }
