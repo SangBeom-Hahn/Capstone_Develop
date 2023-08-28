@@ -52,14 +52,24 @@ const Schedule = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {/*}{schedules.map((data, index) => (
-                            <tr key={index} style={{ textAlign: 'center' }}>
-                              <td>{data.step.stepToString}</td>
-                              <td>{data.startDate}</td>
-                              <td>{data.endDate}</td>
-                              <td>{data.scheduleState.scheduleStateToString}</td>
-                            </tr>
-                          ))}*/}
+                          <tr>
+                            <td>신청접수</td><td></td><td></td><td></td>
+                          </tr>
+                          <tr>
+                            <td>제안서</td><td></td><td></td><td></td>
+                          </tr>
+                          <tr>
+                            <td>중간보고서</td><td></td><td></td><td></td>
+                          </tr>
+                          <tr>
+                            <td>최종보고서</td><td></td><td></td><td></td>
+                          </tr>
+                          <tr>
+                            <td>기타자격</td><td></td><td></td><td></td>
+                          </tr>
+                          <tr>
+                            <td>최종통과</td><td></td><td></td><td></td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
