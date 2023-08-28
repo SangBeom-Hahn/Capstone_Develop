@@ -19,8 +19,6 @@ public class StudentService {
     private final PasswordEncoder passwordEncoder;
 
     public StudentSignUpResponseDto save(StudentRequestDto studentRequestDto) {
-    
-        System.out.println(passwordEncoder.encode("cspopadmin1#"));
         validateLoginIdHasDuplicate(studentRequestDto.getLoginId());
         String password = passwordEncoder.encode(studentRequestDto.getPassword());
     

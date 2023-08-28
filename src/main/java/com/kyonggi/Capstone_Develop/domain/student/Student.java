@@ -5,14 +5,12 @@ import com.kyonggi.Capstone_Develop.domain.Comment;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Entity
 @Getter
 @Table(name = "student")

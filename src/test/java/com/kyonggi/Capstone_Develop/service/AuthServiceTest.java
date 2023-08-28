@@ -22,17 +22,17 @@ class AuthServiceTest extends ServiceTest{
     @BeforeEach
     void setUp() {
         dummyStudent = new Student(
-                "cherry1",
+                "201812709",
                 passwordEncoder.encode("123#a1"),
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         studentRepository.save(dummyStudent);
     }
@@ -54,7 +54,7 @@ class AuthServiceTest extends ServiceTest{
     @DisplayName("id와 비밀번호가 일치하지 않으면 예외가 발생한다.")
     void throwException_mismatchIdPassword() {
         // given
-        LoginRequest loginRequest = new LoginRequest("cherry1", "no");
+        LoginRequest loginRequest = new LoginRequest("201812709", "no");
       
         // then
         assertThatThrownBy(() -> authService.login(
@@ -68,10 +68,11 @@ class AuthServiceTest extends ServiceTest{
     @DisplayName("로그인 요청을 받아서 토큰을 생성한다.")
     void createToken() {
         // given
-        LoginRequest loginRequest = new LoginRequest("cherry1", "123#a1");
+        LoginRequest loginRequest = new LoginRequest("201812709", "123#a1");
         
         // when
-        TokenResponseDto tokenResponseDto = authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
+        TokenResponseDto tokenResponseDto =
+                authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
         
         // then
         assertThat(tokenResponseDto).isNotNull();
