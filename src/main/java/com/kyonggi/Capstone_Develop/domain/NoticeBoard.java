@@ -35,7 +35,7 @@ public class NoticeBoard extends BaseEntity {
     @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "fk_notice_board_student"), nullable = false)
     private Student author;
     
-    @OneToMany(mappedBy = "noticeBoard", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "noticeBoard", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
     
     public NoticeBoard(String content, Boolean fix, String title, Integer views, Student author) {

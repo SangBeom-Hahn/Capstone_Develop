@@ -39,6 +39,10 @@ public class Comment extends BaseEntity{
         this.content = content;
     }
     
+    public boolean isStudent(Long studentId) {
+        return this.student.isSameStudent(studentId);
+    }
+    
     public String getStudentLoginId() {
         return this.student.getLoginId();
     }

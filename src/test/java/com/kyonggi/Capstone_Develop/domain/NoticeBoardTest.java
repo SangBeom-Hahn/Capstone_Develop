@@ -16,17 +16,17 @@ class NoticeBoardTest {
     void construct() {
         // given
         Student student = new Student(
-                "cherry1",
+                "201812709",
                 "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         
         // then
@@ -44,17 +44,17 @@ class NoticeBoardTest {
     void changeContent() {
         // given
         Student student = new Student(
-                "cherry1",
+                "201812709",
                 "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         
         NoticeBoard noticeBoard = new NoticeBoard(
@@ -78,17 +78,17 @@ class NoticeBoardTest {
     void changeFix() {
         // given
         Student student = new Student(
-                "cherry1",
+                "201812709",
                 "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         
         NoticeBoard noticeBoard = new NoticeBoard(
@@ -112,17 +112,17 @@ class NoticeBoardTest {
     void changeTitel() {
         // given
         Student student = new Student(
-                "cherry1",
+                "201812709",
                 "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         
         NoticeBoard noticeBoard = new NoticeBoard(
@@ -147,17 +147,17 @@ class NoticeBoardTest {
     void addComment() {
         // given
         Student student = new Student(
-                "cherry1",
+                "201812709",
                 "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
     
         NoticeBoard noticeBoard = new NoticeBoard(

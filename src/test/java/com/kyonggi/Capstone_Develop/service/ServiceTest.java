@@ -35,4 +35,7 @@ public abstract class ServiceTest {
     
     @Autowired
     protected CommentRepository commentRepository;
+    
+    @Autowired
+    protected CommentService commentService;
 }
