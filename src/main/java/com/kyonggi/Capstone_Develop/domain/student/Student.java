@@ -36,6 +36,7 @@ public class Student extends BaseEntity {
 
     @Embedded
     private PhoneNumber phoneNumber;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "sex", nullable = false)
     private Sex sex;
