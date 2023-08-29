@@ -12,5 +12,5 @@ import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StudentIdValidateRequest {
     @NotBlank(message = EMPTY_MESSAGE)
-    private String loginId;
+    private String studentId;
 }

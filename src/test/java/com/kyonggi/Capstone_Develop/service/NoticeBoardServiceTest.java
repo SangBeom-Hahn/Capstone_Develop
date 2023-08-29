@@ -87,7 +87,7 @@ class NoticeBoardServiceTest extends ServiceTest{
     }
     
     @Test
-    @DisplayName("모든 모임을 페이지 단위로 조회한다.")
+    @DisplayName("모든 공지사을 페이지 단위로 조회한다.")
     void findAll() {
         // given
         List<AllNoticeBoardResponseDto> actual = noticeBoardService.findAllNoticeBoard(0, 3)

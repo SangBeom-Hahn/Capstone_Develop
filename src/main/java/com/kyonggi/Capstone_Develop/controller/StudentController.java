@@ -32,7 +32,7 @@ public class StudentController {
     
     @PostMapping("/user/duplicate-check")
     public ResponseEntity<Void> validateLoginIdHasDuplicate(@RequestBody @Valid StudentIdValidateRequest studentIdValidateRequest) {
-        studentService.validateLoginIdHasDuplicate(studentIdValidateRequest.getLoginId());
+        studentService.validateLoginIdHasDuplicate(studentIdValidateRequest.getStudentId());
         return ResponseEntity.noContent().build();
     }
 }
