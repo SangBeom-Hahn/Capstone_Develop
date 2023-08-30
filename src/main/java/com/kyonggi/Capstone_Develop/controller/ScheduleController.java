@@ -25,9 +25,7 @@ public class ScheduleController {
     private final ScheduleBoardService scheduleBoardService;
     
     @GetMapping("/api/schedules")
-    public ResponseEntity<AllScheduleResponse> findAllSchedule(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest
-    ) {
+    public ResponseEntity<AllScheduleResponse> findAllSchedule() {
         SchedulesResponseDto schedulesResponseDto = scheduleService.findAllSchedule();
         ScheduleBoardResponseDto scheduleBoardResponseDto = scheduleBoardService.findScheduleBoard();
         
