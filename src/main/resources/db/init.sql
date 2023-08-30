@@ -1,5 +1,9 @@
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS schedule_board;
 
 CREATE TABLE `student` (
                            `student_id` bigint NOT NULL AUTO_INCREMENT,
@@ -29,19 +33,32 @@ CREATE TABLE refresh_token (
 
 CREATE TABLE `schedule` (
     `schedule_id` bigint NOT NULL AUTO_INCREMENT,
-    `step` VARCHAR(45) NULL DEFAULT NULL,
-    `start_date` DATE NULL DEFAULT NULL,
-    `end_date` DATE NULL DEFAULT NULL,
-    `status` VARCHAR(45) NULL DEFAULT NULL,
-    `created_date` DATETIME NULL DEFAULT NULL,
-    `last_modified_date` DATETIME NULL DEFAULT NULL,
+    `step` VARCHAR(45) not null,
+    `start_date` DATE not null,
+    `end_date` DATE not null,
+    `status` VARCHAR(45) not null,
+    `created_date` DATETIME not null,
+    `last_modified_date` DATETIME not null,
     PRIMARY KEY (`schedule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `schedule_board` (
+      `schedule_board_id` BIGINT NOT NULL AUTO_INCREMENT,
+      `receive` VARCHAR(2550) not null,
+      `proposal` VARCHAR(2550) not null,
+      `middle_report` VARCHAR(2550) not null,
+      `final_report` VARCHAR(2550) not null,
+      `final_pass` VARCHAR(2550) not null,
+      `other_qualification` VARCHAR(2550) not null,
+      `created_date` DATETIME not null,
+      `last_modified_date` DATETIME not null,
+      PRIMARY KEY (`schedule_board_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO student
 VALUES (1, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '1111-11-11', 'dummy',
         'dummy', 'NONE', 'admin1', 'admin1',
-        '$2a$10$OrdIMLR/zQugk7AcrRn0reNWrrvIwUos/dBRABGBTQK/Za8En19ha',
+        '$2a$10$8XrRK7cpYz4sudDB/iaXQ.VFRq1rdukffklMegISsiQTbT2psxT/a',
         'dummy', 'NONE', 'dummy', 'ADMIN');
 
 INSERT INTO student
@@ -67,3 +84,6 @@ VALUES
     (4, 'FINAL_REPORT', '2023-08-29', '2023-08-31', 'PROCEEDING', '2023-08-29 12:00:00', '2023-08-29 12:00:00'),
     (5, 'FINAL_PASS', '2023-08-29', '2023-08-31', 'PROCEEDING', '2023-08-29 15:30:00', '2023-08-30 10:15:00'),
     (6, 'OTHER_QUALIFICATIONS', '2023-08-29', '2023-08-31', 'PROCEEDING', '2023-08-31 09:20:00', '2023-08-31 09:20:00');
+
+INSERT INTO `schedule_board`
+VALUES (1, 'receive', 'proposal', 'middleReport', 'finalReport', 'finalPass', 'otherQualification', '2023-08-29 12:00:00', '2023-08-29 12:00:00');

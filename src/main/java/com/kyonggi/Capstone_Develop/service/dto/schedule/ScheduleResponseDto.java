@@ -4,9 +4,13 @@ import com.kyonggi.Capstone_Develop.domain.schedule.Schedule;
 import com.kyonggi.Capstone_Develop.domain.schedule.Status;
 import com.kyonggi.Capstone_Develop.domain.schedule.Step;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
+@Getter
+@ToString
 @AllArgsConstructor
 public class ScheduleResponseDto {
     private Long id;

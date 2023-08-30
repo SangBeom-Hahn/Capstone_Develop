@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.controller.dto;
+package com.kyonggi.Capstone_Develop.controller.dto.scheduleboard;
 
 import lombok.AccessLevel;
 import lombok.Getter;

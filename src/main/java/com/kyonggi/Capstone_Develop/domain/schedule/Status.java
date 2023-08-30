@@ -24,6 +24,6 @@ public enum Status {
         return Arrays.stream(values())
                 .filter(status -> status.expression.test(now, startDate, endDate))
                 .findFirst()
-                .orElse(PROCEEDING);
+                .orElseThrow();
     }
 }
