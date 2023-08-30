@@ -27,6 +27,15 @@ CREATE TABLE refresh_token (
                                primary key (refresh_token_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE guidance_board
+(
+    `guidance_board_id`  BIGINT       NOT NULL auto_increment,,
+    `created_date`       DATETIME(6)  not NULL,
+    `last_modified_date` DATETIME(6)  not NULL,
+    `content`               VARCHAR(15000) not NULL,
+    PRIMARY KEY (`guidance_board_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 INSERT INTO student
 VALUES (1, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '1111-11-11', 'dummy',
         'dummy', 'NONE', 'admin1', 'admin1',
@@ -47,3 +56,6 @@ VALUES (3, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '2023-09-
 
 INSERT INTO refresh_token
 VALUES (1, 'refreshToken', 1, '2023-03-14 12:35:29.857156')
+
+INSERT INTO `guidance_board`
+VALUES (1, '2023-08-29', '2023-08-31', 'content');

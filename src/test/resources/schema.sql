@@ -25,3 +25,15 @@ CREATE TABLE refresh_token
    `expired_time` DATETIME NOT NULL,
    PRIMARY KEY (`refresh_token_id`)
 );
+
+CREATE TABLE guidance_board
+(
+    `guidance_board_id`  BIGINT       NOT NULL auto_increment,
+    `created_date`       DATETIME(6)  not NULL,
+    `last_modified_date` DATETIME(6)  not NULL,
+    `content`            VARCHAR(15000) not NULL,
+    PRIMARY KEY (`guidance_board_id`)
+);
+
+INSERT INTO `guidance_board`
+VALUES (1L, '2023-08-29', '2023-08-31', 'content');
