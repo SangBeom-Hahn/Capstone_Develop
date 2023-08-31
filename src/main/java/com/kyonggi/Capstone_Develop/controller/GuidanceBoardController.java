@@ -19,14 +19,14 @@ import javax.validation.Valid;
 public class GuidanceBoardController {
     private final GuidanceBoardService guidanceBoardService;
     
-    @GetMapping("/api/guidanceBoards")
+    @GetMapping("/api/guidanceboards")
     public ResponseEntity<GuidanceBoardResponseDto> findGuidanceBoard() {
         return ResponseEntity.ok(
                 guidanceBoardService.findGuidanceBoard()
         );
     }
     
-    @PutMapping("/api/admins/guidanceBoards")
+    @PutMapping("/api/admins/guidanceboards")
     public ResponseEntity<Void> updateGuidanceBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
             @RequestBody @Valid GuidanceBoardUpdateRequest guidanceBoardUpdateRequest
