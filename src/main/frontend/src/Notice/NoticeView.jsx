@@ -27,6 +27,28 @@ const NoticeView = ({ location }) => {
       }
     }
 
+  const deleteNotice = async (noticeBoardId) => {
+    const confirmed = window.confirm(
+      '정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구할 수 없습니다.'
+    );
+
+    if (confirmed) {
+      try {
+        const response = await axios.delete(`/api/admins/noticeboards/${noticeBoardId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log('글 삭제 성공:', response.data);
+        navigate('/api/noticeboards');
+        alert('글이 삭제되었습니다.');
+      } catch (error) {
+        console.error('글 삭제 오류:', error);
+        alert('글 삭제가 실패했습니다.');
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -58,9 +80,10 @@ const NoticeView = ({ location }) => {
                 <label> { notice.content } </label>
               </div>
             </>
-          ) : '해당 게시글을 찾을 수 없습니다.'
+          ) : '게시물을 불러오는 중입니다...'
         }
         <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>&nbsp;
+        <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>&nbsp;삭제</button>
       </div>
     </>
   )
