@@ -227,7 +227,7 @@ const SignUp = () => {
                                         type="password"
                                         id="password"
                                         className="form-control"
-                                        placeholder="16자 이하의 숫자,영문자,특수문자를 포함하여 입력해주세요."
+                                        placeholder="16자 이하의 숫자,영문자,특수문자를 입력해주세요."
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required

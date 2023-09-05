@@ -24,7 +24,7 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbar-default">
             <ul className="navbar-nav mx-auto">
               <li class="nav-item bold">
-                <Link to="/api/notice" className="nav-link" style={linkStyles}>
+                <Link to="/api/noticeboards" className="nav-link" style={linkStyles}>
                   공지사항
                 </Link>
               </li>
