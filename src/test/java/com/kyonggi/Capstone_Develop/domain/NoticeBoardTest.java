@@ -109,7 +109,7 @@ class NoticeBoardTest {
     
     @Test
     @DisplayName("공지사항 제목을 변경한다.")
-    void changeTitel() {
+    void changeTitle() {
         // given
         Student student = new Student(
                 "201812709",
