@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.controller.dto.PageInfo;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
@@ -26,8 +27,10 @@ public class NoticeBoardService {
     
     private final StudentRepository studentRepository;
     
-    public NoticeBoardSaveResponseDto save(NoticeBoardSaveRequestDto noticeBoardSaveRequestDto,
-                                           Long authorId) {
+    public NoticeBoardSaveResponseDto save(
+            NoticeBoardSaveRequestDto noticeBoardSaveRequestDto,
+            Long authorId
+    ) {
         Student author = studentRepository.findById(authorId)
                 .orElseThrow(() -> new NoSuchMemberException(authorId));
     
@@ -50,7 +53,7 @@ public class NoticeBoardService {
                 .map(noticeBoard -> AllNoticeBoardResponseDto.from(noticeBoard))
                 .collect(Collectors.toList());
     
-        return NoticeBoardsResponseDto.from(noticeBoardResponseDtos);
+        return NoticeBoardsResponseDto.of(noticeBoardResponseDtos, PageInfo.from(noticeBoards));
     }
     
     public NoticeBoardResponseDto findNoticeBoard(Long id) {
