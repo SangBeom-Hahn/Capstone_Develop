@@ -1,10 +1,13 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.domain.schedule.Schedule;
+import com.kyonggi.Capstone_Develop.domain.schedule.ScheduleBoard;
+import com.kyonggi.Capstone_Develop.exception.NotFoundScheduleBoardException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundScheduleException;
+import com.kyonggi.Capstone_Develop.repository.ScheduleBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.ScheduleRepository;
+import com.kyonggi.Capstone_Develop.service.dto.schedule.AllScheduleResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.schedule.ScheduleResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.schedule.SchedulesResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +22,18 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     
-    public SchedulesResponseDto findAllSchedule() {
+    private final ScheduleBoardRepository scheduleBoardRepository;
+    
+    public AllScheduleResponseDto findAllSchedule() {
         List<Schedule> schedules = scheduleRepository.findAll();
         List<ScheduleResponseDto> scheduleResponseDtos = schedules.stream()
                 .map(schedule -> ScheduleResponseDto.from(schedule))
                 .collect(Collectors.toList());
     
-        return SchedulesResponseDto.from(scheduleResponseDtos);
+        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(1L)
+                .orElseThrow(() -> new NotFoundScheduleBoardException(1L));
+    
+        return AllScheduleResponseDto.of(scheduleBoard, scheduleResponseDtos);
     }
     
     public void updateSchedule(Long id, LocalDate startDate, LocalDate endDate) {

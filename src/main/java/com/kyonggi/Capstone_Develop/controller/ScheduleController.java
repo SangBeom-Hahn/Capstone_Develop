@@ -2,13 +2,11 @@ package com.kyonggi.Capstone_Develop.controller;
 
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipal;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.scheduleboard.AllScheduleResponse;
+import com.kyonggi.Capstone_Develop.service.dto.schedule.AllScheduleResponseDto;
 import com.kyonggi.Capstone_Develop.controller.dto.scheduleboard.ScheduleBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.scheduleboard.ScheduleUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.ScheduleBoardService;
 import com.kyonggi.Capstone_Develop.service.ScheduleService;
-import com.kyonggi.Capstone_Develop.service.dto.schedule.ScheduleBoardResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.schedule.SchedulesResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +23,8 @@ public class ScheduleController {
     private final ScheduleBoardService scheduleBoardService;
     
     @GetMapping("/api/schedules")
-    public ResponseEntity<AllScheduleResponse> findAllSchedule() {
-        SchedulesResponseDto schedulesResponseDto = scheduleService.findAllSchedule();
-        ScheduleBoardResponseDto scheduleBoardResponseDto = scheduleBoardService.findScheduleBoard();
-        
-        return ResponseEntity.ok(
-                AllScheduleResponse.of(schedulesResponseDto, scheduleBoardResponseDto)
-        );
+    public ResponseEntity<AllScheduleResponseDto> findAllSchedule(@AuthenticationPrincipal LoginMemberRequest loginMemberRequest) {
+        return ResponseEntity.ok(scheduleService.findAllSchedule());
     }
     
     @PutMapping("/api/admins/schedules/{scheduleId}")

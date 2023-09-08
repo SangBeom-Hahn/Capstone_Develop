@@ -1,19 +1,19 @@
-package com.kyonggi.Capstone_Develop.support;
+package com.kyonggi.Capstone_Develop.config;
 
 import com.kyonggi.Capstone_Develop.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 @EnableScheduling
 @RequiredArgsConstructor
-public class ScheduleChecker {
+public class ScheduleConfig {
     
     private final ScheduleService scheduleService;
     
-    @Scheduled(cron = "0 0 0 * * ?") // logic to be executed 'every day at 00:00'
+    @Scheduled(cron = "0 0 0 * * ?")
     public void updateSchedulesState() {
         scheduleService.updateScheduleState();
     }

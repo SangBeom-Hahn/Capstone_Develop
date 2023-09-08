@@ -83,7 +83,7 @@ class ScheduleServiceTest {
     void findAll() {
         // given
         List<ScheduleResponseDto> scheduleResponseDtos = scheduleService.findAllSchedule()
-                .getScheduleResponseDtos();
+                .getSchedules();
     
         // when
         List<ScheduleResponseDto> expected = List.of(
