@@ -5,6 +5,8 @@ import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,6 +22,8 @@ public class NoticeBoardResponseDto {
     
     private Integer views;
     
+    private LocalDateTime createdDate;
+    
     private String authorLoginId;
     
     private List<CommentResponseDto> comments;
@@ -31,6 +35,7 @@ public class NoticeBoardResponseDto {
                 noticeBoard.getFix(),
                 noticeBoard.getTitle(),
                 noticeBoard.getViews(),
+                noticeBoard.getCreatedDate(),
                 noticeBoard.getAuthorLoginId(),
                 comments
         );
