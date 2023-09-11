@@ -25,7 +25,7 @@ const App = () => {
         {/* 공지사항 화면 */}
         <Route path="/api/noticeboards" element={<NoticeMain />} />
         {/* 공지사항 작성 화면 */}
-        <Route path="/api/admin/noticeboards" element={<NoticeWrite />} />
+        <Route path="/api/admins/noticeboards" element={<NoticeWrite />} />
         {/*공지사항 개당 화면 */}
         <Route path="/api/noticeboards/:id" element={<NoticeView />} />
         {/* 안내 및 내규 화면 */}

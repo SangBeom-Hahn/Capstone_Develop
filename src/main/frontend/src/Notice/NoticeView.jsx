@@ -83,7 +83,7 @@ const NoticeView = ({ location }) => {
           ) : '게시물을 불러오는 중입니다...'
         }
         <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>&nbsp;
-        <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>&nbsp;삭제</button>
+        <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>삭제</button>
       </div>
     </>
   )

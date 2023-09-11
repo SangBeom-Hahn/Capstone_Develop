@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import CommonTable from '.././Component/CommonTable';
 import CommonTableColumn from '.././Component/CommonTableColumn';
@@ -9,8 +9,9 @@ import './Notice.css';
 
 const NoticeList = () => {
   const [notice, setNotice] = useState([]);
-  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+  const [loading, setLoading] = useState(true);
   const accessToken = sessionStorage.getItem('accessToken');
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getNoticeBoards() {
@@ -26,10 +27,10 @@ const NoticeList = () => {
         });
         console.log('데이터 가져오기 성공:', response.data);
         setNotice(response.data.noticeBoards);
-        setLoading(false); // 데이터 로딩 완료 후 로딩 상태 변경
+        setLoading(false);
       } catch (error) {
         console.error('데이터 가져오기 오류:', error);
-        setLoading(false); // 데이터 로딩 실패 시에도 로딩 상태 변경
+        setLoading(false);
       }
     }
     getNoticeBoards();
@@ -39,7 +40,7 @@ const NoticeList = () => {
     <>
       <Header />
       <CommonTable headersName={['글번호', '제목', '등록일', '관리자', '조회수']}>
-        {loading ? ( // 로딩 중일 때
+        { loading ? (
           <div>게시물을 불러오는 중 입니다 ...</div>
         ) : Array.isArray(notice) && notice.length > 0 ? ( // 게시물이 있을 때
           notice.map((notice, index) => (
@@ -57,6 +58,7 @@ const NoticeList = () => {
           <div>게시물이 존재하지 않습니다.</div>
         )}
       </CommonTable>
+      <button className="post-view-go-list-btn" onClick={() => navigate('/api/admins/noticeboards')}>글쓰기</button>&nbsp;
     </>
   );
 };
