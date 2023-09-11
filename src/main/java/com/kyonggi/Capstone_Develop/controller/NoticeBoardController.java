@@ -28,7 +28,7 @@ public class NoticeBoardController {
         NoticeBoardSaveResponseDto noticeBoardSaveResponseDto =
                 noticeBoardService.save(noticeBoardSaveRequest.toServiceDto(), loginMemberRequest.getId());
         return ResponseEntity
-                .created(URI.create("/api/noticeboards" + noticeBoardSaveResponseDto.getId()))
+                .created(URI.create("/api/admins/noticeboards/" + noticeBoardSaveResponseDto.getId()))
                 .body(noticeBoardSaveResponseDto);
     }
     

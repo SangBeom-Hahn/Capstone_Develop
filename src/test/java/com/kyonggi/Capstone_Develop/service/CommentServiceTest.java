@@ -1,10 +1,13 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.controller.dto.comment.CommentSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundCommentException;
+import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.comment.CommentSaveResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +47,26 @@ class CommentServiceTest extends ServiceTest{
         studentRepository.save(student);
         noticeBoardRepository.save(noticeBoard1);
         commentRepository.save(comment);
+    }
+    
+    @Test
+    @DisplayName("댓글을 저장하고 id로 조회한다.")
+    void saveCommentAndFindById() {
+        // given
+        CommentSaveRequest content = new CommentSaveRequest("content");
+        Long saveCommentId = commentService.save(
+                noticeBoard1.getId(),
+                student.getId(),
+                content.getContent()
+        ).getId();
+    
+        // when
+        CommentResponseDto commentResponseDto =
+                commentService.findComment(saveCommentId);
+    
+        // then
+        assertThat(commentResponseDto).extracting("id", "content", "studentLoginId")
+                .containsExactly(saveCommentId, "content", student.getLoginId());
     }
     
     @Test
