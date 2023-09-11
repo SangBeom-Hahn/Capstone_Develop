@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_MESSAGE;
 
@@ -17,16 +14,14 @@ import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class NoticeBoardSaveRequest {
-    @Min(1)
-    @Max(255)
+    @Size(min = 1, max = 255)
     @NotBlank(message = EMPTY_MESSAGE)
     private String content;
     
     @NotNull(message = EMPTY_MESSAGE)
     private Boolean fix;
     
-    @Min(1)
-    @Max(255)
+    @Size(min = 1, max = 255)
     @NotBlank(message = EMPTY_MESSAGE)
     private String title;
     
