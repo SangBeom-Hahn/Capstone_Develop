@@ -4,10 +4,10 @@ import './Notice.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '.././Header';
 
-const NoticeView = ({ location }) => {
-  const [ notice, setNotice ] = useState();
-  const navigate = useNavigate();
+const NoticeView = () => {
+  const [notice, setNotice] = useState();
   const { id } = useParams();
+  const navigate = useNavigate();
   const accessToken = sessionStorage.getItem('accessToken');
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const NoticeView = ({ location }) => {
               </div>
               <div className="post-view-row">
                 <label>작성일</label>
-                <label>{ notice.createDate }</label>
+                <label>{ notice.createdDate.slice(0, 10) }</label>
               </div>
               <div className="post-view-row">
                 <label>조회수</label>
@@ -83,6 +83,7 @@ const NoticeView = ({ location }) => {
           ) : '게시물을 불러오는 중입니다...'
         }
         <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>&nbsp;
+        <button className="post-view-go-list-btn" onClick={() => navigate(`/api/admins/noticeboards/${notice.id}`)}>수정</button>&nbsp;
         <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>삭제</button>
       </div>
     </>
