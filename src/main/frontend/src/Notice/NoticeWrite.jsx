@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CommonEditor from '.././Component/CommonEditor';
@@ -7,22 +7,8 @@ import Header from '.././Header';
 const NoticeWrite = () => {
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
-  const [accessToken, setAccessToken] = useState('');
-  const [loggedInUserId, setLoggedInUserId] = useState('');
-  const currentDate = new Date().toLocaleDateString();
+  const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const user = sessionStorage.getItem('userId');
-    if (user) {
-      setLoggedInUserId(user);
-    }
-  }, []);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('accessToken');
-    setAccessToken(token);
-  }, []);
 
   async function noticeWrite() {
     try {
@@ -53,7 +39,7 @@ const NoticeWrite = () => {
     }
   }
 
-  function onEditorChange(value) {
+  function onContentWrite(value) {
     setContents(value);
   }
 
@@ -66,7 +52,7 @@ const NoticeWrite = () => {
             <div className="form-group">
               <input type="text" placeholder="제목" className="form-control" onChange={(event) => setTitle(event.target.value)} />
             </div>
-            <CommonEditor value={contents} onChange={onEditorChange} />
+            <CommonEditor value={contents} onChange={onContentWrite} />
             <div className="text-center pd12">
               <button className="lf-button primary" onClick={noticeWrite}>
                 저장

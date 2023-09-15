@@ -72,6 +72,10 @@ const NoticeView = () => {
                 <label>{ notice.createdDate.slice(0, 10) }</label>
               </div>
               <div className="post-view-row">
+                <label>작성자</label>
+                <label>{ notice.authorLoginId}</label>
+              </div>
+              <div className="post-view-row">
                 <label>조회수</label>
                 <label>{ notice.views }</label>
               </div>

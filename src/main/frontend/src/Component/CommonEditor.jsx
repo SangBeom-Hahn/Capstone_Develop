@@ -30,6 +30,7 @@ const CommonEditor = ({ value, onChange }) => {
         modules={modules}
         formats={formats}
         value={value || ''}
+        placeholder={'내용을 입력해주세요.'}
         onChange={(content, delta, source, editor) => onChange(editor.getHTML())}
       />
     </div>
