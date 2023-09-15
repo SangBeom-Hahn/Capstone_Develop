@@ -1,12 +1,15 @@
 package com.kyonggi.Capstone_Develop.domain.student;
 
 import com.kyonggi.Capstone_Develop.domain.BaseEntity;
+import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,6 +55,9 @@ public class Student extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "roletype", length = 255, nullable = false)
     private RoleType roleType;
+    
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Apply> applies = new ArrayList<>();
 
     public Student(String loginId, String password, LocalDate birth, String department, Grade grade, PhoneNumber phoneNumber, Sex sex, String name, Email email, String studentNumber, RoleType roleType) {
         this.loginId = loginId;
@@ -65,5 +71,9 @@ public class Student extends BaseEntity {
         this.email = email;
         this.studentNumber = studentNumber;
         this.roleType = roleType;
+    }
+    
+    public void addApply(Apply apply) {
+        this.applies.add(apply);
     }
 }
