@@ -6,26 +6,27 @@ import Header from '.././Header';
 
 const NoticeView = () => {
   const [notice, setNotice] = useState();
+  const [comment, setComment] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem('accessToken');
 
   useEffect(() => {
-      getNoticeData(id);
-    }, [id]);
+    getNoticeData(id);
+  }, [id]);
 
   const getNoticeData = async (noticeBoardId) => {
-      try {
-        const response = await axios.get(`/api/noticeboards/${noticeBoardId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setNotice(response.data);
-      } catch (error) {
-        console.error('게시물을 불러오지 못했습니다.');
-      }
+    try {
+      const response = await axios.get(`/api/noticeboards/${noticeBoardId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setNotice(response.data);
+    } catch (error) {
+      console.error('게시물을 불러오지 못했습니다.');
     }
+  }
 
   const deleteNotice = async (noticeBoardId) => {
     const confirmed = window.confirm(
@@ -49,6 +50,30 @@ const NoticeView = () => {
     }
   };
 
+  const submitComment = async (noticeBoardId) => {
+    if (comment === "" || comment.length === 0) {
+      alert('댓글을 입력해주세요');
+      return;
+    }
+
+    try {
+      const payload = await axios.post(`/api/comments/${noticeBoardId}`, {
+        content: comment,
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log('댓글 성공');
+      setComment("");
+      getNoticeData(id);
+      alert('댓글 등록 완료.');
+    } catch (error) {
+      console.error('댓글 등록 실패', error);
+      alert('댓글 등록 실패했습니다.');
+    }
+  }
+
   return (
     <>
       <Header />
@@ -69,11 +94,11 @@ const NoticeView = () => {
               </div>
               <div className="post-view-row">
                 <label>작성일</label>
-                <label>{ notice.createdDate.slice(0, 10) }</label>
+                <label>{ notice.createdDate ? notice.createdDate.slice(0, 10) : '' }</label>
               </div>
               <div className="post-view-row">
                 <label>작성자</label>
-                <label>{ notice.authorLoginId}</label>
+                <label>{ notice.authorLoginId }</label>
               </div>
               <div className="post-view-row">
                 <label>조회수</label>
@@ -89,6 +114,39 @@ const NoticeView = () => {
         <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>&nbsp;
         <button className="post-view-go-list-btn" onClick={() => navigate(`/api/admins/noticeboards/${notice.id}`)}>수정</button>&nbsp;
         <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>삭제</button>
+        <div className='Reply_div'>
+          <h4> 댓글 </h4>
+          <div className="Reply_write">
+            <textarea
+              rows='3'
+              placeholder='100자 이내의 글을 입력해주세요.'
+              maxLength='100'
+              name='write_reply'
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button onClick={() => submitComment(notice.id)} id="reply_submit_button">등록</button>
+          </div>
+        </div>
+        <div className="Reply_list">
+          {notice && notice.comments
+            ? <div>
+                <h5> {notice.comments.length} 개의 댓글이 있습니다. </h5>
+
+                <div className='reply_list_div'>
+                  {notice.comments.map( (el) => {
+                    return(
+                      <div className='reply_list_gird'>
+                        <div> {el.studentLoginId.includes("admin") ? "관리자" : el.studentLoginId} </div>
+                        <div> {el.content} </div>
+                        <div> {el.createdDate} </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            : <h5>작성된 댓글이 없습니다.</h5>}
+        </div>
       </div>
     </>
   )

@@ -1,4 +1,3 @@
-
 .post-view-wrapper {
   width: 60%;
   margin: 0 auto;
@@ -24,4 +23,41 @@
 .post-view-row > *:nth-child(2) {
   margin: 10px 0;
   width: 70%;
+}
+
+.Reply_div {
+    border-top: solid 1px #ababab;
+    margin-top: 40px;
+}
+
+.Reply_div h4 { margin-top: 50px; margin-left: 30px; }
+.Reply_div .Reply_write {
+    height: 150px;
+    border-bottom: solid 1px #ababab;
+}
+
+.Reply_div .Reply_write textarea {
+    width: 80%;
+    padding: 10px;
+    resize: none;
+    font-size: 15px;
+    line-height: 25px;
+    margin-left: 30px;
+}
+
+#reply_submit_button {
+    position: absolute;
+    width: 7%;
+    height: 11.7%;
+    margin-top: -0px;
+    background-color: white;
+    border: solid 1px #ababab;
+    cursor: pointer;
+}
+
+.Reply_list .reply_list_div .reply_list_gird {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    padding: 15px;
+    border-bottom: solid 1px #ababab;
 }

@@ -22,7 +22,7 @@ const NoticeList = () => {
           },
           params: {
             page: 1,
-            count: 3,
+            count: 6,
           },
         });
         console.log('데이터 가져오기 성공:', response.data);
@@ -57,8 +57,8 @@ const NoticeList = () => {
         ) : ( // 게시물이 없을 때
           <div>게시물이 존재하지 않습니다.</div>
         )}
+        <button className="post-view-go-list-btn" onClick={() => navigate('/api/admins/noticeboards')}>글쓰기</button>&nbsp;
       </CommonTable>
-      <button className="post-view-go-list-btn" onClick={() => navigate('/api/admins/noticeboards')}>글쓰기</button>&nbsp;
     </>
   );
 };
