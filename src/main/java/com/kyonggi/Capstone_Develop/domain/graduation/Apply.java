@@ -32,4 +32,12 @@ public class Apply extends BaseEntity {
         this.student.addApply(this);
         this.graduation.addApply(this);
     }
+    
+    public String getStudentName() {
+        return this.student.getName();
+    }
+    
+    public String getStudentLoginId() {
+        return this.student.getLoginId();
+    }
 }

@@ -8,19 +8,23 @@ import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.repository.ApplyRepository;
 import com.kyonggi.Capstone_Develop.repository.GraduationRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationSaveRequestDto;
 import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationSaveResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class GraduationService {
     private final GraduationRepository graduationRepository;
+    
     private final StudentRepository studentRepository;
 
     private final ApplyRepository applyRepository;
@@ -35,9 +39,9 @@ public class GraduationService {
                 graduationSaveRequestDto.getMethod(),
                 graduationSaveRequestDto.getStatus(),
                 graduationSaveRequestDto.getStep(),
-                graduationSaveRequestDto.getCapstoneCompletion(),
-                graduationSaveRequestDto.getGraduationDate(),
-                graduationSaveRequestDto.getProfessorName()
+                null,
+                null,
+                null
         );
 
         Student student = studentRepository.findById(studentId)
@@ -59,6 +63,16 @@ public class GraduationService {
     }
 
     private void saveApply(Student student, Graduation graduation) {
-        applyRepository.save(new Apply(student, graduation));
+        // cascade ALL
+        new Apply(student, graduation);
+    }
+    
+    public GraduationsResponseDto findAllGraduation() {
+        List<Graduation> graduations = graduationRepository.findAll();
+        List<GraduationResponseDto> graduationResponseDtos = graduations.stream()
+                .map(graduation -> GraduationResponseDto.of(graduation, graduation.getApply()))
+                .collect(Collectors.toList());
+    
+        return GraduationsResponseDto.from(graduationResponseDtos);
     }
 }

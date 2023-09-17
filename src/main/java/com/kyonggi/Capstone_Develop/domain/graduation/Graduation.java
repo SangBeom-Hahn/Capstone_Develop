@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.domain.graduation;
 
 import com.kyonggi.Capstone_Develop.domain.BaseEntity;
+import com.kyonggi.Capstone_Develop.exception.NoSuchApplyException;
 import com.kyonggi.Capstone_Develop.exception.alreadyGraduateException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,13 +34,13 @@ public class Graduation extends BaseEntity {
     @Column(name = "step", nullable = false)
     private Step step;
     
-    @Column(name = "capstone_completion", nullable = false)
+    @Column(name = "capstone_completion")
     private Boolean capstoneCompletion;
     
-    @Column(name = "graduation_date", nullable = false)
+    @Column(name = "graduation_date")
     private LocalDate graduationDate;
     
-    @Column(name = "professor_name", length = 25, nullable = false)
+    @Column(name = "professor_name", length = 25)
     private String professorName;
     
     @OneToMany(mappedBy = "graduation", fetch = FetchType.LAZY)
@@ -53,7 +54,6 @@ public class Graduation extends BaseEntity {
             LocalDate graduationDate,
             String professorName
     ) {
-        validateGraduationDate(graduationDate);
         this.method = method;
         this.status = status;
         this.step = step;
@@ -62,9 +62,14 @@ public class Graduation extends BaseEntity {
         this.professorName = professorName;
     }
     
-    private void validateGraduationDate(LocalDate graduationDate) {
-        if (graduationDate.isBefore(LocalDate.now())) {
-            throw new alreadyGraduateException();
+    public Apply getApply() {
+        validateApply();
+        return this.applies.get(0);
+    }
+    
+    private void validateApply() {
+        if (applies.isEmpty()) {
+            throw new NoSuchApplyException();
         }
     }
     

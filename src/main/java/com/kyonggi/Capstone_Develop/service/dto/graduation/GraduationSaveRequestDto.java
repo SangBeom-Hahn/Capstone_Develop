@@ -17,9 +17,9 @@ public class GraduationSaveRequestDto {
     
     private Step step;
     
-    private Boolean capstoneCompletion;
-    
-    private LocalDate graduationDate;
-    
-    private String professorName;
+//    private Boolean capstoneCompletion;
+//
+//    private LocalDate graduationDate;
+//
+//    private String professorName;
 }
