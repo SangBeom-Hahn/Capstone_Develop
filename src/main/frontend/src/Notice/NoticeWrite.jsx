@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import CommonEditor from '.././Component/CommonEditor';
-import Header from '.././Header';
+import CommonEditor from '.././Common/CommonEditor';
+import Header from '.././Common/Header';
 
 const NoticeWrite = () => {
   const [title, setTitle] = useState('');

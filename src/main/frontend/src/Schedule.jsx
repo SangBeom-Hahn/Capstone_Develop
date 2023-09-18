@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Header'; // Header 컴포넌트를 import
+import Header from './Common/Header';
 
 const Schedule = () => {
   return (

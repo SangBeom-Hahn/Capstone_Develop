@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Notice.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import Header from '.././Header';
+import Header from '.././Common/Header';
 
 const NoticeView = () => {
   const [notice, setNotice] = useState();

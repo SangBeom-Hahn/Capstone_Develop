@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../Header';
+import Header from '.././Common/Header';
 
 const NoticeUpdate = () => {
   const { id } = useParams();
