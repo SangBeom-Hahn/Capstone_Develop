@@ -58,6 +58,7 @@ const NoticeUpdate = () => {
                 type="text"
                 className="form-control"
                 value={notice.title}
+                placeholder="제목을 입력해주세요"
                 onChange={handleTitleUpdate}
               />
             </div>
@@ -65,6 +66,7 @@ const NoticeUpdate = () => {
               <textarea
                 className="form-control"
                 value={notice.content}
+                placeholder="내용을 입력해주세요"
                 onChange={handleContentUpdate}
               />
             </div>

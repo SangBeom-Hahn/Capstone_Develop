@@ -1,22 +1,25 @@
 import React from 'react';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, lastPage, totalSize, onPageChange }) => {
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    for (let i = 0; i < totalPages; i++) {
-      pageNumbers.push(i + 1); // 페이지 번호를 1부터 시작하도록 수정
+    const startPage = currentPage - (currentPage % 10)
+    const endPage = currentPage - (currentPage % 10) + 9
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
     }
 
     return pageNumbers.map((number) => (
       <li
         key={number}
-        className={number === currentPage + 1 ? 'page-item active' : 'page-item'}
+        className={`page-item ${currentPage === number ? 'active' : ''}`}
       >
         <button
           className="page-link"
-          onClick={() => onPageChange(number - 1)} // 페이지 번호를 0부터 시작하도록 수정
+          onClick={() => onPageChange(number)}
         >
-          {number}
+          {number + 1}
         </button>
       </li>
     ));
@@ -25,28 +28,27 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <nav aria-label="Page navigation">
       <ul className="pagination justify-content-center">
-        <li className={currentPage === 0 ? 'page-item disabled' : 'page-item'}>
-          <button
-            className="page-link"
-            onClick={() => onPageChange(currentPage - 1)}
-          >
-            이전
-          </button>
-        </li>
+        {currentPage > 10 && (
+          <li className="page-item">
+            <button
+              className="page-link"
+              onClick={() => onPageChange(currentPage - 10)}
+            >
+              {'<<'}
+            </button>
+          </li>
+        )}
         {renderPageNumbers()}
-        <li
-          className={
-            currentPage === totalPages - 1 ? 'page-item disabled' : 'page-item'
-          }
-        >
-          <button
-            className="page-link"
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages - 1}
-          >
-            다음
-          </button>
-        </li>
+        {currentPage + 10 <= lastPage && (
+          <li className="page-item">
+            <button
+              className="page-link"
+              onClick={() => onPageChange(currentPage + 10)}
+            >
+              {'>>'}
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

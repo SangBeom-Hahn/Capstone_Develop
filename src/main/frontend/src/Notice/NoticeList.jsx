@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import CommonTable from '.././Component/CommonTable';
+import CommonTable from '.././Common/CommonTable';
 import CommonTableColumn from '.././Common/CommonTableColumn';
 import CommonTableRow from '.././Common/CommonTableRow';
 import Pagination from '.././Common/Pagination';
@@ -15,8 +15,7 @@ const NoticeList = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 10;
+  const [totalSize, setTotalSize] = useState(0);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -30,13 +29,15 @@ const NoticeList = () => {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
-            page: currentPage, // 현재 페이지로 변경
-            count: itemsPerPage, // 페이지당 아이템 수로 변경
+            page: currentPage,
+            count: 10,
           },
         });
         console.log('데이터 가져오기 성공:', response.data);
+
+        const pageInfo = response.data.pageInfo;
+        setTotalSize(pageInfo.totalSize);
         setNotice(response.data.noticeBoards);
-        setTotalPages(response.data.pageInfo.totalPages); // 총 페이지 수 설정
         setLoading(false);
       } catch (error) {
         console.error('데이터 가져오기 오류:', error);
@@ -44,10 +45,10 @@ const NoticeList = () => {
       }
     }
     getNoticeBoards();
-  }, [accessToken, currentPage]); // currentPage 상태를 의존성 배열에 추가
+  }, [accessToken, currentPage]);
 
   return (
-    <>
+    <div className="text-center">
       <Header />
       <CommonTable headersName={['글번호', '제목', '등록일', '관리자', '조회수']}>
         {loading ? (
@@ -67,16 +68,19 @@ const NoticeList = () => {
         ) : (
           <div>게시물이 존재하지 않습니다.</div>
         )}
-        <button className="post-view-go-list-btn" onClick={() => navigate('/api/admins/noticeboards')}>
-          글쓰기
-        </button>&nbsp;
+        <div className="justify-content-center">
+          <button className="post-view-go-list-btn" onClick={() => navigate('/api/admins/noticeboards')}>
+            글쓰기
+          </button>
+        </div>
         <Pagination
           currentPage={currentPage}
-          totalPages={totalPages}
+          lastPage={Math.ceil(totalSize / 10)}
+          totalSize={totalSize}
           onPageChange={handlePageChange}
         />
       </CommonTable>
-    </>
+    </div>
   );
 };
 
