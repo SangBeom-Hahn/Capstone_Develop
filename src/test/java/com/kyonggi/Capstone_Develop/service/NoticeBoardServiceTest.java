@@ -68,8 +68,25 @@ class NoticeBoardServiceTest extends ServiceTest{
     }
     
     @Test
+    @DisplayName("게시물 작성자가 아닌 사람이 게시물을 삭제하면 예외가 발생한다.")
+    void throwException_invalidAuthor() {
+        // given
+        NoticeBoardSaveRequest noticeboardSaveRequest = createNoticeboardSaveRequest();
+        Long saveNoticeBoardId = noticeBoardService.save(
+                noticeboardSaveRequest.toServiceDto(),
+                student.getId()
+        ).getId();
+        long invalidAuthorId = 999L;
+        
+        // then
+        assertThatThrownBy(() -> noticeBoardService.deleteNoticeBoard(saveNoticeBoardId, invalidAuthorId))
+                .isInstanceOf(NotAuthorException.class)
+                .hasMessage(String.format("해당 회원은 작성자가 아닙니다. id={%d}", invalidAuthorId));
+    }
+    
+    @Test
     @DisplayName("공지사항을 저장하고 id로 찾는다.")
-    void saveMessageAndFind() {
+    void saveNoticeBoardAndFind() {
         // given
         NoticeBoardSaveRequest noticeBoardSaveRequest = createNoticeboardSaveRequest();
         Long saveNoticeBoardId = noticeBoardService.save(
@@ -210,23 +227,6 @@ class NoticeBoardServiceTest extends ServiceTest{
         assertThatThrownBy(() -> noticeBoardService.findNoticeBoard(saveNoticeBoardId))
                 .isInstanceOf(NotFoundNoticeBoardException.class)
                 .hasMessage(String.format("해당 공지사항이 존재하지 않습니다. id={%d}", saveNoticeBoardId));
-    }
-    
-    @Test
-    @DisplayName("게시물 작성자가 아닌 사람이 게시물을 삭제하면 예외가 발생한다.")
-    void throwException_invalidAuthor() {
-        // given
-        NoticeBoardSaveRequest noticeboardSaveRequest = createNoticeboardSaveRequest();
-        Long saveNoticeBoardId = noticeBoardService.save(
-                noticeboardSaveRequest.toServiceDto(),
-                student.getId()
-        ).getId();
-        long invalidAuthorId = 999L;
-        
-        // then
-        assertThatThrownBy(() -> noticeBoardService.deleteNoticeBoard(saveNoticeBoardId, invalidAuthorId))
-                .isInstanceOf(NotAuthorException.class)
-                .hasMessage(String.format("해당 회원은 작성자가 아닙니다. id={%d}", invalidAuthorId));
     }
     
     private NoticeBoardSaveRequest createNoticeboardSaveRequest() {
