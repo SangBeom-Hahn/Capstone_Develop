@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS apply;
+DROP TABLE IF EXISTS graduation;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
@@ -59,6 +61,34 @@ CREATE TABLE `comment` (
         FOREIGN KEY (`student_id`)
             REFERENCES `student` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE graduation
+(
+    `graduation_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `method` VARCHAR(45) NULL DEFAULT NULL,
+    `status` VARCHAR(45) NULL DEFAULT NULL,
+    `step` VARCHAR(45) NULL DEFAULT NULL,
+    `capstone_completion` bit(1) NULL DEFAULT NULL,
+    `graduation_date` DATE NULL DEFAULT NULL,
+    `professor_name` VARCHAR(45) NULL DEFAULT NULL,
+    `created_date` DATETIME NULL DEFAULT NULL,
+    `last_modified_date` DATETIME NULL DEFAULT NULL,
+    PRIMARY KEY (`graduation_id`)
+);
+
+CREATE TABLE apply
+(
+    `apply_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `student_id` BIGINT NOT NULL,
+    `graduation_id` BIGINT NOT NULL,
+    `created_date` DATETIME NULL DEFAULT NULL,
+    `last_modified_date` DATETIME NULL DEFAULT NULL,
+    PRIMARY KEY (`apply_id`),
+    FOREIGN KEY (`student_id`)
+        REFERENCES `student` (`student_id`),
+    FOREIGN KEY (`graduation_id`)
+        REFERENCES `graduation` (`graduation_id`)
+);
 
 INSERT INTO student
 VALUES (1, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '1111-11-11',
@@ -125,3 +155,9 @@ VALUES (13, 1, 'content13', false, 'title13', 1, '1999-10-13', '1999-10-13');
 
 INSERT INTO comment
 VALUES (1, 1, 2, '댓글 1', '1999-10-13', '1999-10-13');
+
+INSERT INTO graduation
+VALUES (1, 'THESIS', 'APPROVAL', 'PROPOSAL', null, null, null, '1999-10-13', '1999-10-13');
+
+INSERT INTO apply
+VALUES (1, 3, 1, '1999-10-13', '1999-10-13');

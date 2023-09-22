@@ -42,31 +42,31 @@ class ApplyRepositoryTest {
     @BeforeEach
     void setUp() {
         student = new Student(
-                "cherry",
-                "123#a",
+                "201812709",
+                "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
     
         student2 = new Student(
-                "cherry",
-                "123#a",
+                "201812709",
+                "dummyPassword",
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
                 
         graduation = new Graduation(
