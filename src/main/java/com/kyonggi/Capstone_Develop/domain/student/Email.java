@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Email {
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
     @Column(name = "email", length = 255, nullable = false)
     String value;
     
@@ -26,8 +27,8 @@ public class Email {
     }
     
     private static void validateEmail(String value) {
-        Pattern pattern = Pattern.compile("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
-        Matcher matcher = pattern.matcher(value);
+        Matcher matcher = PASSWORD_PATTERN.matcher(value);
+        
         if (!matcher.matches()) {
             throw new InvalidEmailFormatException(value);
         }

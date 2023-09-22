@@ -5,17 +5,10 @@ import com.kyonggi.Capstone_Develop.domain.refreshtoken.RefreshToken;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.IdPasswordMismatchException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberIdException;
-import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
-import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -23,38 +16,23 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Slf4j
-@SpringBootTest
-@Transactional
-class AuthServiceTest {
-    @Autowired
-    private AuthService authService;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private StudentRepository studentRepository;
-    
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
-    
+class AuthServiceTest extends ServiceTest{
     private Student dummyStudent;
     
     @BeforeEach
     void setUp() {
         dummyStudent = new Student(
-                "cherry1",
+                "201812709",
                 passwordEncoder.encode("123#a1"),
                 LocalDate.of(2023, 07, 18),
                 "컴퓨터공학부",
-                Grade.FOURTH,
                 PhoneNumber.from("010-1111-1111"),
-                Sex.FEMALE,
+                Sex.MALE,
                 "한상범",
                 Email.from("1@naver.com"),
-                "20182222",
-                RoleType.STUDENT
+                RoleType.STUDENT,
+                "answerPW",
+                Classification.from("UNDERGRADUATE_STUDENT")
         );
         studentRepository.save(dummyStudent);
     }
@@ -76,7 +54,7 @@ class AuthServiceTest {
     @DisplayName("id와 비밀번호가 일치하지 않으면 예외가 발생한다.")
     void throwException_mismatchIdPassword() {
         // given
-        LoginRequest loginRequest = new LoginRequest("cherry1", "no");
+        LoginRequest loginRequest = new LoginRequest("201812709", "no");
       
         // then
         assertThatThrownBy(() -> authService.login(
@@ -90,10 +68,11 @@ class AuthServiceTest {
     @DisplayName("로그인 요청을 받아서 토큰을 생성한다.")
     void createToken() {
         // given
-        LoginRequest loginRequest = new LoginRequest("cherry1", "123#a1");
+        LoginRequest loginRequest = new LoginRequest("201812709", "123#a1");
         
         // when
-        TokenResponseDto tokenResponseDto = authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
+        TokenResponseDto tokenResponseDto =
+                authService.login(loginRequest.getLoginId(), loginRequest.getLoginPassword());
         
         // then
         assertThat(tokenResponseDto).isNotNull();
