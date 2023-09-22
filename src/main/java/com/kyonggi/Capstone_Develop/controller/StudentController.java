@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.controller;
 
+import com.kyonggi.Capstone_Develop.controller.dto.student.StudentIdValidateRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.student.StudentRequest;
 import com.kyonggi.Capstone_Develop.service.StudentService;
 import com.kyonggi.Capstone_Develop.service.dto.student.StudentSignUpResponseDto;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
     private final StudentService studentService;
     
@@ -21,11 +22,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping
+    @PostMapping("/user")
     public ResponseEntity<StudentSignUpResponseDto> join(@RequestBody @Valid StudentRequest studentRequest) {
         StudentSignUpResponseDto studentSignUpResponseDto = studentService.save(studentRequest.toServiceDto());
         return ResponseEntity
                 .created(URI.create("/api/students/" + studentSignUpResponseDto.getId()))
                 .body(studentSignUpResponseDto);
+    }
+    
+    @PostMapping("/user/duplicate-check")
+    public ResponseEntity<Void> validateLoginIdHasDuplicate(@RequestBody @Valid StudentIdValidateRequest studentIdValidateRequest) {
+        studentService.validateLoginIdHasDuplicate(studentIdValidateRequest.getStudentId());
+        return ResponseEntity.noContent().build();
     }
 }

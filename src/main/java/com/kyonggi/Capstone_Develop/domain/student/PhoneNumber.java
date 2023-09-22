@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class PhoneNumber {
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$");
     @Column(name = "phone_number", length = 255, nullable = false)
     private String value;
     
@@ -27,8 +28,7 @@ public class PhoneNumber {
     }
     
     private static void validatePhoneNumber(String value) {
-        Pattern pattern = Pattern.compile("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$");
-        Matcher matcher = pattern.matcher(value);
+        Matcher matcher = EMAIL_PATTERN.matcher(value);
         if (!matcher.matches()) {
             throw new InvalidPhoneNumberFormatException(value);
         }
