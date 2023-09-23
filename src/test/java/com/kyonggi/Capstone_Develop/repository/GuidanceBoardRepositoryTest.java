@@ -23,25 +23,16 @@ class GuidanceBoardRepositoryTest {
     @Autowired
     private GuidanceBoardRepository guidanceBoardRepository;
     
-    private GuidanceBoard guidanceBoard;
-    
-    @BeforeEach
-    void setUp() {
-        guidanceBoard = new GuidanceBoard("content");
-    }
-    
     @Test
     @DisplayName("안내 및 내규 내용을 수정한다.")
     void updateContent() {
         // given
-        Long guidanceBoardId = guidanceBoardRepository.save(guidanceBoard)
-                .getId();
         String expectedContent = "expectedContent";
     
         // when
-        guidanceBoard.changeContent(expectedContent);
-        GuidanceBoard findGuidanceBoard = guidanceBoardRepository.findById(guidanceBoardId)
+        GuidanceBoard findGuidanceBoard = guidanceBoardRepository.findById(1L)
                 .orElseThrow();
+        findGuidanceBoard.changeContent(expectedContent);
     
         // then
         assertThat(findGuidanceBoard.getContent())

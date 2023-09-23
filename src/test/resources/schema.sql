@@ -36,4 +36,4 @@ CREATE TABLE guidance_board
 );
 
 INSERT INTO `guidance_board`
-VALUES (1L, '2023-08-29', '2023-08-31', 'content');
+VALUES (1, '2023-08-29', '2023-08-31', 'content');
