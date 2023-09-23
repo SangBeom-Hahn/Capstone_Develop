@@ -13,9 +13,9 @@ import java.time.LocalDate;
 public class GraduationSaveRequestDto {
     private Method method;
     
-    private Status status;
-    
-    private Step step;
+//    private Status status;
+//
+//    private Step step;
     
 //    private Boolean capstoneCompletion;
 //

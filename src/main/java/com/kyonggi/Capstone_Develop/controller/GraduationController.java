@@ -18,7 +18,7 @@ import java.net.URI;
 public class GraduationController {
     private final GraduationService graduationService;
     
-    @PostMapping("/api/\"/api/graduations\"")
+    @PostMapping("/api/graduations")
     public ResponseEntity<GraduationSaveResponseDto> create(
             @RequestBody @Valid GraduationSaveRequest graduationSaveRequest,
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest

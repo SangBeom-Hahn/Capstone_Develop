@@ -21,7 +21,9 @@ import java.util.List;
 
 import static com.kyonggi.Capstone_Develop.domain.graduation.Method.THESIS;
 import static com.kyonggi.Capstone_Develop.domain.graduation.Status.APPROVAL;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Status.UNAPPROVAL;
 import static com.kyonggi.Capstone_Develop.domain.graduation.Step.PROPOSAL;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.RECEIVED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -93,9 +95,9 @@ class GraduationServiceTest {
                 () -> assertThat(actual.getGraduationResponseDtos()).extracting("method")
                         .containsExactly(THESIS, THESIS),
                 () -> assertThat(actual.getGraduationResponseDtos()).extracting("status")
-                        .containsExactly(APPROVAL, APPROVAL),
+                        .containsExactly(UNAPPROVAL, UNAPPROVAL),
                 () -> assertThat(actual.getGraduationResponseDtos()).extracting("step")
-                        .containsExactly(PROPOSAL, PROPOSAL)
+                        .containsExactly(RECEIVED, RECEIVED)
         );
     }
     
@@ -116,6 +118,6 @@ class GraduationServiceTest {
     }
     
     private static GraduationSaveRequest createSaveRequest() {
-        return new GraduationSaveRequest("논문", "APPROVAL", "PROPOSAL");
+        return new GraduationSaveRequest("논문");
     }
 }

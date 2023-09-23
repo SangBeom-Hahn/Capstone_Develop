@@ -19,17 +19,9 @@ public class GraduationSaveRequest {
     @NotBlank
     private String method;
     
-    @NotBlank
-    private String status;
-    
-    @NotBlank
-    private String step;
-    
     public GraduationSaveRequestDto toServiceDto() {
         return new GraduationSaveRequestDto(
-                Method.from(method),
-                Status.valueOf(status),
-                Step.valueOf(step)
+                Method.from(method)
         );
     }
 }

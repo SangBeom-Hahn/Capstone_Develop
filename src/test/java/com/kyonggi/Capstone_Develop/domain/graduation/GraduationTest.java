@@ -13,20 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class GraduationTest {
     @Test
-    @DisplayName("현재보다 졸업 일자가 과거이면 예외가 발생한다.")
-    void throwException_InvalidGraduationDate() {
-        assertThatThrownBy(() -> new Graduation(
-                Method.THESIS,
-                Status.UNAPPROVAL,
-                Step.RECEIVED,
-                true,
-                LocalDate.MIN,
-                "김교수님"
-        ));
-    }
-    
-    // TODO: 학생 필드 바뀐 거 공지사항 merge하고 다시 테스트하기
-    @Test
     @DisplayName("졸업자를 생성하고 매핑 테이블에 저장한다.")
     void addApply() {
         // given

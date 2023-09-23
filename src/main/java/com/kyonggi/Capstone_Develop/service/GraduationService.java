@@ -2,6 +2,8 @@ package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
 import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
+import com.kyonggi.Capstone_Develop.domain.graduation.Status;
+import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.DuplicateApplyException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
@@ -37,8 +39,8 @@ public class GraduationService {
 
         Graduation graduation = new Graduation(
                 graduationSaveRequestDto.getMethod(),
-                graduationSaveRequestDto.getStatus(),
-                graduationSaveRequestDto.getStep(),
+                Status.UNAPPROVAL,
+                Step.RECEIVED,
                 null,
                 null,
                 null
