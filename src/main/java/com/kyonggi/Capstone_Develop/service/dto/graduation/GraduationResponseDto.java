@@ -4,9 +4,6 @@ import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @Getter

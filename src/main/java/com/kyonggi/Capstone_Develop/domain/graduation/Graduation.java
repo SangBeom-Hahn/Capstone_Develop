@@ -2,7 +2,6 @@ package com.kyonggi.Capstone_Develop.domain.graduation;
 
 import com.kyonggi.Capstone_Develop.domain.BaseEntity;
 import com.kyonggi.Capstone_Develop.exception.NoSuchApplyException;
-import com.kyonggi.Capstone_Develop.exception.alreadyGraduateException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

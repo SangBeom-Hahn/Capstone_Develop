@@ -1,14 +1,11 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.controller.dto.graduation.GraduationSaveRequest;
-import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.DuplicateApplyException;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
-import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationsResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static com.kyonggi.Capstone_Develop.domain.graduation.Method.THESIS;
-import static com.kyonggi.Capstone_Develop.domain.graduation.Status.APPROVAL;
 import static com.kyonggi.Capstone_Develop.domain.graduation.Status.UNAPPROVAL;
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.PROPOSAL;
 import static com.kyonggi.Capstone_Develop.domain.graduation.Step.RECEIVED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

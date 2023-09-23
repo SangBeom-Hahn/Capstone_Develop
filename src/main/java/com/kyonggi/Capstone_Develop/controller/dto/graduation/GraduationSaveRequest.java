@@ -1,8 +1,6 @@
 package com.kyonggi.Capstone_Develop.controller.dto.graduation;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Method;
-import com.kyonggi.Capstone_Develop.domain.graduation.Status;
-import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationSaveRequestDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

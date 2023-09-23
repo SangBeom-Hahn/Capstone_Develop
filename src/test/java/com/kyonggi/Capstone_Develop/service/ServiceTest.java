@@ -1,9 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
-import com.kyonggi.Capstone_Develop.repository.CommentRepository;
-import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
-import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
-import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,4 +35,13 @@ public abstract class ServiceTest {
     
     @Autowired
     protected CommentService commentService;
+    
+    @Autowired
+    protected SituationService situationService;
+    
+    @Autowired
+    protected GraduationRepository graduationRepository;
+    
+    @Autowired
+    protected ApplyRepository applyRepository;
 }

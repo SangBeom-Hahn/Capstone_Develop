@@ -8,7 +8,10 @@ import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationSaveRespons
 import com.kyonggi.Capstone_Develop.service.dto.graduation.GraduationsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
