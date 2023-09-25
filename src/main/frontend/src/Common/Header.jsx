@@ -1,49 +1,113 @@
-import { useNavigate, Link } from 'react-router-dom';
-import React from 'react';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { FaBars } from "react-icons/fa";
+
+const StyledHeader = styled.header`
+  width: 100%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 2px 0px 2px 0px;
+  justify-content: space-between;
+  .menuToggleBtn {
+    display: none;
+    color: white;
+    font-size: 24px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+  }
+  .nav_logo {
+      padding: 0 12px;
+      .nav-logo-link {
+        text-decoration: none;
+        font-size: 24px;
+        color: black;
+        font-weight: bold;
+      }
+    }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    .menuToggleBtn {
+      display: block;
+    }
+  }
+`;
+const NavMenu = styled.ul`
+  list-style: none;
+  display: flex;
+
+  li {
+    &:hover {
+      cursor: pointer;
+      background: grey;
+      border-radius: 4px;
+    }
+  }
+  .nav-menu-list {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px 10px;
+    font-weight: bold;
+  }
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.isToggleOpen ? "block" : "none")};
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+  }
+`;
 
 const Header = () => {
-  const navigate = useNavigate();
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
 
-  const handleHomeClick = () => {
-    navigate('/api/home');
+  const handleToggleOpen = () => {
+    setIsToggleOpen(!isToggleOpen);
   };
-
-  const linkStyles = {
-      color: 'white',
-      fontWeight: 'bold'
-  };
-
   return (
-    <div className="header position-sticky border-3 border-top border-primary bg-dark">
-      {/* navigation start */}
-      <div className="container">
+    <>
+      <StyledHeader>
+        <div className="container">
         <nav className="navbar navbar-expand-lg navbar-default">
-          <a className="navbar-brand" onClick={handleHomeClick}>
+        <div className="nav_logo">
+          <Link to={"/"} className="nav-logo-link">
             <img src="/img/cspop_logo.png" width="110" height="40" alt="" />
-          </a>
-          <div className="collapse navbar-collapse" id="navbar-default">
-            <ul className="navbar-nav mx-auto">
-              <li class="nav-item bold">
-                <Link to="/api/noticeboards" className="nav-link" style={linkStyles}>
-                  공지사항
-                </Link>
-              </li>
-              <li class="nav-item bold">
-                <Link to="/api/graduation/guide" className="nav-link" style={linkStyles}>
-                  안내및내규
-                </Link>
-              </li>
-              <li class="nav-item bold">
-                <Link to="/api/graduation/schedule" className="nav-link" style={linkStyles}>
-                  진행일정
-                </Link>
-              </li>
-            </ul>
-          </div>
+          </Link>
+        </div>
+
+        <NavMenu isToggleOpen={isToggleOpen}>
+          <li>
+            <Link to={"/api/notice"} className="nav-menu-list">
+              공지사항
+            </Link>
+          </li>
+          <li>
+            <Link to={"/api/graduation/guide"} className="nav-menu-list">
+              안내및내규
+            </Link>
+          </li>
+          <li>
+            <Link to={"/api/graduation/schedule"} className="nav-menu-list">
+              진행일정
+            </Link>
+          </li>
+          <li>
+            <Link to={""} className="nav-menu-list">
+              졸업자 조회
+            </Link>
+          </li>
+        </NavMenu>
+        <FaBars className="menuToggleBtn" onClick={handleToggleOpen} />
         </nav>
-      </div>
-      {/* navigation close */}
-    </div>
+        </div>
+      </StyledHeader>
+    </>
   );
 };
 
