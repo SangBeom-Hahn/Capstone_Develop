@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.repository.*;
+import com.kyonggi.Capstone_Develop.service.situation.SubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,4 +45,7 @@ public abstract class ServiceTest {
     
     @Autowired
     protected ApplyRepository applyRepository;
+    
+    @Autowired
+    protected SubmitService submitService;
 }

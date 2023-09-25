@@ -26,7 +26,8 @@ public class GraduationController {
             @RequestBody @Valid GraduationSaveRequest graduationSaveRequest,
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest
     ) {
-        GraduationSaveResponseDto graduationSaveResponseDto = graduationService.save(graduationSaveRequest.toServiceDto(), loginMemberRequest.getId());
+        GraduationSaveResponseDto graduationSaveResponseDto =
+                graduationService.save(graduationSaveRequest.toServiceDto(), loginMemberRequest.getId());
         return ResponseEntity
                 .created(URI.create("/api/graduations" + graduationSaveResponseDto.getId()))
                 .body(graduationSaveResponseDto);

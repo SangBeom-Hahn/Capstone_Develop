@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.domain.student.Student;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 

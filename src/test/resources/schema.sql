@@ -83,3 +83,28 @@ CREATE TABLE apply
     FOREIGN KEY (`graduation_id`)
         REFERENCES `graduation` (`graduation_id`)
 );
+
+CREATE TABLE `submit_form` (
+    `submit_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `apply_id` BIGINT NOT NULL,
+    `professor_name` VARCHAR(45) NOT NULL,
+    `graduation_date` DATE NOT NULL,
+    `capstone_completion` BOOLEAN NOT NULL,
+    `created_date` DATETIME NOT NULL,
+    `last_modified_date` DATETIME NOT NULL,
+    PRIMARY KEY (`submit_form_id`)
+);
+
+CREATE TABLE `proposal_form` (
+    `proposal_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `apply_id` BIGINT NOT NULL,
+    `title` VARCHAR(45) NOT NULL,
+    `division` VARCHAR(45) NOT NULL,
+    `qualification` VARCHAR(45) NOT NULL,
+    `content` VARCHAR(255) NOT NULL,
+    `approval` BOOLEAN NULL DEFAULT NULL,
+    `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+    `created_date` DATETIME NOT NULL,
+    `last_modified_date` DATETIME NOT NULL,
+    PRIMARY KEY (`proposal_form_id`)
+);

@@ -18,4 +18,13 @@ public abstract class RepositoryTest {
     
     @Autowired
     protected NoticeBoardRepository noticeBoardRepository;
+    
+    @Autowired
+    protected SubmitRepository submitRepository;
+    
+    @Autowired
+    protected GraduationRepository graduationRepository;
+    
+    @Autowired
+    protected ApplyRepository applyRepository;
 }

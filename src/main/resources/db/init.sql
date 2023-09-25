@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
+DROP TABLE IF EXISTS submit_form;
+DROP TABLE IF EXISTS proposal_form;
 
 CREATE TABLE `student` (
                            `student_id` bigint NOT NULL AUTO_INCREMENT,
@@ -74,7 +76,7 @@ CREATE TABLE graduation
     `created_date` DATETIME NULL DEFAULT NULL,
     `last_modified_date` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`graduation_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE apply
 (
@@ -88,7 +90,32 @@ CREATE TABLE apply
         REFERENCES `student` (`student_id`),
     FOREIGN KEY (`graduation_id`)
         REFERENCES `graduation` (`graduation_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `submit_form` (
+   `submit_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+   `apply_id` BIGINT NOT NULL,
+   `professor_name` VARCHAR(45) NOT NULL,
+   `graduation_date` DATE NOT NULL,
+   `capstone_completion` BIT(1) NOT NULL,
+   `created_date` DATETIME NOT NULL,
+   `last_modified_date` DATETIME NOT NULL,
+   PRIMARY KEY (`submit_form_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `proposal_form` (
+     `proposal_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+     `apply_id` BIGINT NOT NULL,
+     `title` VARCHAR(45) NOT NULL,
+     `division` VARCHAR(45) NOT NULL,
+     `qualification` VARCHAR(45) NOT NULL,
+     `content` VARCHAR(255) NOT NULL,
+     `approval` BIT(1) NULL DEFAULT NULL,
+     `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+     `created_date` DATETIME NOT NULL,
+     `last_modified_date` DATETIME NOT NULL,
+     PRIMARY KEY (`proposal_form_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO student
 VALUES (1, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '1111-11-11',
@@ -161,3 +188,6 @@ VALUES (1, 'THESIS', 'APPROVAL', 'PROPOSAL', null, null, null, '1999-10-13', '19
 
 INSERT INTO apply
 VALUES (1, 3, 1, '1999-10-13', '1999-10-13');
+
+INSERT INTO submit_form
+VALUES (1, 1, '김교수님', '1999-10-13', true, '1999-10-13', '1999-10-13');
