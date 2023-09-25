@@ -34,12 +34,24 @@ public class Submit extends BaseEntity {
     @Column(name = "capstone_completion")
     private Boolean capstoneCompletion;
     
-    public Submit(Apply apply, String professorName, LocalDate graduationDate, Boolean capstoneCompletion) {
+    @Column(name = "approval")
+    @Enumerated(value = EnumType.STRING)
+    private Approval approval;
+    
+    public Submit(
+            Apply apply,
+            String professorName,
+            LocalDate graduationDate,
+            Boolean capstoneCompletion,
+            Approval approval,
+            String rejectReason
+    ) {
         validateGraduationDate(graduationDate);
         this.apply = apply;
         this.professorName = professorName;
         this.graduationDate = graduationDate;
         this.capstoneCompletion = capstoneCompletion;
+        this.approval = approval;
     }
     
     private void validateGraduationDate(LocalDate graduationDate) {

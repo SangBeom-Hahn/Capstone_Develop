@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.domain.graduation.form;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
+import com.kyonggi.Capstone_Develop.domain.situation.Approval;
 import com.kyonggi.Capstone_Develop.domain.situation.Submit;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static com.kyonggi.Capstone_Develop.domain.situation.Approval.UNAPPROVAL;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +48,9 @@ class SubmitTest {
                 apply,
                 "김교수님",
                 LocalDate.MIN,
-                true
+                true,
+                UNAPPROVAL,
+                null
         ));
     }
     
@@ -84,7 +88,9 @@ class SubmitTest {
                 apply,
                 "김교수님",
                 LocalDate.now(),
-                true
+                true,
+                UNAPPROVAL,
+                null
         ));
     }
 }

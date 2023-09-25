@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static com.kyonggi.Capstone_Develop.domain.situation.Approval.UNAPPROVAL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +59,9 @@ class SubmitRepositoryTest extends RepositoryTest {
                 apply,
                 "김교수님",
                 LocalDate.MAX,
-                true
+                true,
+                UNAPPROVAL,
+                null
         );
     
         // when

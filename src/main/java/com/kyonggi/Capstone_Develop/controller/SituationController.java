@@ -38,9 +38,9 @@ public class SituationController {
             @RequestBody @Valid SubmitSaveRequest submitSaveRequest
     ) {
         SubmitSaveResponseDto submitSaveResponseDto =
-                submitService.save(submitSaveRequest.toServiceDto(), studentId);
+                submitService.saveSubmit(submitSaveRequest.toServiceDto(), studentId);
         return ResponseEntity
-                .created(URI.create("/api/situations/submit/" + submitSaveResponseDto.getId()))
+                .created(URI.create("/api/admins/situations/submit/" + submitSaveResponseDto.getId()))
                 .body(submitSaveResponseDto);
     }
     

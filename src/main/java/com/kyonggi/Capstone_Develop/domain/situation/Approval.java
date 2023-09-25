@@ -1,15 +1,13 @@
-package com.kyonggi.Capstone_Develop.domain.graduation;
+package com.kyonggi.Capstone_Develop.domain.situation;
 
-import java.util.Arrays;
-
-public enum Status {
+public enum Approval {
     APPROVAL("승인"),
     UNAPPROVAL("미승인"),
     REJECT("반려");
     
     private final String desc;
     
-    Status(String desc) {
+    Approval(String desc) {
         this.desc = desc;
     }
 }

@@ -98,6 +98,7 @@ CREATE TABLE `submit_form` (
    `professor_name` VARCHAR(45) NOT NULL,
    `graduation_date` DATE NOT NULL,
    `capstone_completion` BIT(1) NOT NULL,
+   `approval` VARCHAR(45) NOT NULL,
    `created_date` DATETIME NOT NULL,
    `last_modified_date` DATETIME NOT NULL,
    PRIMARY KEY (`submit_form_id`)
@@ -110,7 +111,7 @@ CREATE TABLE `proposal_form` (
      `division` VARCHAR(45) NOT NULL,
      `qualification` VARCHAR(45) NOT NULL,
      `content` VARCHAR(255) NOT NULL,
-     `approval` BIT(1) NULL DEFAULT NULL,
+     `approval` VARCHAR(45) NOT NULL,
      `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
      `created_date` DATETIME NOT NULL,
      `last_modified_date` DATETIME NOT NULL,
@@ -190,4 +191,4 @@ INSERT INTO apply
 VALUES (1, 3, 1, '1999-10-13', '1999-10-13');
 
 INSERT INTO submit_form
-VALUES (1, 1, '김교수님', '1999-10-13', true, '1999-10-13', '1999-10-13');
+VALUES (1, 1, '김교수님', '1999-10-13', true, 'UNAPPROVAL', '1999-10-13', '1999-10-13');

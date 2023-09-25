@@ -1,6 +1,9 @@
 package com.kyonggi.Capstone_Develop.service.situation;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
+import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
+import com.kyonggi.Capstone_Develop.domain.graduation.Step;
+import com.kyonggi.Capstone_Develop.domain.situation.Approval;
 import com.kyonggi.Capstone_Develop.domain.situation.Submit;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.DuplicateSubmitException;
@@ -17,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.PROPOSAL;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -27,7 +32,7 @@ public class SubmitService {
     
     private final SubmitRepository submitRepository;
     
-    public SubmitSaveResponseDto save(SubmitSaveRequestDto submitSaveRequestDto, Long studentId) {
+    public SubmitSaveResponseDto saveSubmit(SubmitSaveRequestDto submitSaveRequestDto, Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
@@ -40,9 +45,14 @@ public class SubmitService {
                 apply,
                 submitSaveRequestDto.getProfessorName(),
                 submitSaveRequestDto.getGraduationDate(),
-                submitSaveRequestDto.getCapstoneCompletion()
+                submitSaveRequestDto.getCapstoneCompletion(),
+                Approval.APPROVAL,
+                null
         );
-    
+        
+        Graduation graduation = apply.getGraduation();
+        graduation.changeStep(PROPOSAL);
+        
         Submit saveSubmit = submitRepository.save(submit);
         return SubmitSaveResponseDto.from(saveSubmit);
     }

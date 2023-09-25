@@ -63,10 +63,10 @@ class SubmitServiceTest extends ServiceTest {
         SubmitSaveRequest submitSaveRequest2 = createSubmitSaveRequest();
     
         // when
-        submitService.save(submitSaveRequest1.toServiceDto(), apply.getId());
+        submitService.saveSubmit(submitSaveRequest1.toServiceDto(), student.getId());
       
         // then
-        assertThatThrownBy(() -> submitService.save(submitSaveRequest2.toServiceDto(), apply.getId()))
+        assertThatThrownBy(() -> submitService.saveSubmit(submitSaveRequest2.toServiceDto(), student.getId()))
                 .isInstanceOf(DuplicateSubmitException.class)
                 .hasMessage("이미 신청 접수 되었습니다. loginId={%s}", student.getLoginId());
     }
@@ -76,20 +76,23 @@ class SubmitServiceTest extends ServiceTest {
     void saveSubmitAndFind() {
         // given
         SubmitSaveRequest submitSaveRequest = createSubmitSaveRequest();
-        Long submitId = submitService.save(submitSaveRequest.toServiceDto(), student.getId())
+        Long submitId = submitService.saveSubmit(submitSaveRequest.toServiceDto(), student.getId())
                 .getId();
     
         // when
         SubmitResponseDto submitResponseDto = submitService.findSubmit(apply.getId());
     
         // then
-        assertThat(submitResponseDto).extracting("id", "professorName", "graduationDate", "capstoneCompletion")
-                .containsExactly(
-                        submitId,
-                        submitSaveRequest.getProfessorName(),
-                        submitSaveRequest.getGraduationDate(),
-                        submitSaveRequest.getCapstoneCompletion()
-                );
+        assertAll(
+                () -> assertThat(graduation.getStep()).isEqualTo(Step.PROPOSAL),
+                () -> assertThat(submitResponseDto).extracting("id", "professorName", "graduationDate", "capstoneCompletion")
+                        .containsExactly(
+                                submitId,
+                                submitSaveRequest.getProfessorName(),
+                                submitSaveRequest.getGraduationDate(),
+                                submitSaveRequest.getCapstoneCompletion()
+                        )
+        );
     }
     
     private SubmitSaveRequest createSubmitSaveRequest() {

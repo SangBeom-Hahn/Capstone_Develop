@@ -90,6 +90,8 @@ CREATE TABLE `submit_form` (
     `professor_name` VARCHAR(45) NOT NULL,
     `graduation_date` DATE NOT NULL,
     `capstone_completion` BOOLEAN NOT NULL,
+    `approval` VARCHAR(45) NOT NULL,
+    `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
     `created_date` DATETIME NOT NULL,
     `last_modified_date` DATETIME NOT NULL,
     PRIMARY KEY (`submit_form_id`)
@@ -102,7 +104,7 @@ CREATE TABLE `proposal_form` (
     `division` VARCHAR(45) NOT NULL,
     `qualification` VARCHAR(45) NOT NULL,
     `content` VARCHAR(255) NOT NULL,
-    `approval` BOOLEAN NULL DEFAULT NULL,
+    `approval` VARCHAR(45) NOT NULL,
     `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
     `created_date` DATETIME NOT NULL,
     `last_modified_date` DATETIME NOT NULL,
