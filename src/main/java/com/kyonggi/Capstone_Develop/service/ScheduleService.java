@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.kyonggi.Capstone_Develop.utils.ConstantMessage.SCHEDULE_NUMBER;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -30,8 +32,8 @@ public class ScheduleService {
                 .map(schedule -> ScheduleResponseDto.from(schedule))
                 .collect(Collectors.toList());
     
-        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(1L)
-                .orElseThrow(() -> new NotFoundScheduleBoardException(1L));
+        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(SCHEDULE_NUMBER)
+                .orElseThrow(() -> new NotFoundScheduleBoardException(SCHEDULE_NUMBER));
     
         return AllScheduleResponseDto.of(scheduleBoard, scheduleResponseDtos);
     }

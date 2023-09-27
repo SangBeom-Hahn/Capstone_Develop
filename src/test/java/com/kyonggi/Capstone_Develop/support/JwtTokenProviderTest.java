@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Map;
 
 import static com.kyonggi.Capstone_Develop.domain.student.RoleType.STUDENT;
+import static com.kyonggi.Capstone_Develop.utils.ConstantMessage.TOKEN_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -62,7 +63,7 @@ class JwtTokenProviderTest {
         // given
         final String expiredToken = Jwts.builder()
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
-                .setSubject(String.valueOf(1L))
+                .setSubject(String.valueOf(TOKEN_NUMBER))
                 .setExpiration(new Date((new Date()).getTime() - 1))
                 .compact();
         
@@ -76,7 +77,7 @@ class JwtTokenProviderTest {
     @DisplayName("시크릿 키가 틀린 토큰 정보로 payload를 조회할 경우 예외를 발생시킨다.")
     void getPayloadByWrongSecretKeyToken() {
         // given
-        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        Map<String, Object> payloadMap = createPayloadMap(TOKEN_NUMBER, STUDENT);
         final String invalidSecretToken = invalidSecretKeyJwtTokenProvider.createToken(payloadMap);
         
         // then
@@ -88,7 +89,7 @@ class JwtTokenProviderTest {
     @Test
     @DisplayName("토큰이 올바르게 생성된다.")
     void createToken() {
-        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        Map<String, Object> payloadMap = createPayloadMap(TOKEN_NUMBER, STUDENT);
         
         final String token = jwtTokenProvider.createToken(payloadMap);
         assertThat(token).isNotNull();
@@ -97,17 +98,17 @@ class JwtTokenProviderTest {
     @Test
     @DisplayName("올바른 토큰 정보로 payload를 조회한다.")
     void getPayloadByValidToken() {
-        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        Map<String, Object> payloadMap = createPayloadMap(TOKEN_NUMBER, STUDENT);
         final String token = jwtTokenProvider.createToken(payloadMap);
         
         assertThat(jwtTokenProvider.getPayload(token))
-                .isEqualTo(String.valueOf(1L));
+                .isEqualTo(String.valueOf(TOKEN_NUMBER));
     }
     
     @Test
     @DisplayName("올바른 토큰 정보로 role을 조회한다.")
     void getRolePayloadValidToken() {
-        Map<String, Object> payloadMap = createPayloadMap(1L, STUDENT);
+        Map<String, Object> payloadMap = createPayloadMap(TOKEN_NUMBER, STUDENT);
         final String token = jwtTokenProvider.createToken(payloadMap);
     
         assertThat(jwtTokenProvider.getRolePayload(token))

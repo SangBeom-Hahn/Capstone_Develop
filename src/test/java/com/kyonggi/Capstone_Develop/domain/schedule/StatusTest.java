@@ -15,8 +15,8 @@ class StatusTest {
     @DisplayName("현재 시간이 시작 시간보다 이르면 대기 상태이다.")
     void waitTest() {
         // given
-        LocalDate startDate = of(2023, 9, 17);
-        LocalDate endDate = of(2023, 9, 20);
+        LocalDate startDate = of(2024, 9, 17);
+        LocalDate endDate = of(2024, 9, 20);
         
         // then
         assertThat(Status.of(now(), startDate, endDate))
@@ -40,7 +40,7 @@ class StatusTest {
     void proceedingTest() {
         // given
         LocalDate startDate = of(2023, 8, 17);
-        LocalDate endDate = of(2023, 9, 20);
+        LocalDate endDate = LocalDate.MAX;
         
         // then
         assertThat(Status.of(now(), startDate, endDate))

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.kyonggi.Capstone_Develop.utils.ConstantMessage.SCHEDULE_NUMBER;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -16,15 +18,15 @@ public class ScheduleBoardService {
     private final ScheduleBoardRepository scheduleBoardRepository;
     
     public ScheduleBoardResponseDto findScheduleBoard() {
-        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(1L)
-                .orElseThrow(() -> new NotFoundScheduleBoardException(1L));
+        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(SCHEDULE_NUMBER)
+                .orElseThrow(() -> new NotFoundScheduleBoardException(SCHEDULE_NUMBER));
     
         return ScheduleBoardResponseDto.from(scheduleBoard);
     }
     
     public void updateScheduleBoard(ScheduleBoardUpdateRequestDto scheduleBoardUpdateRequestDto) {
-        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(1L)
-                .orElseThrow(() -> new NotFoundScheduleBoardException(1L));
+        ScheduleBoard scheduleBoard = scheduleBoardRepository.findById(SCHEDULE_NUMBER)
+                .orElseThrow(() -> new NotFoundScheduleBoardException(SCHEDULE_NUMBER));
     
         changeScheduleBoard(scheduleBoardUpdateRequestDto, scheduleBoard);
     }

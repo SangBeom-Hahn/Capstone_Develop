@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.kyonggi.Capstone_Develop.utils.ConstantMessage.SCHEDULE_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
@@ -110,8 +111,8 @@ class ScheduleServiceTest {
         LocalDate changeEndDate = LocalDate.of(2023, 3, 16);
     
         // when
-        scheduleService.updateSchedule(1L, changeStartDate, changeEndDate);
-        Schedule actualSchedule = scheduleRepository.findById(1L)
+        scheduleService.updateSchedule(SCHEDULE_NUMBER, changeStartDate, changeEndDate);
+        Schedule actualSchedule = scheduleRepository.findById(SCHEDULE_NUMBER)
                 .orElseThrow();
         
         // then
