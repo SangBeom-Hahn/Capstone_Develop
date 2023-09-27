@@ -2,11 +2,11 @@ package com.kyonggi.Capstone_Develop.controller;
 
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipal;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
-import com.kyonggi.Capstone_Develop.service.dto.schedule.AllScheduleResponseDto;
 import com.kyonggi.Capstone_Develop.controller.dto.scheduleboard.ScheduleBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.scheduleboard.ScheduleUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.ScheduleBoardService;
 import com.kyonggi.Capstone_Develop.service.ScheduleService;
+import com.kyonggi.Capstone_Develop.service.dto.schedule.AllScheduleResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

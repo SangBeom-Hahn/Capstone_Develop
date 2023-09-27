@@ -1,6 +1,5 @@
 package com.kyonggi.Capstone_Develop.controller.dto.comment;
 
-import com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
