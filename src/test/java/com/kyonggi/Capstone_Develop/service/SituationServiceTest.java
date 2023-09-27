@@ -62,14 +62,17 @@ class SituationServiceTest extends ServiceTest{
         SituationResponseDto situationResponseDto = situationService.findSituation(student.getId());
     
         // then
-        assertThat(situationResponseDto).extracting("loginId", "name", "department", "professorName", "graduationDate", "capstoneCompletion")
+        assertThat(situationResponseDto).extracting("loginId", "name", "department", "professorName",
+                        "graduationDate", "capstoneCompletion", "status", "step")
                 .containsExactly(
                         student.getLoginId(),
                         student.getName(),
                         student.getDepartment(),
                         graduation.getProfessorName(),
                         graduation.getGraduationDate(),
-                        graduation.getCapstoneCompletion()
+                        graduation.getCapstoneCompletion(),
+                        graduation.getStatus(),
+                        graduation.getStep()
                 );
     }
     
@@ -81,7 +84,7 @@ class SituationServiceTest extends ServiceTest{
                 .getApplyIds();
     
         // when
-        List<Long> expected = List.of(3L, 4L);
+        List<Long> expected = List.of(13L, 14L);
       
         // then
         assertAll(

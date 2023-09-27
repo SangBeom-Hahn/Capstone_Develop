@@ -1,9 +1,8 @@
-package com.kyonggi.Capstone_Develop.repository.situation;
+package com.kyonggi.Capstone_Develop.repository;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
-import com.kyonggi.Capstone_Develop.domain.situation.Submit;
+import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.*;
-import com.kyonggi.Capstone_Develop.repository.RepositoryTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import static com.kyonggi.Capstone_Develop.domain.situation.Approval.UNAPPROVAL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class SubmitRepositoryTest extends RepositoryTest {
+class ProposalRepositoryTest extends RepositoryTest {
     private Student student;
     
     private Graduation graduation;
@@ -52,24 +51,27 @@ class SubmitRepositoryTest extends RepositoryTest {
     }
     
     @Test
-    @DisplayName("신청 접수 폼을 저장한다.")
+    @DisplayName("제안서 폼을 저장한다.")
     void save() {
         // given
-        Submit submit = new Submit(
+        Proposal proposal = new Proposal(
                 apply,
-                "김교수님",
-                LocalDate.MAX,
-                true,
-                UNAPPROVAL
+                "title",
+                "division",
+                "qualification",
+                "keyword",
+                "content",
+                UNAPPROVAL,
+                "rejectReason"
         );
-    
+        
         // when
-        Submit saveSubmit = submitRepository.save(submit);
+        Proposal saveProposal = proposalRepository.save(proposal);
     
         // then
         assertAll(
-                () -> assertThat(saveSubmit.getId()).isNotNull(),
-                () -> assertThat(saveSubmit).isEqualTo(submit)
+                () -> assertThat(saveProposal.getId()).isNotNull(),
+                () -> assertThat(saveProposal).isEqualTo(proposal)
         );
     }
 }

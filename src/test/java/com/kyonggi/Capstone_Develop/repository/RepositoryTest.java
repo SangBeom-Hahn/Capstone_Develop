@@ -27,4 +27,7 @@ public abstract class RepositoryTest {
     
     @Autowired
     protected ApplyRepository applyRepository;
+    
+    @Autowired
+    protected ProposalRepository proposalRepository;
 }

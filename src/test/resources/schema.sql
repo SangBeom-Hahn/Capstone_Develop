@@ -84,6 +84,8 @@ CREATE TABLE apply
         REFERENCES `graduation` (`graduation_id`)
 );
 
+ALTER TABLE apply ALTER COLUMN apply_id RESTART WITH 1;
+
 CREATE TABLE `submit_form` (
     `submit_form_id` BIGINT NOT NULL AUTO_INCREMENT,
     `apply_id` BIGINT NOT NULL,
@@ -103,6 +105,7 @@ CREATE TABLE `proposal_form` (
     `title` VARCHAR(45) NOT NULL,
     `division` VARCHAR(45) NOT NULL,
     `qualification` VARCHAR(45) NOT NULL,
+    `keyword` VARCHAR(45) NOT NULL,
     `content` VARCHAR(255) NOT NULL,
     `approval` VARCHAR(45) NOT NULL,
     `reject_reason` VARCHAR(45) NULL DEFAULT NULL,

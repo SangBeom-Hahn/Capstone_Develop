@@ -2,7 +2,6 @@ package com.kyonggi.Capstone_Develop.service.situation;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
 import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
-import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.situation.Approval;
 import com.kyonggi.Capstone_Develop.domain.situation.Submit;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
@@ -16,7 +15,6 @@ import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitResp
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitSaveRequestDto;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitSaveResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +44,7 @@ public class SubmitService {
                 submitSaveRequestDto.getProfessorName(),
                 submitSaveRequestDto.getGraduationDate(),
                 submitSaveRequestDto.getCapstoneCompletion(),
-                Approval.APPROVAL,
-                null
+                Approval.APPROVAL
         );
         
         Graduation graduation = apply.getGraduation();

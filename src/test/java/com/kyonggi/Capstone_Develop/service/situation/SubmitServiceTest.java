@@ -1,13 +1,11 @@
 package com.kyonggi.Capstone_Develop.service.situation;
 
-import com.kyonggi.Capstone_Develop.controller.dto.situation.submit.SubmitSaveRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.situation.SubmitSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.DuplicateSubmitException;
 import com.kyonggi.Capstone_Develop.service.ServiceTest;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitSaveResponseDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class SubmitServiceTest extends ServiceTest {
     private Student student;

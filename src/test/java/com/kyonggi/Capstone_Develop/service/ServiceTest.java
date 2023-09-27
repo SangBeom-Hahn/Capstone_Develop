@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.repository.*;
+import com.kyonggi.Capstone_Develop.service.situation.ProposalService;
 import com.kyonggi.Capstone_Develop.service.situation.SubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,4 +49,10 @@ public abstract class ServiceTest {
     
     @Autowired
     protected SubmitService submitService;
+    
+    @Autowired
+    protected ProposalService proposalService;
+    
+    @Autowired
+    protected ProposalRepository proposalRepository;
 }

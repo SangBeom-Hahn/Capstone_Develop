@@ -1,7 +1,5 @@
 package com.kyonggi.Capstone_Develop.domain.graduation;
 
-import java.util.Arrays;
-
 public enum Status {
     APPROVAL("승인"),
     UNAPPROVAL("미승인"),

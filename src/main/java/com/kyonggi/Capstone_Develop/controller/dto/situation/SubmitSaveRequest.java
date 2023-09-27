@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.controller.dto.situation.submit;
+package com.kyonggi.Capstone_Develop.controller.dto.situation;
 
 import com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.submit.SubmitSaveRequestDto;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;

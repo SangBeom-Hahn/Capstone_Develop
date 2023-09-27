@@ -4,7 +4,6 @@ import com.kyonggi.Capstone_Develop.domain.situation.Submit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Getter

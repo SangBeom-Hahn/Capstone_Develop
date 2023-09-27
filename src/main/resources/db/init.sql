@@ -110,6 +110,7 @@ CREATE TABLE `proposal_form` (
      `title` VARCHAR(45) NOT NULL,
      `division` VARCHAR(45) NOT NULL,
      `qualification` VARCHAR(45) NOT NULL,
+     `keyword` VARCHAR(255) NOT NULL,
      `content` VARCHAR(255) NOT NULL,
      `approval` VARCHAR(45) NOT NULL,
      `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
@@ -185,10 +186,10 @@ INSERT INTO comment
 VALUES (1, 1, 2, '댓글 1', '1999-10-13', '1999-10-13');
 
 INSERT INTO graduation
-VALUES (1, 'THESIS', 'APPROVAL', 'PROPOSAL', null, null, null, '1999-10-13', '1999-10-13');
+VALUES (1, 'THESIS', 'UNAPPROVAL', 'RECEIVED', null, null, null, '1999-10-13', '1999-10-13');
 
 INSERT INTO apply
 VALUES (1, 3, 1, '1999-10-13', '1999-10-13');
 
 INSERT INTO submit_form
-VALUES (1, 1, '김교수님', '1999-10-13', true, 'UNAPPROVAL', '1999-10-13', '1999-10-13');
+VALUES (1, 1, '김교수님', '1999-10-13', true, 'APPROVAL', '1999-10-13', '1999-10-13');

@@ -6,7 +6,6 @@ import com.kyonggi.Capstone_Develop.exception.alreadyGraduateException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class Submit extends BaseEntity {
     @JoinColumn(name = "apply_id")
     private Apply apply;
     
-    @Column(name = "professor_name")
+    @Column(name = "professor_name", length = 45, nullable = false)
     private String professorName;
     
     @Column(name = "graduation_date")
@@ -43,8 +42,7 @@ public class Submit extends BaseEntity {
             String professorName,
             LocalDate graduationDate,
             Boolean capstoneCompletion,
-            Approval approval,
-            String rejectReason
+            Approval approval
     ) {
         validateGraduationDate(graduationDate);
         this.apply = apply;

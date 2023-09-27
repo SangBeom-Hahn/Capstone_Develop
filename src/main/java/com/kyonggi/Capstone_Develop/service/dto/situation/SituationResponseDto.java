@@ -1,6 +1,8 @@
 package com.kyonggi.Capstone_Develop.service.dto.situation;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
+import com.kyonggi.Capstone_Develop.domain.graduation.Status;
+import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,10 @@ public class SituationResponseDto {
     
     private Boolean capstoneCompletion;
     
+    private Status status;
+    
+    private Step step;
+    
     private List<Long> applyIds;
     
     public static SituationResponseDto of(Student student, Graduation graduation, List<Long> applyIds) {
@@ -33,6 +39,8 @@ public class SituationResponseDto {
                 graduation.getProfessorName(),
                 graduation.getGraduationDate(),
                 graduation.getCapstoneCompletion(),
+                graduation.getStatus(),
+                graduation.getStep(),
                 applyIds
         );
     }
