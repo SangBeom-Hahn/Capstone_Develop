@@ -2,6 +2,7 @@ package com.kyonggi.Capstone_Develop.service.situation;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
 import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
+import com.kyonggi.Capstone_Develop.domain.graduation.Status;
 import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.situation.Approval;
 import com.kyonggi.Capstone_Develop.domain.situation.Interim;
@@ -95,30 +96,38 @@ public class InterimService {
         Interim interim = interimRepository.findByApply(apply)
                 .orElseThrow(NoSuchApplyException::new);
         
-        updateInterim(interim, REJECT, rejectReason);
+        updateInterim(apply, interim, REJECT, Status.REJECT, rejectReason);
     }
     
-    private static void updateInterim(
+    private void updateInterim(
             Apply apply,
             Interim interim,
             Approval approval,
             Step step
     ) {
         interim.changeApproval(approval);
-        changeGraduate(apply, step);
+        changeGraduateStep(apply, step);
     }
     
-    private static void updateInterim(
+    private void updateInterim(
+            Apply apply,
             Interim interim,
             Approval approval,
+            Status status,
             String rejectReason
     ) {
         interim.changeApproval(approval);
         interim.changeRejectReason(rejectReason);
+        changeGraduateStatus(apply, status);
     }
     
-    private static void changeGraduate(Apply apply, Step step) {
+    private void changeGraduateStep(Apply apply, Step step) {
         apply.getGraduation()
                 .changeStep(step);
+    }
+    
+    private void changeGraduateStatus(Apply apply, Status status) {
+        apply.getGraduation()
+                .changeStatus(status);
     }
 }

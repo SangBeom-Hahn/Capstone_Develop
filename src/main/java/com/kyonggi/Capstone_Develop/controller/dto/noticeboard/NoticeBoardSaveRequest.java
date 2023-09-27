@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.controller.dto.noticeBoard;
+package com.kyonggi.Capstone_Develop.controller.dto.noticeboard;
 
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardSaveRequestDto;
 import lombok.AccessLevel;

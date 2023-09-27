@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.repository.*;
+import com.kyonggi.Capstone_Develop.service.situation.FinalService;
 import com.kyonggi.Capstone_Develop.service.situation.InterimService;
 import com.kyonggi.Capstone_Develop.service.situation.ProposalService;
 import com.kyonggi.Capstone_Develop.service.situation.SubmitService;
@@ -62,4 +63,11 @@ public abstract class ServiceTest {
     
     @Autowired
     protected InterimRepository interimRepository;
+    
+    @Autowired
+    protected FinalService finalService;
+    
+    @Autowired
+    
+    protected FinalRepository finalRepository;
 }

@@ -33,4 +33,7 @@ public abstract class RepositoryTest {
     
     @Autowired
     protected InterimRepository interimRepository;
+    
+    @Autowired
+    protected FinalRepository finalRepository;
 }

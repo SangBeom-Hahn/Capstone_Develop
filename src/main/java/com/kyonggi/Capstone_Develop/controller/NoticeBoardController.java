@@ -2,8 +2,8 @@ package com.kyonggi.Capstone_Develop.controller;
 
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipal;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardSaveRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.NoticeBoardService;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardSaveResponseDto;

@@ -84,7 +84,7 @@ class SituationServiceTest extends ServiceTest{
                 .getApplyIds();
     
         // when
-        List<Long> expected = List.of(13L, 14L);
+        List<Long> expected = List.of(33L, 34L);
       
         // then
         assertAll(

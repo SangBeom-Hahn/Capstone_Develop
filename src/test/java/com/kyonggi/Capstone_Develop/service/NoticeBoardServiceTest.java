@@ -1,7 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
-import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardSaveRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;

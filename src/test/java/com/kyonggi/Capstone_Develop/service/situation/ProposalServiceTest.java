@@ -183,7 +183,9 @@ class ProposalServiceTest extends ServiceTest {
         assertAll(
                 () -> assertThat(proposal.getApproval()).isEqualTo(REJECT),
                 () -> assertThat(graduation.getStep()).isEqualTo(PROPOSAL),
+                () -> assertThat(graduation.getStatus()).isEqualTo(Status.REJECT),
                 () -> assertThat(proposal.getRejectReason()).isEqualTo(expectedRejectReason)
+                
         );
     }
     

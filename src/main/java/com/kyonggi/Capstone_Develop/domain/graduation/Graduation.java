@@ -79,4 +79,8 @@ public class Graduation extends BaseEntity {
     public void changeStep(Step step) {
         this.step = step;
     }
+    
+    public void changeStatus(Status status) {
+        this.status = status;
+    }
 }

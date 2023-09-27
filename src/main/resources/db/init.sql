@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
 DROP TABLE IF EXISTS submit_form;
 DROP TABLE IF EXISTS proposal_form;
+DROP TABLE IF EXISTS interim_form;
+DROP TABLE IF EXISTS final_form;
 
 CREATE TABLE `student` (
                            `student_id` bigint NOT NULL AUTO_INCREMENT,

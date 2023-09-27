@@ -5,121 +5,119 @@ import com.kyonggi.Capstone_Develop.domain.graduation.Graduation;
 import com.kyonggi.Capstone_Develop.domain.graduation.Status;
 import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.situation.Approval;
+import com.kyonggi.Capstone_Develop.domain.situation.Final;
 import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
-import com.kyonggi.Capstone_Develop.exception.DuplicateProposalException;
-import com.kyonggi.Capstone_Develop.exception.InvalidStepException;
-import com.kyonggi.Capstone_Develop.exception.NoSuchApplyException;
-import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
+import com.kyonggi.Capstone_Develop.exception.*;
 import com.kyonggi.Capstone_Develop.repository.ApplyRepository;
-import com.kyonggi.Capstone_Develop.repository.ProposalRepository;
+import com.kyonggi.Capstone_Develop.repository.FinalRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalSaveRequestDto;
+import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalSaveResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalSaveRequestDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalSaveResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.kyonggi.Capstone_Develop.domain.graduation.Status.REJECT;
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.INTERIM_REPORT;
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.PROPOSAL;
-import static com.kyonggi.Capstone_Develop.domain.situation.Approval.APPROVAL;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.*;
+import static com.kyonggi.Capstone_Develop.domain.situation.Approval.*;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProposalService {
+public class FinalService {
     private final StudentRepository studentRepository;
     
     private final ApplyRepository applyRepository;
     
-    private final ProposalRepository proposalRepository;
+    private final FinalRepository finalRepository;
     
-    public ProposalSaveResponseDto saveProposal(ProposalSaveRequestDto proposalSaveRequestDto, Long studentId) {
+    public FinalSaveResponseDto saveFinal(FinalSaveRequestDto proposalSaveRequestDto, Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
                 .orElseThrow(NoSuchApplyException::new);
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new NoSuchMemberException(studentId));
-        validateDuplicateProposal(student.getLoginId(), apply);
+        validateDuplicateFinal(student.getLoginId(), apply);
         
         Graduation graduation = apply.getGraduation();
         validateStep(graduation.getStep(), student.getLoginId());
-        
-        Proposal proposal = new Proposal(
+    
+        Final finalReport = new Final(
                 apply,
-                proposalSaveRequestDto.getTitle(),
-                proposalSaveRequestDto.getDivision(),
-                graduation.getMethod().name(),
-                proposalSaveRequestDto.getKeyword(),
-                proposalSaveRequestDto.getContent(),
-                Approval.UNAPPROVAL,
+                "title",
+                "division",
+                "qualification",
+                20,
+                UNAPPROVAL,
                 null
         );
     
-        Proposal saveProposal = proposalRepository.save(proposal);
-        return ProposalSaveResponseDto.from(saveProposal);
+        Final saveFinal = finalRepository.save(finalReport);
+        return FinalSaveResponseDto.from(saveFinal);
     }
     
-    private void validateDuplicateProposal(String studentId, Apply apply) {
-        if (proposalRepository.existsByApply(apply)) {
-            throw new DuplicateProposalException(studentId);
+    private void validateDuplicateFinal(String studentId, Apply apply) {
+        if (finalRepository.existsByApply(apply)) {
+            throw new DuplicateFinalException(studentId);
         }
     }
     
     private void validateStep(Step step, String loginId) {
-        if (!step.equals(PROPOSAL)) {
+        if (!step.equals(FINAL_REPORT)) {
             throw new InvalidStepException(loginId);
         }
     }
     
-    public ProposalResponseDto findProposal(Long applyId) {
+    public FinalResponseDto findFinal(Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
-        Proposal proposal = proposalRepository.findByApply(apply)
+        Final finalReport = finalRepository.findByApply(apply)
                 .orElseThrow(NoSuchApplyException::new);
-        return ProposalResponseDto.of(proposal, apply);
+        return FinalResponseDto.of(finalReport, apply);
     }
     
-    public void approveProposal(Long applyId) {
+    public void approveFinal(Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
-        Proposal proposal = proposalRepository.findByApply(apply)
+        Final finalReport = finalRepository.findByApply(apply)
                 .orElseThrow(NoSuchApplyException::new);
     
-        updateProposal(apply, proposal, APPROVAL, INTERIM_REPORT);
+        updateFinal(apply, finalReport, APPROVAL, Status.APPROVAL, FINAL_PASS);
     }
     
-    public void rejectProposal(Long applyId, String rejectReason) {
+    public void rejectFinal(Long applyId, String rejectReason) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
-        Proposal proposal = proposalRepository.findByApply(apply)
+        Final finalReport = finalRepository.findByApply(apply)
                 .orElseThrow(NoSuchApplyException::new);
     
-        updateProposal(apply, proposal, Approval.REJECT, REJECT, rejectReason);
+        updateFinal(apply, finalReport, REJECT, Status.REJECT, rejectReason);
     }
     
-    private void updateProposal(
+    private void updateFinal(
             Apply apply,
-            Proposal proposal,
+            Final finalReport,
             Approval approval,
+            Status status,
             Step step
     ) {
-        proposal.changeApproval(approval);
+        finalReport.changeApproval(approval);
         changeGraduateStep(apply, step);
+        changeGraduateStatus(apply, status);
     }
     
-    private void updateProposal(
+    private void updateFinal(
             Apply apply,
-            Proposal proposal,
+            Final finalReport,
             Approval approval,
             Status status,
             String rejectReason
     ) {
-        proposal.changeApproval(approval);
-        proposal.changeRejectReason(rejectReason);
+        finalReport.changeApproval(approval);
+        finalReport.changeRejectReason(rejectReason);
         changeGraduateStatus(apply, status);
     }
     

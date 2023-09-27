@@ -1,16 +1,16 @@
 package com.kyonggi.Capstone_Develop.service.situation;
 
-import com.kyonggi.Capstone_Develop.controller.dto.situation.interim.InterimSaveRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.situation.finalreport.FinalSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.situation.proposal.ProposalSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
-import com.kyonggi.Capstone_Develop.domain.situation.Interim;
+import com.kyonggi.Capstone_Develop.domain.situation.Final;
 import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.*;
-import com.kyonggi.Capstone_Develop.exception.DuplicateInterimException;
+import com.kyonggi.Capstone_Develop.exception.DuplicateFinalException;
 import com.kyonggi.Capstone_Develop.exception.DuplicateProposalException;
 import com.kyonggi.Capstone_Develop.exception.InvalidStepException;
 import com.kyonggi.Capstone_Develop.service.ServiceTest;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.interim.InterimResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
-class InterimServiceTest extends ServiceTest {
+class FinalServiceTest extends ServiceTest {
     private Student student;
     
     private Student student2;
@@ -71,7 +71,7 @@ class InterimServiceTest extends ServiceTest {
         graduation = new Graduation(
                 Method.THESIS,
                 Status.UNAPPROVAL,
-                INTERIM_REPORT,
+                FINAL_REPORT,
                 true,
                 LocalDate.MAX,
                 "김교수님"
@@ -98,106 +98,107 @@ class InterimServiceTest extends ServiceTest {
     
     @Test
     @DisplayName("중복 신청을 하면 예외가 발생한다.")
-    void throwException_DuplicateInterim() {
+    void throwException_DuplicateFinal() {
         // given
-        InterimSaveRequest interimSaveRequest1 = createInterimSaveRequest();
-        InterimSaveRequest interimSaveRequest2 = createInterimSaveRequest();
-        
+        FinalSaveRequest finalSaveRequest1 = createFinalSaveRequest();
+        FinalSaveRequest finalSaveRequest2 = createFinalSaveRequest();
+    
         // when
-        interimService.saveInterim(interimSaveRequest1.toServiceDto(), student.getId());
+        finalService.saveFinal(finalSaveRequest1.toServiceDto(), student.getId());
         
         // then
-        assertThatThrownBy(() -> interimService.saveInterim(interimSaveRequest2.toServiceDto(), student.getId()))
-                .isInstanceOf(DuplicateInterimException.class)
-                .hasMessage("이미 중간보고서 제출 되었습니다. loginId={%s}", student.getLoginId());
+        assertThatThrownBy(() -> finalService.saveFinal(finalSaveRequest2.toServiceDto(), student.getId()))
+                .isInstanceOf(DuplicateFinalException.class)
+                .hasMessage("이미 최종보고서 제출 되었습니다. loginId={%s}", student.getLoginId());
     }
     
     @Test
-    @DisplayName("중간 보고서 단계가 아닌 학생은 예외가 발생한다.")
+    @DisplayName("최종보고서 단계가 아닌 학생은 예외가 발생한다.")
     void throwException_invalidStep() {
         // given
-        InterimSaveRequest interimSaveRequest = createInterimSaveRequest();
+        FinalSaveRequest finalSaveRequest = createFinalSaveRequest();
     
         // then
-        assertThatThrownBy(() -> interimService.saveInterim(interimSaveRequest.toServiceDto(), student2.getId()))
+        assertThatThrownBy(() -> finalService.saveFinal(finalSaveRequest.toServiceDto(), student2.getId()))
                 .isInstanceOf(InvalidStepException.class)
                 .hasMessage("올바르지 않은 단계의 신청입니다. loginId={%s}", student2.getLoginId());
     }
     
     @Test
-    @DisplayName("중간 보고서 폼을 저장하고 id로 조회한다.")
-    void saveInterimAndFind() {
+    @DisplayName("최종 보고서 폼을 저장하고 id로 조회한다.")
+    void saveFinalAndFind() {
         // given
-        InterimSaveRequest interimSaveRequest = createInterimSaveRequest();
-        Long interimId = interimService.saveInterim(interimSaveRequest.toServiceDto(), student.getId())
+        FinalSaveRequest finalSaveRequest = createFinalSaveRequest();
+        Long finalId = finalService.saveFinal(finalSaveRequest.toServiceDto(), student.getId())
                 .getId();
         
         // when
-        InterimResponseDto interimResponseDto = interimService.findInterim(apply.getId());
+        FinalResponseDto finalResponseDto = finalService.findFinal(apply.getId());
     
         // then
-        assertThat(interimResponseDto).extracting("interimId", "applyId", "title", "division", "text",
-                        "plan", "rejectReason")
+        assertThat(finalResponseDto).extracting("proposalId", "applyId", "title", "division", "qualification",
+                        "pageNumber", "rejectReason")
                 .containsExactly(
-                        interimId,
+                        finalId,
                         apply.getId(),
-                        interimSaveRequest.getTitle(),
-                        interimSaveRequest.getDivision(),
-                        interimSaveRequest.getText(),
-                        interimSaveRequest.getPlan(),
+                        finalSaveRequest.getTitle(),
+                        finalSaveRequest.getDivision(),
+                        finalSaveRequest.getQualification(),
+                        finalSaveRequest.getPageNumber(),
                         null
                 );
     }
     
     @Test
-    @DisplayName("최종 보고서 폼을 승인한다.")
-    void approveInterim() {
+    @DisplayName("최종보고서 폼을 승인한다.")
+    void approveFinal() {
         // given
-        InterimSaveRequest interimSaveRequest = createInterimSaveRequest();
-        Long interimId = interimService.saveInterim(interimSaveRequest.toServiceDto(), student.getId())
+        FinalSaveRequest finalSaveRequest = createFinalSaveRequest();
+        Long finalId = finalService.saveFinal(finalSaveRequest.toServiceDto(), student.getId())
                 .getId();
-    
-        // when
-        interimService.approveInterim(apply.getId());
-        Interim interim = interimRepository.findById(interimId)
-                .orElseThrow();
         
+        // when
+        finalService.approveFinal(apply.getId());
+        Final finalReport = finalRepository.findById(finalId)
+                .orElseThrow();
+    
         // then
         assertAll(
-                () -> assertThat(interim.getApproval()).isEqualTo(APPROVAL),
-                () -> assertThat(graduation.getStep()).isEqualTo(FINAL_REPORT)
+                () -> assertThat(finalReport.getApproval()).isEqualTo(APPROVAL),
+                () -> assertThat(graduation.getStep()).isEqualTo(FINAL_PASS),
+        () -> assertThat(graduation.getStatus()).isEqualTo(Status.APPROVAL)
         );
     }
     
     @Test
-    @DisplayName("최종 보고서 폼을 반려한다.")
-    void rejectInterim() {
+    @DisplayName("최종보고서 폼을 반려한다.")
+    void rejectFinal() {
         // given
-        InterimSaveRequest interimSaveRequest = createInterimSaveRequest();
-        Long interimId = interimService.saveInterim(interimSaveRequest.toServiceDto(), student.getId())
+        FinalSaveRequest finalSaveRequest = createFinalSaveRequest();
+        Long finalId = finalService.saveFinal(finalSaveRequest.toServiceDto(), student.getId())
                 .getId();
         String expectedRejectReason = "expectedRejectReason";
         
         // when
-        interimService.rejectInterim(apply.getId(), expectedRejectReason);
-        Interim interim = interimRepository.findById(interimId)
+        finalService.rejectFinal(apply.getId(), expectedRejectReason);
+        Final finalReport = finalRepository.findById(finalId)
                 .orElseThrow();
         
         // then
         assertAll(
-                () -> assertThat(interim.getApproval()).isEqualTo(REJECT),
-                () -> assertThat(graduation.getStep()).isEqualTo(INTERIM_REPORT),
+                () -> assertThat(finalReport.getApproval()).isEqualTo(REJECT),
+                () -> assertThat(graduation.getStep()).isEqualTo(FINAL_REPORT),
                 () -> assertThat(graduation.getStatus()).isEqualTo(Status.REJECT),
-                () -> assertThat(interim.getRejectReason()).isEqualTo(expectedRejectReason)
+                () -> assertThat(finalReport.getRejectReason()).isEqualTo(expectedRejectReason)
         );
     }
     
-    private InterimSaveRequest createInterimSaveRequest() {
-        return new InterimSaveRequest(
+    private FinalSaveRequest createFinalSaveRequest() {
+        return new FinalSaveRequest(
                 "title",
                 "division",
-                "text",
-                "plan"
+                "qualification",
+                20
         );
     }
 }
