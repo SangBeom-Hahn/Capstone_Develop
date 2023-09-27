@@ -1,10 +1,11 @@
 package com.kyonggi.Capstone_Develop.controller.dto.student;
 
+import com.kyonggi.Capstone_Develop.domain.student.Classification;
 import com.kyonggi.Capstone_Develop.domain.student.Email;
-import com.kyonggi.Capstone_Develop.domain.student.Grade;
 import com.kyonggi.Capstone_Develop.domain.student.PhoneNumber;
 import com.kyonggi.Capstone_Develop.domain.student.Sex;
 import com.kyonggi.Capstone_Develop.service.dto.student.StudentRequestDto;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,52 +14,54 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
+import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.*;
+
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StudentRequest {
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    private String loginId;
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String studentId;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{2,16}$",
-            message = "2자 이상의 16자 이하의 숫자, 영문자, 특수문자를 포함한 비밀번호를 입력해주세요.")
-    private String password;
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
+    @Pattern(regexp = PASSWORD_FORMAT,
+            message = MEMBER_PW_MESSAGE)
+    private String studentPassword;
+    
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String studentName;
+    
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String sex;
+    @NotNull(message = EMPTY_MESSAGE)
     private LocalDate birth;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    private String department;
-    
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    private String grade;
-    
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
-    private String phoneNumber;
-    
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
-    private String sex;
-    
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    private String name;
-    
-    @NotNull(message = "비어있는 항목을 입력해주세요.")
+    @NotBlank(message = EMPTY_MESSAGE)
     private String email;
     
-    @NotBlank(message = "비어있는 항목을 입력해주세요.")
-    private String studentNumber;
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String phoneNumber;
+    
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String classification;
+    
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String department;
+    
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String answerPw;
     
     public StudentRequestDto toServiceDto() {
         return new StudentRequestDto(
-                loginId,
-                password,
+                studentId,
+                studentPassword,
+                studentName,
+                Sex.from(sex),
                 birth,
-                department,
-                Grade.valueOf(grade),
-                PhoneNumber.from(phoneNumber),
-                Sex.valueOf(sex),
-                name,
                 Email.from(email),
-                studentNumber
+                PhoneNumber.from(phoneNumber),
+                Classification.from(classification),
+                department,
+                answerPw
         );
     }
 }

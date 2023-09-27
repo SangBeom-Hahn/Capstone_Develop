@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const SignUp = () => {
@@ -14,9 +15,10 @@ const SignUp = () => {
     const [major, setMajor] = useState('');
     const [questionPw, setQuestionPw] = useState('');
     const [answerPw, setAnswerPw] = useState('');
+    const navigate = useNavigate();
 
 
-    // 학과 선택 함수
+    // 학과 선택
     const majorOptions = () => {
         const majorOptions = [
             '컴퓨터공학부',
@@ -44,15 +46,12 @@ const SignUp = () => {
         ));
     };
 
-    // 아이디 유효성 검사 함수
     const validateId = () => {
         const idRegExp = /^[0-9]{9}$/g;
-        // 아이디를 입력하지 않은 경우
         if (!idInput) {
             alert('아이디를 입력해주세요.');
             return false;
         }
-        // 아이디는 숫자 9자리만 받기
         if (!idRegExp.test(idInput)) {
             alert('아이디가 형식에 맞지 않습니다.');
             return false;
@@ -61,7 +60,6 @@ const SignUp = () => {
         return true;
     };
 
-    // 비밀번호 유효성 검사 함수
     const validatePw = () => {
         const pwRegExp = /^(?=.*?[a-zA-Z])(?=.*?[#?!@$ %^&*-]).{8,40}$/;
         if (!password) {
@@ -84,7 +82,6 @@ const SignUp = () => {
         return true;
     };
 
-    // 아이디, 비밀번호를 제외한 요소들의 유효성 검사 함수
     const validateUserInfo = () => {
         if (!name) {
             alert('이름을 입력하세요');
@@ -117,10 +114,9 @@ const SignUp = () => {
         return true;
     };
 
-    // 회원가입 함수
     const handleSignUp = (event) => {
         event.preventDefault();
-        // 아이디 중복확인
+        // 아이디 중복 확인
         if (isCheckedId === 0 || isChangedId === 1) {
             alert('아이디 중복 확인을 해주세요');
             return false;
@@ -133,7 +129,7 @@ const SignUp = () => {
         if (!validatePw()) {
             return;
         }
-        // 성별, 이메일, 전화번호, 전공, 비밀번호 찾기 질문 답변 유효성 검사
+        // 질문 유효성 검사
         if (!validateUserInfo()) {
             return;
         }
@@ -160,7 +156,9 @@ const SignUp = () => {
                 },
             })
             .then((response) => {
-                window.location.replace(response.data);
+                console.log('회원가입 성공');
+                alert('회원가입이 완료되었습니다.');
+                navigate('/api/home');
             })
             .catch((error) => {
                 alert(error.response.data.errorMessage);
@@ -168,16 +166,25 @@ const SignUp = () => {
     };
 
     // 아이디 중복 확인 함수
-    const checkId = () => {
+    const checkId = async () => {
         // 아이디 유효성 검사
         if (!validateId()) {
             return;
         }
-        // TODO: 서버와 통신하여 아이디 중복 확인 로직 추가
+        try {
+          const userData = {
+            studentId: idInput
+          };
+          const response = await axios.post('/api/user/duplicate-check', userData);
+          setIsCheckedId(1); // 중복확인 완료됨.
+          setIsChangedId(0);
+          alert('사용 가능한 아이디입니다.');
 
-        setIsCheckedId(1); // 중복확인 완료됨
-        setIsChangedId(0);
-        alert('사용 가능한 아이디입니다.');
+        } catch (error) {
+          setIsCheckedId(0); // 중복확인이 되지 않음.
+          setIdInput(''); // 아이디 입력값 초기화
+          alert(error.response.data.errorMessage);
+        }
     };
 
     return (
@@ -187,9 +194,9 @@ const SignUp = () => {
                 <div className="container">
                     <div className="row g-0">
                         <div className="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 space-top-3 space-lg-0">
-                            <a href="/api/home" className="d-flex justify-content-center align-items-center">
+                            <Link to="/api/home" className="d-flex justify-content-center align-items-center">
                                 <img src="/img/cspop_logo.png" alt="" width="130em" />
-                            </a>
+                            </Link>
                             <br />
                             {/* Form */}
                             <form onSubmit={handleSignUp} className="bg-white p-4 p-xl-6 p-xxl-8 p-lg-4 rounded-3 border" style={{ maxWidth: "500px", margin: "0 auto" }}>
@@ -220,14 +227,14 @@ const SignUp = () => {
                                         type="password"
                                         id="password"
                                         className="form-control"
-                                        placeholder="8~16자 영문 대소문자,특수문자를 사용하세요."
+                                        placeholder="16자 이하의 숫자,영문자,특수문자를 입력해주세요."
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
                                     />
                                 </div>
                                 <div className="mb-3 ">
-                                    <label htmlFor="password" className="form-label">비밀번호 확인</label>
+                                    <label htmlFor="confirmPassword" className="form-label">비밀번호 확인</label>
                                     <input
                                         type="password"
                                         id="confirmPassword"
@@ -361,7 +368,7 @@ const SignUp = () => {
                                 </div>
                                 <div className="d-xxl-flex justify-content-end mt-4 ">
                                     <span className="text-muted font-15 mb-0 ">
-                                        이미 회원이십니까? <a href="/api/login">로그인</a>
+                                        이미 회원이십니까? <Link to="/api/login">로그인</Link>
                                     </span>
                                 </div>
                             </form>

@@ -36,7 +36,7 @@ const Home = () => {
    };
   const handleNotice = () => {
     if (isLoggedIn) {
-      navigate('/api/notice');
+      navigate('/api/noticeboards');
     } else {
         alert('로그인이 필요합니다.');
     }

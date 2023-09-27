@@ -3,7 +3,6 @@ package com.kyonggi.Capstone_Develop.config;
 import com.kyonggi.Capstone_Develop.controller.auth.AdminInterceptor;
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipalArgumentResolver;
 import com.kyonggi.Capstone_Develop.controller.auth.LoginInterceptor;
-import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import com.kyonggi.Capstone_Develop.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,6 @@ import java.util.List;
 public class AuthenticationPrincipalConfig implements WebMvcConfigurer {
     
     private final JwtTokenProvider jwtTokenProvider;
-    private final StudentRepository studentRepository;
     
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
@@ -27,7 +25,8 @@ public class AuthenticationPrincipalConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/login/auth")
                 .excludePathPatterns("/api/logout")
-                .excludePathPatterns("/api/students");
+                .excludePathPatterns("/api/user")
+                .excludePathPatterns("/api/user/duplicate-check");
     
         registry.addInterceptor(new AdminInterceptor(jwtTokenProvider))
                 .order(2)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
+import Header from './Common/Header';
 
 const Guide = ({ userId }) => {
   const [data, setData] = useState({ text: '', id: '' });
