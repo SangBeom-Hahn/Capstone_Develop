@@ -10,7 +10,9 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name = "apply")
+@Table(name = "apply" , indexes = {
+        @Index(name = "apply_student_index", columnList = "student_id")
+})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Apply extends BaseEntity {
     @Id

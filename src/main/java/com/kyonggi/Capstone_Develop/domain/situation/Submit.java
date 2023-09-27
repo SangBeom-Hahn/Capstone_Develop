@@ -11,7 +11,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "submit_form")
+@Table(name = "submit_form", indexes = {
+        @Index(name = "submit_apply_index", columnList = "apply_id")
+})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Submit extends BaseEntity {

@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "proposal_form")
+@Table(name = "proposal_form", indexes = {
+        @Index(name = "proposal_apply_index", columnList = "apply_id")
+})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Proposal extends BaseEntity {

@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "refresh_token")
+@Table(name = "refresh_token", indexes = {
+        @Index(name = "refresh_token_member_id", columnList = "member_id")
+})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken {
     private static final int EXPIRED_DAYS = 7;
