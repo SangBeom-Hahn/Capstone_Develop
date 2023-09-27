@@ -18,4 +18,7 @@ public abstract class RepositoryTest {
     
     @Autowired
     protected NoticeBoardRepository noticeBoardRepository;
+    
+    @Autowired
+    protected GuidanceBoardRepository guidanceBoardRepository;
 }

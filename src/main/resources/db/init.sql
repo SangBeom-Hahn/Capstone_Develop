@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
+DROP TABLE IF EXISTS guidance_board;
 
 CREATE TABLE `student` (
                            `student_id` bigint NOT NULL AUTO_INCREMENT,
@@ -58,6 +59,15 @@ CREATE TABLE `comment` (
     CONSTRAINT `fk_comment_student`
         FOREIGN KEY (`student_id`)
             REFERENCES `student` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE guidance_board
+(
+    `guidance_board_id`  BIGINT       NOT NULL auto_increment,,
+    `created_date`       DATETIME(6)  not NULL,
+    `last_modified_date` DATETIME(6)  not NULL,
+    `content`               VARCHAR(15000) not NULL,
+    PRIMARY KEY (`guidance_board_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO student
@@ -125,3 +135,6 @@ VALUES (13, 1, 'content13', false, 'title13', 1, '1999-10-13', '1999-10-13');
 
 INSERT INTO comment
 VALUES (1, 1, 2, '댓글 1', '1999-10-13', '1999-10-13');
+
+INSERT INTO `guidance_board`
+VALUES (1, '2023-08-29', '2023-08-31', 'content');

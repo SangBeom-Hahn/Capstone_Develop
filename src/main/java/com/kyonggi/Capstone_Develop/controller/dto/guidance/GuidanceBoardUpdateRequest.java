@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.controller.dto.comment;
+package com.kyonggi.Capstone_Develop.controller.dto.guidance;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
-import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_MESSAGE;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CommentSaveRequest {
-    @NotBlank(message = EMPTY_MESSAGE)
+public class GuidanceBoardUpdateRequest {
+    @NotBlank
     private String content;
 }
