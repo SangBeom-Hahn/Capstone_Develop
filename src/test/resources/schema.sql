@@ -113,3 +113,31 @@ CREATE TABLE `proposal_form` (
     `last_modified_date` DATETIME NOT NULL,
     PRIMARY KEY (`proposal_form_id`)
 );
+
+CREATE TABLE `interim_form` (
+    `interim_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `apply_id` BIGINT NOT NULL,
+    `title` VARCHAR(45) NOT NULL,
+    `division` VARCHAR(45) NOT NULL,
+    `text` VARCHAR(255) NOT NULL,
+    `plan` VARCHAR(255) NOT NULL,
+    `approval` VARCHAR(45) NOT NULL,
+    `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+    `created_date` DATETIME NOT NULL,
+    `last_modified_date` DATETIME NOT NULL,
+    PRIMARY KEY (`interim_form_id`)
+);
+
+CREATE TABLE `final_form` (
+    `final_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `apply_id` BIGINT NOT NULL,
+    `title` VARCHAR(45) NOT NULL,
+    `division` VARCHAR(45) NOT NULL,
+    `qualification` VARCHAR(45) NOT NULL,
+    `page_number` INTEGER NOT NULL,
+    `approval` VARCHAR(45) NOT NULL,
+    `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+    `created_date` DATETIME NOT NULL,
+    `last_modified_date` DATETIME NOT NULL,
+    PRIMARY KEY (`final_form_id`)
+);

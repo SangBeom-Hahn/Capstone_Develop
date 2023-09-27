@@ -1,6 +1,7 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.repository.*;
+import com.kyonggi.Capstone_Develop.service.situation.InterimService;
 import com.kyonggi.Capstone_Develop.service.situation.ProposalService;
 import com.kyonggi.Capstone_Develop.service.situation.SubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,10 @@ public abstract class ServiceTest {
     
     @Autowired
     protected ProposalRepository proposalRepository;
+    
+    @Autowired
+    protected InterimService interimService;
+    
+    @Autowired
+    protected InterimRepository interimRepository;
 }

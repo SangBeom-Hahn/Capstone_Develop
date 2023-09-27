@@ -119,6 +119,34 @@ CREATE TABLE `proposal_form` (
      PRIMARY KEY (`proposal_form_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `interim_form` (
+     `interim_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+     `apply_id` BIGINT NOT NULL,
+     `title` VARCHAR(45) NOT NULL,
+     `division` VARCHAR(45) NOT NULL,
+     `text` VARCHAR(255) NOT NULL,
+     `plan` VARCHAR(255) NOT NULL,
+     `approval` VARCHAR(45) NOT NULL,
+     `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+     `created_date` DATETIME NOT NULL,
+     `last_modified_date` DATETIME NOT NULL,
+     PRIMARY KEY (`interim_form_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `final_form` (
+     `final_form_id` BIGINT NOT NULL AUTO_INCREMENT,
+     `apply_id` BIGINT NOT NULL,
+     `title` VARCHAR(45) NOT NULL,
+     `division` VARCHAR(45) NOT NULL,
+     `qualification` VARCHAR(45) NOT NULL,
+     `page_number` INTEGER NOT NULL,
+     `approval` VARCHAR(45) NOT NULL,
+     `reject_reason` VARCHAR(45) NULL DEFAULT NULL,
+     `created_date` DATETIME NOT NULL,
+     `last_modified_date` DATETIME NOT NULL,
+     PRIMARY KEY (`final_form_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 INSERT INTO student
 VALUES (1, '2023-03-14 12:35:29.857156', '2023-03-14 12:35:29.857156', '1111-11-11',
         'ADMIN', 'dummy',

@@ -30,4 +30,7 @@ public abstract class RepositoryTest {
     
     @Autowired
     protected ProposalRepository proposalRepository;
+    
+    @Autowired
+    protected InterimRepository interimRepository;
 }
