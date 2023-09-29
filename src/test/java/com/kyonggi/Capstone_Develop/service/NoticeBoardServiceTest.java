@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.service;
 
+import com.kyonggi.Capstone_Develop.controller.dto.PageInfo;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeboard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.domain.Comment;
@@ -10,6 +11,7 @@ import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.AllNoticeBoardResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardsResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -107,14 +109,16 @@ class NoticeBoardServiceTest extends ServiceTest{
     @DisplayName("모든 공지사항을 페이지 단위로 조회한다.")
     void findAll() {
         // given
-        List<AllNoticeBoardResponseDto> actual = noticeBoardService.findAllNoticeBoard(0, 3)
-                .getNoticeBoards();
-    
-        List<AllNoticeBoardResponseDto> expected = List.of(
+        NoticeBoardsResponseDto actual = noticeBoardService.findAllNoticeBoard(0, 3);
+        List<AllNoticeBoardResponseDto> allNoticeBoardResponseDtos = List.of(
                 AllNoticeBoardResponseDto.from(noticeBoard3),
                 AllNoticeBoardResponseDto.from(noticeBoard2),
                 AllNoticeBoardResponseDto.from(noticeBoard1)
         );
+        PageInfo pageInfo = PageInfo.of(0, 1, 3, 3);
+        
+        // when
+        NoticeBoardsResponseDto expected = NoticeBoardsResponseDto.of(allNoticeBoardResponseDtos, pageInfo);
       
         // then
         assertThat(actual)
