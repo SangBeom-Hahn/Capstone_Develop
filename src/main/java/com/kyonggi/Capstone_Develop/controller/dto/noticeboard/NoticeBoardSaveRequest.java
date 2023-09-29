@@ -11,19 +11,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_MESSAGE;
+import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.NOTICE_BOARD_SIZE_MESSAGE;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class NoticeBoardSaveRequest {
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = NOTICE_BOARD_SIZE_MESSAGE)
     @NotBlank(message = EMPTY_MESSAGE)
     private String content;
     
     @NotNull(message = EMPTY_MESSAGE)
     private Boolean fix;
     
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = NOTICE_BOARD_SIZE_MESSAGE)
     @NotBlank(message = EMPTY_MESSAGE)
     private String title;
     

@@ -6,21 +6,23 @@ import com.kyonggi.Capstone_Develop.domain.graduation.Status;
 import com.kyonggi.Capstone_Develop.domain.graduation.Step;
 import com.kyonggi.Capstone_Develop.domain.situation.Approval;
 import com.kyonggi.Capstone_Develop.domain.situation.Final;
-import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
-import com.kyonggi.Capstone_Develop.exception.*;
+import com.kyonggi.Capstone_Develop.exception.DuplicateFinalException;
+import com.kyonggi.Capstone_Develop.exception.InvalidStepException;
+import com.kyonggi.Capstone_Develop.exception.NoSuchApplyException;
+import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.repository.ApplyRepository;
 import com.kyonggi.Capstone_Develop.repository.FinalRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalSaveRequestDto;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalSaveResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.*;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.FINAL_PASS;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.FINAL_REPORT;
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.*;
 
 @Service

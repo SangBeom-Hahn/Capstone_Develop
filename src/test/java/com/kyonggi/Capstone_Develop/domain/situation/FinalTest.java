@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.UNAPPROVAL;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class FinalTest {
     @Test

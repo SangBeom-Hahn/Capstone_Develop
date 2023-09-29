@@ -1,7 +1,6 @@
 package com.kyonggi.Capstone_Develop.controller.dto.situation.interim;
 
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.interim.InterimSaveRequestDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalSaveRequestDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

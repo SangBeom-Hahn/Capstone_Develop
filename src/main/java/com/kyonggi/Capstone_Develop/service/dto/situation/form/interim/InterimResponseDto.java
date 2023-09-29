@@ -2,12 +2,8 @@ package com.kyonggi.Capstone_Develop.service.dto.situation.form.interim;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.Apply;
 import com.kyonggi.Capstone_Develop.domain.situation.Interim;
-import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.persistence.Column;
 
 @Getter
 @AllArgsConstructor

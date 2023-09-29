@@ -1,29 +1,26 @@
 package com.kyonggi.Capstone_Develop.service.situation;
 
 import com.kyonggi.Capstone_Develop.controller.dto.situation.finalreport.FinalSaveRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.situation.proposal.ProposalSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import com.kyonggi.Capstone_Develop.domain.situation.Final;
-import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.DuplicateFinalException;
-import com.kyonggi.Capstone_Develop.exception.DuplicateProposalException;
 import com.kyonggi.Capstone_Develop.exception.InvalidStepException;
 import com.kyonggi.Capstone_Develop.service.ServiceTest;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.finalreport.FinalResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.*;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.FINAL_PASS;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.FINAL_REPORT;
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.APPROVAL;
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.REJECT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class FinalServiceTest extends ServiceTest {
     private Student student;

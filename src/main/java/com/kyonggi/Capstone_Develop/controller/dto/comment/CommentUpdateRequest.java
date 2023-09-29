@@ -1,4 +1,4 @@
-package com.kyonggi.Capstone_Develop.controller.dto.auth;
+package com.kyonggi.Capstone_Develop.controller.dto.comment;
 
 import lombok.AccessLevel;
 import lombok.Getter;

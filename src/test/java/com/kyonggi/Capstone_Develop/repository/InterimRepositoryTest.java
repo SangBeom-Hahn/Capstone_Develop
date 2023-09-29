@@ -2,7 +2,6 @@ package com.kyonggi.Capstone_Develop.repository;
 
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import com.kyonggi.Capstone_Develop.domain.situation.Interim;
-import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,8 +11,7 @@ import java.time.LocalDate;
 
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.UNAPPROVAL;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InterimRepositoryTest extends RepositoryTest{
     private Student student;

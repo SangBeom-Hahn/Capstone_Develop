@@ -1,9 +1,9 @@
 package com.kyonggi.Capstone_Develop.controller;
 
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipal;
-import com.kyonggi.Capstone_Develop.controller.dto.auth.CommentUpdateRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.comment.CommentSaveRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.comment.CommentUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.CommentService;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentSaveResponseDto;
 import lombok.RequiredArgsConstructor;

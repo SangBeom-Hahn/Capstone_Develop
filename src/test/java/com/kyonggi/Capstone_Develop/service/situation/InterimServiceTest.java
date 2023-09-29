@@ -1,29 +1,26 @@
 package com.kyonggi.Capstone_Develop.service.situation;
 
 import com.kyonggi.Capstone_Develop.controller.dto.situation.interim.InterimSaveRequest;
-import com.kyonggi.Capstone_Develop.controller.dto.situation.proposal.ProposalSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.graduation.*;
 import com.kyonggi.Capstone_Develop.domain.situation.Interim;
-import com.kyonggi.Capstone_Develop.domain.situation.Proposal;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.DuplicateInterimException;
-import com.kyonggi.Capstone_Develop.exception.DuplicateProposalException;
 import com.kyonggi.Capstone_Develop.exception.InvalidStepException;
 import com.kyonggi.Capstone_Develop.service.ServiceTest;
 import com.kyonggi.Capstone_Develop.service.dto.situation.form.interim.InterimResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.situation.form.proposal.ProposalResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static com.kyonggi.Capstone_Develop.domain.graduation.Step.*;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.FINAL_REPORT;
+import static com.kyonggi.Capstone_Develop.domain.graduation.Step.INTERIM_REPORT;
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.APPROVAL;
 import static com.kyonggi.Capstone_Develop.domain.situation.Approval.REJECT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InterimServiceTest extends ServiceTest {
     private Student student;
