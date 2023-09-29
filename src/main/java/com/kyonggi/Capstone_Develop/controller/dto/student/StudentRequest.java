@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.domain.student.Email;
 import com.kyonggi.Capstone_Develop.domain.student.PhoneNumber;
 import com.kyonggi.Capstone_Develop.domain.student.Sex;
 import com.kyonggi.Capstone_Develop.service.dto.student.StudentRequestDto;
+import com.kyonggi.Capstone_Develop.utils.validator.ValidGender;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class StudentRequest {
     @NotBlank(message = EMPTY_MESSAGE)
     private String studentName;
     
+    @ValidGender
     @NotBlank(message = EMPTY_MESSAGE)
     private String sex;
     @NotNull(message = EMPTY_MESSAGE)

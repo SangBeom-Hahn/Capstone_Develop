@@ -18,7 +18,6 @@ class ValidPasswordValidatorTest {
     @BeforeEach
     public void setUp() {
         validator = new ValidPasswordValidator();
-        
         context = mock(ConstraintValidatorContext.class);
     }
     
