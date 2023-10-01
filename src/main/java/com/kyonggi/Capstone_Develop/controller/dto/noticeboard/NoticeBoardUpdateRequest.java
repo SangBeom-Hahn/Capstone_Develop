@@ -14,13 +14,9 @@ import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NoticeBoardUpdateRequest {
-//    @Min(1)
-//    @Max(255)
     @NotBlank(message = EMPTY_MESSAGE)
     private String content;
     
-//    @Min(1)
-//    @Max(255)
     @NotBlank(message = EMPTY_MESSAGE)
     private String title;
     

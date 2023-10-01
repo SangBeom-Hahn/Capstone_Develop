@@ -32,7 +32,7 @@ public class GraduationService {
     private final ApplyRepository applyRepository;
 
     public GraduationSaveResponseDto save(
-            GraduationSaveRequestDto graduationSaveRequestDto, Long studentId
+            final GraduationSaveRequestDto graduationSaveRequestDto, final Long studentId
     ) {
         List<Apply> applies = applyRepository.findAllByStudentId(studentId);
         validateDuplicateApply(applies, studentId);
@@ -54,17 +54,17 @@ public class GraduationService {
         return GraduationSaveResponseDto.from(saveGraduation);
     }
 
-    private void validateDuplicateApply(List<Apply> applies, Long studentId) {
+    private void validateDuplicateApply(final List<Apply> applies, final Long studentId) {
         if (!applies.isEmpty()) {
             throw new DuplicateApplyException(getStudentLoginId(studentId));
         }
     }
 
-    private String getStudentLoginId(Long studentId) {
+    private String getStudentLoginId(final Long studentId) {
         return studentRepository.findById(studentId).get().getLoginId();
     }
 
-    private void saveApply(Student student, Graduation graduation) {
+    private void saveApply(final Student student, final Graduation graduation) {
         // cascade ALL
         new Apply(student, graduation);
     }

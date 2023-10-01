@@ -28,7 +28,7 @@ public class Apply extends BaseEntity {
     @JoinColumn(name = "graduation_id", foreignKey = @ForeignKey(name = "fk_apply_graduation"), nullable = false)
     private Graduation graduation;
     
-    public Apply(Student student, Graduation graduation) {
+    public Apply(final Student student, final Graduation graduation) {
         this.student = student;
         this.graduation = graduation;
         this.student.addApply(this);

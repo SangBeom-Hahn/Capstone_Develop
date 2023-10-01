@@ -11,7 +11,7 @@ public class StudentSignUpResponseDto {
     
     private Long id;
     
-    public static StudentSignUpResponseDto from(Student student) {
+    public static StudentSignUpResponseDto from(final Student student) {
         return new StudentSignUpResponseDto(student.getId());
     }
 }

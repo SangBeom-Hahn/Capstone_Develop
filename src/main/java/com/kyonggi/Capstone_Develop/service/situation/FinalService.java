@@ -35,7 +35,7 @@ public class FinalService {
     
     private final FinalRepository finalRepository;
     
-    public FinalSaveResponseDto saveFinal(FinalSaveRequestDto proposalSaveRequestDto, Long studentId) {
+    public FinalSaveResponseDto saveFinal(final FinalSaveRequestDto proposalSaveRequestDto, final Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
@@ -49,10 +49,10 @@ public class FinalService {
     
         Final finalReport = new Final(
                 apply,
-                "title",
-                "division",
-                "qualification",
-                20,
+                proposalSaveRequestDto.getTitle(),
+                proposalSaveRequestDto.getDivision(),
+                proposalSaveRequestDto.getQualification(),
+                proposalSaveRequestDto.getPageNumber(),
                 UNAPPROVAL,
                 null
         );
@@ -61,19 +61,19 @@ public class FinalService {
         return FinalSaveResponseDto.from(saveFinal);
     }
     
-    private void validateDuplicateFinal(String studentId, Apply apply) {
+    private void validateDuplicateFinal(final String studentId, final Apply apply) {
         if (finalRepository.existsByApply(apply)) {
             throw new DuplicateFinalException(studentId);
         }
     }
     
-    private void validateStep(Step step, String loginId) {
+    private void validateStep(final Step step, final String loginId) {
         if (!step.equals(FINAL_REPORT)) {
             throw new InvalidStepException(loginId);
         }
     }
     
-    public FinalResponseDto findFinal(Long applyId) {
+    public FinalResponseDto findFinal(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Final finalReport = finalRepository.findByApply(apply)
@@ -81,7 +81,7 @@ public class FinalService {
         return FinalResponseDto.of(finalReport, apply);
     }
     
-    public void approveFinal(Long applyId) {
+    public void approveFinal(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Final finalReport = finalRepository.findByApply(apply)
@@ -90,7 +90,7 @@ public class FinalService {
         updateFinal(apply, finalReport, APPROVAL, Status.APPROVAL, FINAL_PASS);
     }
     
-    public void rejectFinal(Long applyId, String rejectReason) {
+    public void rejectFinal(final Long applyId, final String rejectReason) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Final finalReport = finalRepository.findByApply(apply)
@@ -100,11 +100,11 @@ public class FinalService {
     }
     
     private void updateFinal(
-            Apply apply,
-            Final finalReport,
-            Approval approval,
-            Status status,
-            Step step
+            final Apply apply,
+            final Final finalReport,
+            final Approval approval,
+            final Status status,
+            final Step step
     ) {
         finalReport.changeApproval(approval);
         changeGraduateStep(apply, step);
@@ -112,23 +112,23 @@ public class FinalService {
     }
     
     private void updateFinal(
-            Apply apply,
-            Final finalReport,
-            Approval approval,
-            Status status,
-            String rejectReason
+            final Apply apply,
+            final Final finalReport,
+            final Approval approval,
+            final Status status,
+            final String rejectReason
     ) {
         finalReport.changeApproval(approval);
         finalReport.changeRejectReason(rejectReason);
         changeGraduateStatus(apply, status);
     }
     
-    private void changeGraduateStep(Apply apply, Step step) {
+    private void changeGraduateStep(final Apply apply, final Step step) {
         apply.getGraduation()
                 .changeStep(step);
     }
     
-    private void changeGraduateStatus(Apply apply, Status status) {
+    private void changeGraduateStatus(final Apply apply, final Status status) {
         apply.getGraduation()
                 .changeStatus(status);
     }

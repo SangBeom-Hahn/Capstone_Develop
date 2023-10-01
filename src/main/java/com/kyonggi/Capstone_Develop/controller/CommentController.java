@@ -21,9 +21,9 @@ public class CommentController {
     
     @PostMapping("/{noticeBoardId}")
     public ResponseEntity<CommentSaveResponseDto> createComment(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestBody @Valid CommentSaveRequest commentSaveRequest,
-            @PathVariable Long noticeBoardId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @RequestBody @Valid final CommentSaveRequest commentSaveRequest,
+            @PathVariable final Long noticeBoardId
     ) {
         CommentSaveResponseDto commentSaveResponseDto = commentService.save(
                 noticeBoardId,
@@ -37,9 +37,9 @@ public class CommentController {
     
     @PutMapping("/{commentId}")
     public ResponseEntity<Void> updateComment(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestBody @Valid CommentUpdateRequest commentUpdateRequest,
-            @PathVariable Long commentId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @RequestBody @Valid final CommentUpdateRequest commentUpdateRequest,
+            @PathVariable final Long commentId
     ) {
         commentService.updateComment(commentId, commentUpdateRequest.getContent());
         return ResponseEntity.noContent().build();
@@ -47,8 +47,8 @@ public class CommentController {
     
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long commentId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long commentId
     ) {
         commentService.deleteComment(commentId, loginMemberRequest.getId());
         return ResponseEntity.noContent().build();

@@ -22,7 +22,7 @@ public class SituationService {
     
     private final ApplyRepository applyRepository;
     
-    public SituationResponseDto findSituation(Long studentId) {
+    public SituationResponseDto findSituation(final Long studentId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new NoSuchMemberException(studentId));
         List<Apply> applies = applyRepository.findAllByStudentId(studentId);

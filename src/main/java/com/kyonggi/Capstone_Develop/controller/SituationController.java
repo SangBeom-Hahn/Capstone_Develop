@@ -42,8 +42,8 @@ public class SituationController {
     
     @GetMapping("/api/situations/{studentId}")
     public ResponseEntity<SituationResponseDto> findSituation(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long studentId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long studentId
     ) {
         SituationResponseDto situationResponseDto = situationService.findSituation(studentId);
         return ResponseEntity.ok(situationResponseDto);
@@ -51,9 +51,9 @@ public class SituationController {
     
     @PostMapping("/api/admins/situations/submit/{studentId}")
     public ResponseEntity<SubmitSaveResponseDto> createSubmit(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long studentId,
-            @RequestBody @Valid SubmitSaveRequest submitSaveRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long studentId,
+            @RequestBody @Valid final SubmitSaveRequest submitSaveRequest
     ) {
         SubmitSaveResponseDto submitSaveResponseDto =
                 submitService.saveSubmit(submitSaveRequest.toServiceDto(), studentId);
@@ -64,8 +64,8 @@ public class SituationController {
     
     @GetMapping("/api/situations/submit/{applyId}")
     public ResponseEntity<SubmitResponseDto> findSubmit(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId
     ) {
         SubmitResponseDto submitResponseDto = submitService.findSubmit(applyId);
         return ResponseEntity.ok(submitResponseDto);
@@ -73,9 +73,9 @@ public class SituationController {
     
     @PostMapping("/api/situations/proposal/{studentId}")
     public ResponseEntity<ProposalSaveResponseDto> createProposal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long studentId,
-            @RequestBody @Valid ProposalSaveRequest proposalSaveRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long studentId,
+            @RequestBody @Valid final ProposalSaveRequest proposalSaveRequest
     ) {
         ProposalSaveResponseDto proposalSaveResponseDto =
                 proposalService.saveProposal(proposalSaveRequest.toServiceDto(), studentId);
@@ -86,8 +86,8 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/proposal/approve/{applyId}")
     public ResponseEntity<Void> approveProposal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId
     ) {
         proposalService.approveProposal(applyId);
         return ResponseEntity.noContent().build();
@@ -95,9 +95,9 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/proposal/reject/{applyId}")
     public ResponseEntity<Void> rejectProposal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId,
-            @RequestBody @Valid ProposalRejectRequest proposalRejectRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId,
+            @RequestBody @Valid final ProposalRejectRequest proposalRejectRequest
     ) {
         proposalService.rejectProposal(applyId, proposalRejectRequest.getRejectReason());
         return ResponseEntity.noContent().build();
@@ -105,9 +105,9 @@ public class SituationController {
     
     @PostMapping("/api/situations/interim/{studentId}")
     public ResponseEntity<InterimSaveResponseDto> createInterim(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long studentId,
-            @RequestBody @Valid InterimSaveRequest interimSaveRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long studentId,
+            @RequestBody @Valid final InterimSaveRequest interimSaveRequest
     ) {
         InterimSaveResponseDto interimSaveResponseDto =
                 interimService.saveInterim(interimSaveRequest.toServiceDto(), studentId);
@@ -118,8 +118,8 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/interim/approve/{applyId}")
     public ResponseEntity<Void> approveInterim(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId
     ) {
         interimService.approveInterim(applyId);
         return ResponseEntity.noContent().build();
@@ -127,9 +127,9 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/interim/reject/{applyId}")
     public ResponseEntity<Void> rejectInterim(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId,
-            @RequestBody @Valid InterimRejectRequest interimRejectRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId,
+            @RequestBody @Valid final InterimRejectRequest interimRejectRequest
     ) {
         interimService.rejectInterim(applyId, interimRejectRequest.getRejectReason());
         return ResponseEntity.noContent().build();
@@ -137,9 +137,9 @@ public class SituationController {
     
     @PostMapping("/api/situations/final/{studentId}")
     public ResponseEntity<FinalSaveResponseDto> createFinal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long studentId,
-            @RequestBody @Valid FinalSaveRequest finalSaveRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long studentId,
+            @RequestBody @Valid final FinalSaveRequest finalSaveRequest
     ) {
         FinalSaveResponseDto finalSaveResponseDto =
                 finalService.saveFinal(finalSaveRequest.toServiceDto(), studentId);
@@ -150,8 +150,8 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/final/approve/{applyId}")
     public ResponseEntity<Void> approveFinal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId
     ) {
         finalService.approveFinal(applyId);
         return ResponseEntity.noContent().build();
@@ -159,9 +159,9 @@ public class SituationController {
     
     @PutMapping("/api/admins/situations/final/reject/{applyId}")
     public ResponseEntity<Void> rejectFinal(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long applyId,
-            @RequestBody @Valid FinalRejectRequest finalRejectRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long applyId,
+            @RequestBody @Valid final FinalRejectRequest finalRejectRequest
     ) {
         finalService.rejectFinal(applyId, finalRejectRequest.getRejectReason());
         return ResponseEntity.noContent().build();

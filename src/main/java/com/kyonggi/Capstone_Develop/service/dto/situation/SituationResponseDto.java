@@ -31,7 +31,7 @@ public class SituationResponseDto {
     
     private List<Long> applyIds;
     
-    public static SituationResponseDto of(Student student, Graduation graduation, List<Long> applyIds) {
+    public static SituationResponseDto of(final Student student, final Graduation graduation, final List<Long> applyIds) {
         return new SituationResponseDto(
                 student.getLoginId(),
                 student.getName(),

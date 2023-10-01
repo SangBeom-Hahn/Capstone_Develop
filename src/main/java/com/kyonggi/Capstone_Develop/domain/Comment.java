@@ -28,18 +28,18 @@ public class Comment extends BaseEntity{
     @Column(name = "content", length = 255, nullable = false)
     private String content;
     
-    public Comment(NoticeBoard noticeBoard, Student student, String content) {
+    public Comment(final NoticeBoard noticeBoard, final Student student, final String content) {
         this.noticeBoard = noticeBoard;
         this.student = student;
         this.noticeBoard.addComment(this);
         this.content = content;
     }
     
-    public void changeContent(String content) {
+    public void changeContent(final String content) {
         this.content = content;
     }
     
-    public boolean isStudent(Long studentId) {
+    public boolean isStudent(final Long studentId) {
         return this.student.isSameStudent(studentId);
     }
     

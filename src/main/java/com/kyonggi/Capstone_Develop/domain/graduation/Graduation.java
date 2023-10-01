@@ -46,12 +46,12 @@ public class Graduation extends BaseEntity {
     List<Apply> applies = new ArrayList<>();
     
     public Graduation(
-            Method method,
-            Status status,
-            Step step,
-            Boolean capstoneCompletion,
-            LocalDate graduationDate,
-            String professorName
+            final Method method,
+            final Status status,
+            final Step step,
+            final Boolean capstoneCompletion,
+            final LocalDate graduationDate,
+            final String professorName
     ) {
         this.method = method;
         this.status = status;
@@ -72,15 +72,15 @@ public class Graduation extends BaseEntity {
         }
     }
     
-    public void addApply(Apply apply) {
+    public void addApply(final Apply apply) {
         this.applies.add(apply);
     }
     
-    public void changeStep(Step step) {
+    public void changeStep(final Step step) {
         this.step = step;
     }
     
-    public void changeStatus(Status status) {
+    public void changeStatus(final Status status) {
         this.status = status;
     }
 }

@@ -17,16 +17,16 @@ public class Email {
     @Column(name = "email", length = 255, nullable = false)
     String value;
     
-    private Email(String value) {
+    private Email(final String value) {
         this.value = value;
     }
     
-    public static Email from(String value) {
+    public static Email from(final String value) {
         validateEmail(value);
         return new Email(value);
     }
     
-    private static void validateEmail(String value) {
+    private static void validateEmail(final String value) {
         Matcher matcher = PASSWORD_PATTERN.matcher(value);
         
         if (!matcher.matches()) {

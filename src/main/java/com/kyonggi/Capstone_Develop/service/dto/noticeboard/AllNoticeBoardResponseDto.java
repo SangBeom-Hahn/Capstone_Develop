@@ -19,7 +19,7 @@ public class AllNoticeBoardResponseDto {
     
     private Integer views;
     
-    public static AllNoticeBoardResponseDto from(NoticeBoard noticeBoard) {
+    public static AllNoticeBoardResponseDto from(final NoticeBoard noticeBoard) {
         return new AllNoticeBoardResponseDto(
                 noticeBoard.getId(),
                 noticeBoard.getTitle(),

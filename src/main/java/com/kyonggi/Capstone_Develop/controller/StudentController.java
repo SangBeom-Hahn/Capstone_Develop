@@ -23,7 +23,7 @@ public class StudentController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<StudentSignUpResponseDto> join(@RequestBody @Valid StudentRequest studentRequest) {
+    public ResponseEntity<StudentSignUpResponseDto> join(@RequestBody @Valid final StudentRequest studentRequest) {
         StudentSignUpResponseDto studentSignUpResponseDto = studentService.save(studentRequest.toServiceDto());
         return ResponseEntity
                 .created(URI.create("/api/students/" + studentSignUpResponseDto.getId()))
@@ -31,7 +31,7 @@ public class StudentController {
     }
     
     @PostMapping("/user/duplicate-check")
-    public ResponseEntity<Void> validateLoginIdHasDuplicate(@RequestBody @Valid StudentIdValidateRequest studentIdValidateRequest) {
+    public ResponseEntity<Void> validateLoginIdHasDuplicate(@RequestBody @Valid final StudentIdValidateRequest studentIdValidateRequest) {
         studentService.validateLoginIdHasDuplicate(studentIdValidateRequest.getStudentId());
         return ResponseEntity.noContent().build();
     }

@@ -23,8 +23,8 @@ public class GraduationController {
     
     @PostMapping("/api/graduations")
     public ResponseEntity<GraduationSaveResponseDto> create(
-            @RequestBody @Valid GraduationSaveRequest graduationSaveRequest,
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest
+            @RequestBody @Valid final GraduationSaveRequest graduationSaveRequest,
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest
     ) {
         GraduationSaveResponseDto graduationSaveResponseDto =
                 graduationService.save(graduationSaveRequest.toServiceDto(), loginMemberRequest.getId());
@@ -34,7 +34,7 @@ public class GraduationController {
     }
     
     @GetMapping("/api/admins/graduations")
-    public ResponseEntity<GraduationsResponseDto> findAllGraduation(@AuthenticationPrincipal LoginMemberRequest loginMemberRequest) {
+    public ResponseEntity<GraduationsResponseDto> findAllGraduation(@AuthenticationPrincipal final LoginMemberRequest loginMemberRequest) {
         return ResponseEntity.ok(
                 graduationService.findAllGraduation()
         );

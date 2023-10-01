@@ -22,8 +22,8 @@ public class NoticeBoardController {
     
     @PostMapping("/api/admins/noticeboards")
     public ResponseEntity<NoticeBoardSaveResponseDto> createNoticeBoard(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestBody @Valid NoticeBoardSaveRequest noticeBoardSaveRequest
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @RequestBody @Valid final NoticeBoardSaveRequest noticeBoardSaveRequest
     ) {
         NoticeBoardSaveResponseDto noticeBoardSaveResponseDto =
                 noticeBoardService.save(noticeBoardSaveRequest.toServiceDto(), loginMemberRequest.getId());
@@ -34,8 +34,8 @@ public class NoticeBoardController {
     
     @GetMapping("/api/noticeboards/{noticeBoardId}")
     public ResponseEntity<NoticeBoardResponseDto> findNoticeBoard(
-        @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-        @PathVariable Long noticeBoardId
+        @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+        @PathVariable final Long noticeBoardId
     ) {
         NoticeBoardResponseDto noticeBoardResponse =
                 noticeBoardService.findNoticeBoard(noticeBoardId);
@@ -44,9 +44,9 @@ public class NoticeBoardController {
     
     @GetMapping("/api/noticeboards")
     public ResponseEntity<NoticeBoardsResponseDto> findAllNoticeBoard(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestParam("page") Integer page,
-            @RequestParam("count") int count
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @RequestParam("page") final Integer page,
+            @RequestParam("count") final int count
     ) {
         return ResponseEntity.ok(
                 noticeBoardService.findAllNoticeBoard(page, count)
@@ -55,9 +55,9 @@ public class NoticeBoardController {
     
     @PutMapping("/api/admins/noticeboards/{noticeBoardId}")
     public ResponseEntity<Void> updateNoticeBoard(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestBody @Valid NoticeBoardUpdateRequest noticeBoardUpdateRequest,
-            @PathVariable Long noticeBoardId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @RequestBody @Valid final NoticeBoardUpdateRequest noticeBoardUpdateRequest,
+            @PathVariable final Long noticeBoardId
     ) {
         noticeBoardService.updateNoticeBoard(
                 noticeBoardUpdateRequest.toServiceDto(),
@@ -68,8 +68,8 @@ public class NoticeBoardController {
     
     @DeleteMapping("/api/admins/noticeboards/{noticeBoardId}")
     public ResponseEntity<Void> deleteNoticeBoard(
-            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @PathVariable Long noticeBoardId
+            @AuthenticationPrincipal final LoginMemberRequest loginMemberRequest,
+            @PathVariable final Long noticeBoardId
     ) {
         noticeBoardService.deleteNoticeBoard(noticeBoardId, loginMemberRequest.getId());
         return ResponseEntity.noContent().build();

@@ -36,7 +36,7 @@ public class ProposalService {
     
     private final ProposalRepository proposalRepository;
     
-    public ProposalSaveResponseDto saveProposal(ProposalSaveRequestDto proposalSaveRequestDto, Long studentId) {
+    public ProposalSaveResponseDto saveProposal(final ProposalSaveRequestDto proposalSaveRequestDto, final Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
@@ -63,19 +63,19 @@ public class ProposalService {
         return ProposalSaveResponseDto.from(saveProposal);
     }
     
-    private void validateDuplicateProposal(String studentId, Apply apply) {
+    private void validateDuplicateProposal(final String studentId, final Apply apply) {
         if (proposalRepository.existsByApply(apply)) {
             throw new DuplicateProposalException(studentId);
         }
     }
     
-    private void validateStep(Step step, String loginId) {
+    private void validateStep(final Step step, final String loginId) {
         if (!step.equals(PROPOSAL)) {
             throw new InvalidStepException(loginId);
         }
     }
     
-    public ProposalResponseDto findProposal(Long applyId) {
+    public ProposalResponseDto findProposal(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Proposal proposal = proposalRepository.findByApply(apply)
@@ -83,7 +83,7 @@ public class ProposalService {
         return ProposalResponseDto.of(proposal, apply);
     }
     
-    public void approveProposal(Long applyId) {
+    public void approveProposal(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Proposal proposal = proposalRepository.findByApply(apply)
@@ -92,7 +92,7 @@ public class ProposalService {
         updateProposal(apply, proposal, APPROVAL, INTERIM_REPORT);
     }
     
-    public void rejectProposal(Long applyId, String rejectReason) {
+    public void rejectProposal(final Long applyId, final String rejectReason) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Proposal proposal = proposalRepository.findByApply(apply)
@@ -102,33 +102,33 @@ public class ProposalService {
     }
     
     private void updateProposal(
-            Apply apply,
-            Proposal proposal,
-            Approval approval,
-            Step step
+            final Apply apply,
+            final Proposal proposal,
+            final Approval approval,
+            final Step step
     ) {
         proposal.changeApproval(approval);
         changeGraduateStep(apply, step);
     }
     
     private void updateProposal(
-            Apply apply,
-            Proposal proposal,
-            Approval approval,
-            Status status,
-            String rejectReason
+            final Apply apply,
+            final Proposal proposal,
+            final Approval approval,
+            final Status status,
+            final String rejectReason
     ) {
         proposal.changeApproval(approval);
         proposal.changeRejectReason(rejectReason);
         changeGraduateStatus(apply, status);
     }
     
-    private void changeGraduateStep(Apply apply, Step step) {
+    private void changeGraduateStep(final Apply apply, final Step step) {
         apply.getGraduation()
                 .changeStep(step);
     }
     
-    private void changeGraduateStatus(Apply apply, Status status) {
+    private void changeGraduateStatus(final Apply apply, final Status status) {
         apply.getGraduation()
                 .changeStatus(status);
     }

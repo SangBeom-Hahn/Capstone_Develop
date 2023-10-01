@@ -11,11 +11,11 @@ public enum Classification {
     
     private final String desc;
     
-    Classification(String desc) {
+    Classification(final String desc) {
         this.desc = desc;
     }
     
-    public static Classification from(String desc) {
+    public static Classification from(final String desc) {
         return Arrays.stream(values())
                 .filter(classification -> classification.desc.equals(desc))
                 .findFirst()

@@ -18,16 +18,16 @@ public class PhoneNumber {
     @Column(name = "phone_number", length = 255, nullable = false)
     private String value;
     
-    private PhoneNumber(String value) {
+    private PhoneNumber(final String value) {
         this.value = value;
     }
     
-    public static PhoneNumber from(String value) {
+    public static PhoneNumber from(final String value) {
         validatePhoneNumber(value);
         return new PhoneNumber(value);
     }
     
-    private static void validatePhoneNumber(String value) {
+    private static void validatePhoneNumber(final String value) {
         Matcher matcher = EMAIL_PATTERN.matcher(value);
         if (!matcher.matches()) {
             throw new InvalidPhoneNumberFormatException(value);

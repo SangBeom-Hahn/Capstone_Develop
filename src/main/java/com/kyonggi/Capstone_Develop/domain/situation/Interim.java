@@ -43,7 +43,15 @@ public class Interim extends BaseEntity {
     @Column(name = "reject_reason", length = 255, nullable = true)
     private String rejectReason;
     
-    public Interim(Apply apply, String title, String division, String text, String plan, Approval approval, String rejectReason) {
+    public Interim(
+            final Apply apply,
+            final String title,
+            final String division,
+            final String text,
+            final String plan,
+            final Approval approval,
+            final String rejectReason
+    ) {
         this.apply = apply;
         this.title = title;
         this.division = division;
@@ -53,11 +61,11 @@ public class Interim extends BaseEntity {
         this.rejectReason = rejectReason;
     }
     
-    public void changeApproval(Approval approval) {
+    public void changeApproval(final Approval approval) {
         this.approval = approval;
     }
     
-    public void changeRejectReason(String rejectReason) {
+    public void changeRejectReason(final String rejectReason) {
         this.rejectReason = rejectReason;
     }
 }

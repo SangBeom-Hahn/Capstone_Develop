@@ -9,7 +9,7 @@ import lombok.Getter;
 public class CommentSaveResponseDto {
     private Long id;
     
-    public static CommentSaveResponseDto from(Comment comment) {
+    public static CommentSaveResponseDto from(final Comment comment) {
         return new CommentSaveResponseDto(comment.getId());
     }
 }

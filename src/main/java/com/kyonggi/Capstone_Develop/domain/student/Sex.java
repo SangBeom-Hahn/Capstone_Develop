@@ -16,7 +16,7 @@ public enum Sex {
         this.desc = desc;
     }
     
-    public static Sex from(String desc) {
+    public static Sex from(final String desc) {
         return Arrays.stream(values())
                 .filter(sex -> sex.desc.equals(desc))
                 .findFirst()

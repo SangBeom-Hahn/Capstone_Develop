@@ -12,22 +12,22 @@ public class PageInfo {
     private int countPerPage;
     private long totalSize;
     
-    private PageInfo(int currentPage, int lastPage, int countPerPage, long totalSize) {
+    private PageInfo(final int currentPage, final int lastPage, final int countPerPage, final long totalSize) {
         this.currentPage = currentPage;
         this.lastPage = lastPage;
         this.countPerPage = countPerPage;
         this.totalSize = totalSize;
     }
     
-    public static PageInfo of(int currentPage, int lastPage, int countPerPage, long totalSize) {
+    public static PageInfo of(final int currentPage, final int lastPage, final int countPerPage, final long totalSize) {
         return ofNextPage(currentPage, lastPage, countPerPage, totalSize);
     }
     
-    public static PageInfo ofNextPage(int currentPage, int lastPage, int countPerPage, long totalSize) {
+    public static PageInfo ofNextPage(int currentPage, final int lastPage, final int countPerPage, final long totalSize) {
         return new PageInfo(currentPage + 1, lastPage, countPerPage, totalSize);
     }
     
-    public static PageInfo from(Page<?> data) {
+    public static PageInfo from(final Page<?> data) {
         int pageNumber = data.getPageable().getPageNumber();
         int totalPages = data.getTotalPages();
         int pageSize = data.getPageable().getPageSize();

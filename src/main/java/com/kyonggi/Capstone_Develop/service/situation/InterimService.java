@@ -34,7 +34,7 @@ public class InterimService {
     
     private final InterimRepository interimRepository;
     
-    public InterimSaveResponseDto saveInterim(InterimSaveRequestDto interimSaveRequestDto, Long studentId) {
+    public InterimSaveResponseDto saveInterim(final InterimSaveRequestDto interimSaveRequestDto, final Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
@@ -60,19 +60,19 @@ public class InterimService {
         return InterimSaveResponseDto.from(saveInterim);
     }
     
-    private void validateDuplicateInterim(String studentId, Apply apply) {
+    private void validateDuplicateInterim(final String studentId, final Apply apply) {
         if (interimRepository.existsByApply(apply)) {
             throw new DuplicateInterimException(studentId);
         }
     }
     
-    private void validateStep(Step step, String loginId) {
+    private void validateStep(final Step step, final String loginId) {
         if (!step.equals(INTERIM_REPORT)) {
             throw new InvalidStepException(loginId);
         }
     }
     
-    public InterimResponseDto findInterim(Long applyId) {
+    public InterimResponseDto findInterim(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Interim interim = interimRepository.findByApply(apply)
@@ -80,7 +80,7 @@ public class InterimService {
         return InterimResponseDto.of(interim, apply);
     }
     
-    public void approveInterim(Long applyId) {
+    public void approveInterim(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Interim interim = interimRepository.findByApply(apply)
@@ -89,7 +89,7 @@ public class InterimService {
         updateInterim(apply, interim, APPROVAL, Step.FINAL_REPORT);
     }
     
-    public void rejectInterim(Long applyId, String rejectReason) {
+    public void rejectInterim(final Long applyId, final String rejectReason) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Interim interim = interimRepository.findByApply(apply)
@@ -99,33 +99,33 @@ public class InterimService {
     }
     
     private void updateInterim(
-            Apply apply,
-            Interim interim,
-            Approval approval,
-            Step step
+            final Apply apply,
+            final Interim interim,
+            final Approval approval,
+            final Step step
     ) {
         interim.changeApproval(approval);
         changeGraduateStep(apply, step);
     }
     
     private void updateInterim(
-            Apply apply,
-            Interim interim,
-            Approval approval,
-            Status status,
-            String rejectReason
+            final Apply apply,
+            final Interim interim,
+            final Approval approval,
+            final Status status,
+            final String rejectReason
     ) {
         interim.changeApproval(approval);
         interim.changeRejectReason(rejectReason);
         changeGraduateStatus(apply, status);
     }
     
-    private void changeGraduateStep(Apply apply, Step step) {
+    private void changeGraduateStep(final Apply apply, final Step step) {
         apply.getGraduation()
                 .changeStep(step);
     }
     
-    private void changeGraduateStatus(Apply apply, Status status) {
+    private void changeGraduateStatus(final Apply apply, final Status status) {
         apply.getGraduation()
                 .changeStatus(status);
     }

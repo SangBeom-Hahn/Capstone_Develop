@@ -26,7 +26,7 @@ public class CommentService {
     
     private final StudentRepository studentRepository;
     
-    public CommentSaveResponseDto save(Long noticeBoardId, Long studentId, String content) {
+    public CommentSaveResponseDto save(final Long noticeBoardId, final Long studentId, final String content) {
         NoticeBoard noticeBoard = noticeBoardRepository.findById(noticeBoardId)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(noticeBoardId));
         Student student = studentRepository.findById(studentId)
@@ -38,21 +38,21 @@ public class CommentService {
         return CommentSaveResponseDto.from(saveComment);
     }
     
-    public CommentResponseDto findComment(Long id) {
+    public CommentResponseDto findComment(final Long id) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundCommentException(id));
     
         return CommentResponseDto.from(comment);
     }
     
-    public void updateComment(Long id, String content) {
+    public void updateComment(final Long id, final String content) {
         Comment findComment = commentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundCommentException(id));
         
         findComment.changeContent(content);
     }
     
-    public void deleteComment(Long commentId, Long authorId) {
+    public void deleteComment(final Long commentId, final Long authorId) {
         Comment findComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundCommentException(commentId));
         
@@ -60,7 +60,7 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
     
-    private void validateAuthor(Long authorID, Comment comment) {
+    private void validateAuthor(final Long authorID, final Comment comment) {
         if (!comment.isStudent(authorID)) {
             throw new NotAuthorException(authorID);
         }

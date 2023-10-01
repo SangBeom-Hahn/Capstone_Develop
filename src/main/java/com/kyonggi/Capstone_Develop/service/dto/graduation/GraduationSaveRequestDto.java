@@ -8,14 +8,4 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GraduationSaveRequestDto {
     private Method method;
-    
-//    private Status status;
-//
-//    private Step step;
-    
-//    private Boolean capstoneCompletion;
-//
-//    private LocalDate graduationDate;
-//
-//    private String professorName;
 }

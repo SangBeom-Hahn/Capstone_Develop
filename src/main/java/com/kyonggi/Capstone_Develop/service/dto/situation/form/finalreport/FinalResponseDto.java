@@ -22,7 +22,7 @@ public class FinalResponseDto {
     
     private String rejectReason;
     
-    public static FinalResponseDto of(Final finalReport, Apply apply) {
+    public static FinalResponseDto of(final Final finalReport, final Apply apply) {
         return new FinalResponseDto(
                 finalReport.getId(),
                 apply.getId(),

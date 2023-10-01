@@ -28,8 +28,8 @@ public class NoticeBoardService {
     private final StudentRepository studentRepository;
     
     public NoticeBoardSaveResponseDto save(
-            NoticeBoardSaveRequestDto noticeBoardSaveRequestDto,
-            Long authorId
+            final NoticeBoardSaveRequestDto noticeBoardSaveRequestDto,
+            final Long authorId
     ) {
         Student author = studentRepository.findById(authorId)
                 .orElseThrow(() -> new NoSuchMemberException(authorId));
@@ -45,7 +45,7 @@ public class NoticeBoardService {
         return NoticeBoardSaveResponseDto.from(saveNoticeBoard);
     }
     
-    public NoticeBoardsResponseDto findAllNoticeBoard(Integer page, int count) {
+    public NoticeBoardsResponseDto findAllNoticeBoard(final Integer page, final int count) {
         PageRequest pageRequest = PageRequest.of(page, count);
         Page<NoticeBoard> noticeBoards = noticeBoardRepository.findAllByOrderByIdDesc(pageRequest);
     
@@ -56,7 +56,7 @@ public class NoticeBoardService {
         return NoticeBoardsResponseDto.of(noticeBoardResponseDtos, PageInfo.from(noticeBoards));
     }
     
-    public NoticeBoardResponseDto findNoticeBoard(Long id) {
+    public NoticeBoardResponseDto findNoticeBoard(final Long id) {
         NoticeBoard noticeBoard = noticeBoardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(id));
         noticeBoard.view();
@@ -65,26 +65,26 @@ public class NoticeBoardService {
         return NoticeBoardResponseDto.of(noticeBoard, commentResponses);
     }
     
-    public void updateNoticeBoard(NoticeBoardUpdateRequestDto noticeUpdateRequestDto, Long id) {
+    public void updateNoticeBoard(final NoticeBoardUpdateRequestDto noticeUpdateRequestDto, final Long id) {
         NoticeBoard findNoticeBoard = noticeBoardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(id));
     
         changeNoticeBoard(noticeUpdateRequestDto, findNoticeBoard);
     }
     
-    private void changeNoticeBoard(NoticeBoardUpdateRequestDto noticeUpdateRequestDto, NoticeBoard findNoticeBoard) {
+    private void changeNoticeBoard(final NoticeBoardUpdateRequestDto noticeUpdateRequestDto, final NoticeBoard findNoticeBoard) {
         findNoticeBoard.changeTitle(noticeUpdateRequestDto.getTitle());
         findNoticeBoard.changeContent(noticeUpdateRequestDto.getContent());
     }
     
-    public void updateFix(Long id, Boolean fix) {
+    public void updateFix(final Long id, final Boolean fix) {
         NoticeBoard findNoticeBoard = noticeBoardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(id));
         
         findNoticeBoard.changeFix(fix);
     }
     
-    public void deleteNoticeBoard(Long noticeBoardId, Long authorId) {
+    public void deleteNoticeBoard(final Long noticeBoardId, final Long authorId) {
         NoticeBoard findNoticeBoard = noticeBoardRepository.findById(noticeBoardId)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(noticeBoardId));
     
@@ -92,13 +92,13 @@ public class NoticeBoardService {
         noticeBoardRepository.deleteById(noticeBoardId);
     }
     
-    private void validateAuthor(Long authorId, NoticeBoard noticeBoard) {
+    private void validateAuthor(final Long authorId, final NoticeBoard noticeBoard) {
         if (!noticeBoard.isAuthor(authorId)) {
             throw new NotAuthorException(authorId);
         }
     }
     
-    private List<CommentResponseDto> findCommentResponse(NoticeBoard noticeBoard) {
+    private List<CommentResponseDto> findCommentResponse(final NoticeBoard noticeBoard) {
         return noticeBoard.getComments()
                 .stream()
                 .map(comment -> CommentResponseDto.from(comment))

@@ -9,7 +9,7 @@ import lombok.Getter;
 public class NoticeBoardSaveResponseDto {
     private Long id;
     
-    public static NoticeBoardSaveResponseDto from(NoticeBoard noticeBoard) {
+    public static NoticeBoardSaveResponseDto from(final NoticeBoard noticeBoard) {
         return new NoticeBoardSaveResponseDto(noticeBoard.getId());
     }
 }

@@ -7,11 +7,11 @@ import lombok.Getter;
 public class InterimSaveResponseDto {
     private Long id;
     
-    public InterimSaveResponseDto(Long id) {
+    public InterimSaveResponseDto(final Long id) {
         this.id = id;
     }
     
-    public static InterimSaveResponseDto from(Interim interim) {
+    public static InterimSaveResponseDto from(final Interim interim) {
         return new InterimSaveResponseDto(interim.getId());
     }
 }

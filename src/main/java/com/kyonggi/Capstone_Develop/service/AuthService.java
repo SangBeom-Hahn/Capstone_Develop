@@ -27,7 +27,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
     
-    public TokenResponseDto login(String loginId, String password) {
+    public TokenResponseDto login(final String loginId, final String password) {
         Student findStudent = studentRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new NoSuchMemberIdException(loginId));
     
@@ -41,7 +41,7 @@ public class AuthService {
         }
     }
     
-    private TokenResponseDto issueTokenDto(Long studentId, RoleType roleType) {
+    private TokenResponseDto issueTokenDto(final Long studentId, final RoleType roleType) {
         Map<String, Object> payload = createPayloadMap(studentId, roleType);
     
         String accessToken = jwtTokenProvider.createToken(payload);
@@ -49,7 +49,7 @@ public class AuthService {
         return TokenResponseDto.of(accessToken, refreshToken.getTokenValue(), studentId);
     }
     
-    private Map<String, Object> createPayloadMap(Long studentId, RoleType roleType) {
+    private Map<String, Object> createPayloadMap(final Long studentId, final RoleType roleType) {
         return JwtTokenProvider.payloadBuilder()
                 .setSubject(String.valueOf(studentId))
                 .put(roleType.name())
@@ -64,7 +64,7 @@ public class AuthService {
         return refreshTokenRepository.save(refreshToken);
     }
     
-    public void logout(String refreshToken) {
+    public void logout(final String refreshToken) {
         refreshTokenRepository.deleteByTokenValue(refreshToken);
     }
 }

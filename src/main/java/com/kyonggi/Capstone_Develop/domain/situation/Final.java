@@ -43,7 +43,15 @@ public class Final extends BaseEntity {
     @Column(name = "reject_reason", length = 255, nullable = true)
     private String rejectReason;
     
-    public Final(Apply apply, String title, String division, String qualification, Integer pageNumber, Approval approval, String rejectReason) {
+    public Final(
+            final Apply apply,
+            final String title,
+            final String division,
+            final String qualification,
+            final Integer pageNumber,
+            final Approval approval,
+            final String rejectReason
+    ) {
         this.apply = apply;
         this.title = title;
         this.division = division;
@@ -53,11 +61,11 @@ public class Final extends BaseEntity {
         this.rejectReason = rejectReason;
     }
     
-    public void changeApproval(Approval approval) {
+    public void changeApproval(final Approval approval) {
         this.approval = approval;
     }
     
-    public void changeRejectReason(String rejectReason) {
+    public void changeRejectReason(final String rejectReason) {
         this.rejectReason = rejectReason;
     }
 }

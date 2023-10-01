@@ -40,11 +40,11 @@ public class Submit extends BaseEntity {
     private Approval approval;
     
     public Submit(
-            Apply apply,
-            String professorName,
-            LocalDate graduationDate,
-            Boolean capstoneCompletion,
-            Approval approval
+            final Apply apply,
+            final String professorName,
+            final LocalDate graduationDate,
+            final Boolean capstoneCompletion,
+            final Approval approval
     ) {
         validateGraduationDate(graduationDate);
         this.apply = apply;
@@ -54,7 +54,7 @@ public class Submit extends BaseEntity {
         this.approval = approval;
     }
     
-    private void validateGraduationDate(LocalDate graduationDate) {
+    private void validateGraduationDate(final LocalDate graduationDate) {
         if (graduationDate.isBefore(LocalDate.now())) {
             throw new alreadyGraduateException();
         }

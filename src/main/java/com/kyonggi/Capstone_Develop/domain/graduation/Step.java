@@ -14,12 +14,12 @@ public enum Step {
     
     private final Step currentStep;
     
-    Step(String desc, Step currentStep) {
+    Step(final String desc, final Step currentStep) {
         this.desc = desc;
         this.currentStep = currentStep;
     }
     
-    public static Step from(Step step) {
+    public static Step from(final Step step) {
         return Arrays.stream(values())
                 .filter(wantStep -> wantStep.currentStep.equals(step))
                 .findFirst()

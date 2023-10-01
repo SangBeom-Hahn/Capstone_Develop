@@ -67,17 +67,17 @@ public class Student extends BaseEntity {
     private List<Comment> comments = new ArrayList<>();
 
     public Student(
-            String loginId,
-            String password,
-            LocalDate birth,
-            String department,
-            PhoneNumber phoneNumber,
-            Sex sex,
-            String name,
-            Email email,
-            RoleType roleType,
-            String answerPw,
-            Classification classification
+            final String loginId,
+            final String password,
+            final LocalDate birth,
+            final String department,
+            final PhoneNumber phoneNumber,
+            final Sex sex,
+            final String name,
+            final Email email,
+            final RoleType roleType,
+            final String answerPw,
+            final Classification classification
     ) {
         this.loginId = loginId;
         this.password = password;
@@ -92,11 +92,11 @@ public class Student extends BaseEntity {
         this.classification = classification;
     }
     
-    public boolean isSameStudent(Long studentId) {
+    public boolean isSameStudent(final Long studentId) {
         return this.id.equals(studentId);
     }
     
-    public void addApply(Apply apply) {
+    public void addApply(final Apply apply) {
         this.applies.add(apply);
     }
 }

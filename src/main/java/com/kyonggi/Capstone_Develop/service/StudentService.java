@@ -18,7 +18,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public StudentSignUpResponseDto save(StudentRequestDto studentRequestDto) {
+    public StudentSignUpResponseDto save(final StudentRequestDto studentRequestDto) {
         validateLoginIdHasDuplicate(studentRequestDto.getLoginId());
         String password = passwordEncoder.encode(studentRequestDto.getPassword());
     
@@ -39,7 +39,7 @@ public class StudentService {
         return StudentSignUpResponseDto.from(saveStudent);
     }
 
-    public void validateLoginIdHasDuplicate(String loginId) {
+    public void validateLoginIdHasDuplicate(final String loginId) {
         if (studentRepository.existsByLoginId(loginId)) {
             throw new DuplicateLoginIdException(loginId);
         }

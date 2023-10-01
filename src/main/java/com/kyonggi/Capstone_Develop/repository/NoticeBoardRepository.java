@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NoticeBoardRepository extends JpaRepository<NoticeBoard, Long> {
-    Page<NoticeBoard> findAllByOrderByIdDesc(Pageable pageable);
+    Page<NoticeBoard> findAllByOrderByIdDesc(final Pageable pageable);
     
-    boolean existsById(Long id);
+    boolean existsById(final Long id);
 }

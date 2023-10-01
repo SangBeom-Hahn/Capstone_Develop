@@ -9,11 +9,11 @@ import java.util.List;
 public class GraduationsResponseDto {
     private List<GraduationResponseDto> graduationResponseDtos;
     
-    public GraduationsResponseDto(List<GraduationResponseDto> graduationResponseDtos) {
+    public GraduationsResponseDto(final List<GraduationResponseDto> graduationResponseDtos) {
         this.graduationResponseDtos = graduationResponseDtos;
     }
     
-    public static GraduationsResponseDto from(List<GraduationResponseDto> graduationResponseDtos) {
+    public static GraduationsResponseDto from(final List<GraduationResponseDto> graduationResponseDtos) {
         return new GraduationsResponseDto(graduationResponseDtos);
     }
 }

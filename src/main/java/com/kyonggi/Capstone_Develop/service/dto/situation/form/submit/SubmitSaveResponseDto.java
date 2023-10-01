@@ -7,11 +7,11 @@ import lombok.Getter;
 public class SubmitSaveResponseDto {
     private Long id;
     
-    public SubmitSaveResponseDto(Long id) {
+    public SubmitSaveResponseDto(final Long id) {
         this.id = id;
     }
     
-    public static SubmitSaveResponseDto from(Submit submit) {
+    public static SubmitSaveResponseDto from(final Submit submit) {
         return new SubmitSaveResponseDto(submit.getId());
     }
 }

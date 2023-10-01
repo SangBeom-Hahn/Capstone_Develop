@@ -27,7 +27,7 @@ public class GraduationResponseDto {
     
     private String studentName;
     
-    public static GraduationResponseDto of(Graduation graduation, Apply apply) {
+    public static GraduationResponseDto of(final Graduation graduation, final Apply apply) {
         return new GraduationResponseDto(
                 graduation.getId(),
                 graduation.getMethod(),

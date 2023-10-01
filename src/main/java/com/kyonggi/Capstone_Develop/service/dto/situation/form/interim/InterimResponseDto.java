@@ -22,7 +22,7 @@ public class InterimResponseDto {
     
     private String rejectReason;
     
-    public static InterimResponseDto of(Interim interim, Apply apply) {
+    public static InterimResponseDto of(final Interim interim, final Apply apply) {
         return new InterimResponseDto(
                 interim.getId(),
                 apply.getId(),

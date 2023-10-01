@@ -7,11 +7,11 @@ import lombok.Getter;
 public class FinalSaveResponseDto {
     private Long id;
     
-    public FinalSaveResponseDto(Long id) {
+    public FinalSaveResponseDto(final Long id) {
         this.id = id;
     }
     
-    public static FinalSaveResponseDto from(Final finalReport) {
+    public static FinalSaveResponseDto from(final Final finalReport) {
         return new FinalSaveResponseDto(finalReport.getId());
     }
 }

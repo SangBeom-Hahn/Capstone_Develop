@@ -17,7 +17,7 @@ public class SubmitResponseDto {
     
     private Boolean capstoneCompletion;
     
-    public static SubmitResponseDto from(Submit submit) {
+    public static SubmitResponseDto from(final Submit submit) {
         return new SubmitResponseDto(
                 submit.getId(),
                 submit.getProfessorName(),

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface FinalRepository extends JpaRepository<Final, Long> {
-    boolean existsByApply(Apply apply);
+    boolean existsByApply(final Apply apply);
     
-    Optional<Final> findByApply(Apply apply);
+    Optional<Final> findByApply(final Apply apply);
 }

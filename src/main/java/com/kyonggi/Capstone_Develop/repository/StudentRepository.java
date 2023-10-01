@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    boolean existsByLoginId(String loginId);
+    boolean existsByLoginId(final String loginId);
     
-    Optional<Student> findByLoginId(String loginId);
+    Optional<Student> findByLoginId(final String loginId);
 }

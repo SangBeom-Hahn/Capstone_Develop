@@ -30,7 +30,7 @@ public class SubmitService {
     
     private final SubmitRepository submitRepository;
     
-    public SubmitSaveResponseDto saveSubmit(SubmitSaveRequestDto submitSaveRequestDto, Long studentId) {
+    public SubmitSaveResponseDto saveSubmit(final SubmitSaveRequestDto submitSaveRequestDto, final Long studentId) {
         Apply apply = applyRepository.findAllByStudentId(studentId)
                 .stream()
                 .findFirst()
@@ -54,13 +54,13 @@ public class SubmitService {
         return SubmitSaveResponseDto.from(saveSubmit);
     }
     
-    private void validateDuplicateSubmit(String studentId, Apply apply) {
+    private void validateDuplicateSubmit(final String studentId, final Apply apply) {
         if (submitRepository.existsByApply(apply)) {
             throw new DuplicateSubmitException(studentId);
         }
     }
     
-    public SubmitResponseDto findSubmit(Long applyId) {
+    public SubmitResponseDto findSubmit(final Long applyId) {
         Apply apply = applyRepository.findById(applyId)
                 .orElseThrow(NoSuchApplyException::new);
         Submit submit = submitRepository.findByApply(apply)

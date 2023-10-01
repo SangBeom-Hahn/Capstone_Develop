@@ -12,7 +12,7 @@ public enum Method {
         this.desc = desc;
     }
     
-    public static Method from(String desc) {
+    public static Method from(final String desc) {
         return Arrays.stream(values())
                 .filter(method -> method.desc.equals(desc))
                 .findFirst()

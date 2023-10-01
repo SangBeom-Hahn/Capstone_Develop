@@ -9,7 +9,7 @@ import lombok.Getter;
 public class GraduationSaveResponseDto {
     private Long id;
     
-    public static GraduationSaveResponseDto from(Graduation graduation) {
+    public static GraduationSaveResponseDto from(final Graduation graduation) {
         return new GraduationSaveResponseDto(graduation.getId());
     }
 }

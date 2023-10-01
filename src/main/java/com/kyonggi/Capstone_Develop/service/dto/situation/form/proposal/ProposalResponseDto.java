@@ -22,7 +22,7 @@ public class ProposalResponseDto {
     
     private String rejectReason;
     
-    public static ProposalResponseDto of(Proposal proposal, Apply apply) {
+    public static ProposalResponseDto of(final Proposal proposal, final Apply apply) {
         return new ProposalResponseDto(
                 proposal.getId(),
                 apply.getId(),

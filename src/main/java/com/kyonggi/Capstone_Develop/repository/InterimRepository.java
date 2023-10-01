@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface InterimRepository extends JpaRepository<Interim, Long> {
-    boolean existsByApply(Apply apply);
+    boolean existsByApply(final Apply apply);
     
-    Optional<Interim> findByApply(Apply apply);
+    Optional<Interim> findByApply(final Apply apply);
 }
