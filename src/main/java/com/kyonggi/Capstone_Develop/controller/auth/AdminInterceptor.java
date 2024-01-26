@@ -20,7 +20,6 @@ public class AdminInterceptor implements HandlerInterceptor {
         String rolePayload = jwtTokenProvider.getRolePayload(token);
         
         validateRoleType(rolePayload);
-    
         return true;
     }
     
