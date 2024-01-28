@@ -55,3 +55,16 @@ CREATE TABLE refresh_token
    `expired_time` DATETIME NOT NULL,
    PRIMARY KEY (`refresh_token_id`)
 );
+
+CREATE TABLE notice_board_upload_file
+(
+    `upload_file_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `notice_board_id` BIGINT NOT NULL,
+    `store_file_name` VARCHAR(255) NOT NULL,
+    `upload_file_name` VARCHAR(255) NOT NULL,
+    `created_date`       DATETIME NULL DEFAULT NULL,
+    `last_modified_date` DATETIME NULL DEFAULT NULL,
+    PRIMARY KEY (`upload_file_id`),
+    FOREIGN KEY (notice_board_id)
+        REFERENCES notice_board (notice_board_id)
+);

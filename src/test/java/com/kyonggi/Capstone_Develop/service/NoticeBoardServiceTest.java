@@ -3,7 +3,8 @@ package com.kyonggi.Capstone_Develop.service;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.domain.Comment;
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.file.RawFileData;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
@@ -13,12 +14,16 @@ import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.doNothing;
 
 class NoticeBoardServiceTest extends ServiceTest{
     private Student student;
@@ -102,9 +107,29 @@ class NoticeBoardServiceTest extends ServiceTest{
         assertThat(noticeBoardResponseDto).extracting("id", "content", "fix", "title", "views", "authorLoginId")
                 .containsExactly(saveNoticeBoardId, "content", false, "title", 1, "201812709");
     }
+
+    @Test
+    @DisplayName("공지사항 첨부파일을 업로드한다.")
+    void saveNoticeBoardUploadFile() throws IOException {
+        // given
+        String expectedImg1 = "test_img1.jpg";
+        String expectedImg2 = "test_img2.jpg";
+        FileInputStream fileInputStream1 = new FileInputStream("src/test/resources/images/" + expectedImg1);
+        FileInputStream fileInputStream2 = new FileInputStream("src/test/resources/images/" + expectedImg2);
+
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("test_img1", expectedImg1, "jpg", fileInputStream1);
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("test_img2", expectedImg2, "jpg", fileInputStream2);
+
+        doNothing().when(uploader).uploadFiles(
+                List.of(
+                        new RawFileData("test_img1", "1234", mockMultipartFile1),
+                        new RawFileData("test_img2", "1234", mockMultipartFile2)
+                )
+        );
+    }
     
     @Test
-    @DisplayName("모든 공지사을 페이지 단위로 조회한다.")
+    @DisplayName("모든 공지사항을 페이지 단위로 조회한다.")
     void findAll() {
         // given
         List<AllNoticeBoardResponseDto> actual = noticeBoardService.findAllNoticeBoard(0, 3)
@@ -230,6 +255,6 @@ class NoticeBoardServiceTest extends ServiceTest{
     }
     
     private NoticeBoardSaveRequest createNoticeboardSaveRequest() {
-        return new NoticeBoardSaveRequest("content", false, "title", 0);
+        return new NoticeBoardSaveRequest("content", false, "title", 0, null);
     }
 }

@@ -5,8 +5,12 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_MESSAGE;
 
@@ -27,13 +31,16 @@ public class NoticeBoardSaveRequest {
     
     @NotNull(message = EMPTY_MESSAGE)
     private Integer views;
+
+    private List<MultipartFile> files;
     
     public NoticeBoardSaveRequestDto toServiceDto() {
         return new NoticeBoardSaveRequestDto(
                 content,
                 fix,
                 title,
-                views
+                views,
+                files
         );
     }
 }

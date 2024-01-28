@@ -1,21 +1,29 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.controller.dto.PageInfo;
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.file.RawFileData;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.UploadFile;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
-import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.repository.noticeboard.NoticeBoardRepository;
+import com.kyonggi.Capstone_Develop.repository.noticeboard.UploadFileRepository;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.*;
+import com.kyonggi.Capstone_Develop.support.UuidHolder;
+import com.kyonggi.Capstone_Develop.support.file.FileConverter;
+import com.kyonggi.Capstone_Develop.support.file.Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +34,12 @@ public class NoticeBoardService {
     private final NoticeBoardRepository noticeBoardRepository;
     
     private final StudentRepository studentRepository;
+
+    private final UploadFileRepository uploadFileRepository;
+
+    private final Uploader uploader;
+
+    private final UuidHolder uuidHolder;
     
     public NoticeBoardSaveResponseDto save(
             NoticeBoardSaveRequestDto noticeBoardSaveRequestDto,
@@ -42,9 +56,33 @@ public class NoticeBoardService {
                 author
         );
         NoticeBoard saveNoticeBoard = noticeBoardRepository.save(noticeBoard);
-        return NoticeBoardSaveResponseDto.from(saveNoticeBoard);
+        return saveUploadFile(noticeBoardSaveRequestDto.getFiles(), saveNoticeBoard);
     }
-    
+
+    private NoticeBoardSaveResponseDto saveUploadFile(List<MultipartFile> files, NoticeBoard saveNoticeBoard) {
+        List<String> uploadFileNames = new ArrayList<>();
+        List<String> storeFileNames = new ArrayList<>();
+
+        List<RawFileData> rawFileDatas = FileConverter.convertAssignmentFiles(files, uuidHolder);
+        uploader.uploadFiles(rawFileDatas);
+
+        rawFileDatas.forEach(rawFileData -> {
+                    String uploadFileName = rawFileData.getUploadFileName();
+                    String storeFileName = rawFileData.getStoreFileName();
+                    uploadFileNames.add(uploadFileName);
+                    storeFileNames.add(storeFileName);
+
+                    UploadFile uploadFile = new UploadFile(
+                            uploadFileName,
+                            storeFileName,
+                            saveNoticeBoard
+                    );
+                    uploadFileRepository.save(uploadFile);
+                });
+
+        return NoticeBoardSaveResponseDto.of(saveNoticeBoard, uploadFileNames, storeFileNames);
+    }
+
     public NoticeBoardsResponseDto findAllNoticeBoard(Integer page, int count) {
         PageRequest pageRequest = PageRequest.of(page, count);
         Page<NoticeBoard> noticeBoards = noticeBoardRepository.findAllByOrderByIdDesc(pageRequest);
