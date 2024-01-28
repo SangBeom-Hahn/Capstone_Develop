@@ -51,7 +51,7 @@ public class AuthService {
         Map<String, Object> payload = createPayloadMap(studentId, roleType);
     
         String accessToken = jwtTokenProvider.createToken(payload);
-        saveRefreshToken(accessToken, studentId);
+        saveAccessToken(accessToken, studentId);
 
         RefreshToken refreshToken = createRefreshToken(studentId);
         return TokenResponseDto.of(accessToken, refreshToken.getTokenValue(), studentId);
@@ -70,12 +70,11 @@ public class AuthService {
 
         final RefreshToken refreshToken =
                 RefreshToken.createBy(findStudent.getId(), () -> UUID.randomUUID().toString());
-        refreshTokenRepository.save(refreshToken);
 
-        return refreshToken;
+        return refreshTokenRepository.save(refreshToken);
     }
 
-    private void saveRefreshToken(String accessToken, Long studentId) {
+    private void saveAccessToken(String accessToken, Long studentId) {
         redisTemplate.opsForValue()
                 .set(
                         accessToken,
