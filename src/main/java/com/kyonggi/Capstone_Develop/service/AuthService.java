@@ -6,8 +6,10 @@ import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.IdPasswordMismatchException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberIdException;
+import com.kyonggi.Capstone_Develop.exception.RefreshTokenInvalidException;
 import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenSaveResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import com.kyonggi.Capstone_Develop.support.JwtTokenProvider;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
@@ -78,6 +81,35 @@ public class AuthService {
                         accessToken,
                         AccessTokenSaveResponseDto.of(accessToken, studentId)
                 );
+    }
+
+    @Transactional(noRollbackFor = RefreshTokenInvalidException.class)
+    public AccessTokenResponseDto renewalToken(final String refreshToken) {
+        RefreshToken findRefreshToken = findValidRefreshToken(refreshToken);
+        findRefreshToken.extendsExpired();
+
+        final Map<String, Object> payload = createPayloadMap(findRefreshToken.getMemberId());
+        final String accessToken = jwtTokenProvider.createToken(payload);
+
+        return new AccessTokenResponseDto(accessToken);
+    }
+
+    private RefreshToken findValidRefreshToken(String refreshToken) {
+        RefreshToken findRefreshToken = refreshTokenRepository.findByTokenValue(refreshToken)
+                .orElseThrow(RefreshTokenInvalidException::new);
+
+        if (findRefreshToken.isExpired()) {
+            refreshTokenRepository.deleteByExpiredTimeBefore(LocalDateTime.now());
+            throw new RefreshTokenInvalidException();
+        }
+
+        return findRefreshToken;
+    }
+
+    private Map<String, Object> createPayloadMap(Long studentId) {
+        return JwtTokenProvider.payloadBuilder()
+                .setSubject(String.valueOf(studentId))
+                .build();
     }
 
     public void logout(String accessToken, String refreshToken) {

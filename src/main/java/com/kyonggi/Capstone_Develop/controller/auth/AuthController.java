@@ -2,7 +2,9 @@ package com.kyonggi.Capstone_Develop.controller.auth;
 
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LogoutRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.auth.RefreshTokenDto;
 import com.kyonggi.Capstone_Develop.service.AuthService;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +31,13 @@ public class AuthController {
     public ResponseEntity<Void> logout(@RequestBody @Valid final LogoutRequest logoutRequest) {
         authService.logout(logoutRequest.getAccessToken(), logoutRequest.getRefreshToken());
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/renewal-token")
+    public ResponseEntity<AccessTokenResponseDto> renewalToken(@RequestBody @Valid RefreshTokenDto refreshTokenDto) {
+        AccessTokenResponseDto accessTokenResponseDto =
+                authService.renewalToken(refreshTokenDto.getRefreshToken());
+
+        return ResponseEntity.ok(accessTokenResponseDto);
     }
 }
