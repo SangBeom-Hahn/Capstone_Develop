@@ -1,7 +1,7 @@
 package com.kyonggi.Capstone_Develop.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kyonggi.Capstone_Develop.service.dto.auth.RefreshTokenSaveResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenSaveResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +25,15 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, RefreshTokenSaveResponseDto> redisTemplate(
+    public RedisTemplate<String, AccessTokenSaveResponseDto> redisTemplate(
             RedisConnectionFactory redisConnectionFactory,
             ObjectMapper objectMapper
     ) {
-        Jackson2JsonRedisSerializer<RefreshTokenSaveResponseDto> jsonRedisSerializer =
-                new Jackson2JsonRedisSerializer<>(RefreshTokenSaveResponseDto.class);
+        Jackson2JsonRedisSerializer<AccessTokenSaveResponseDto> jsonRedisSerializer =
+                new Jackson2JsonRedisSerializer<>(AccessTokenSaveResponseDto.class);
         jsonRedisSerializer.setObjectMapper(objectMapper);
 
-        RedisTemplate<String, RefreshTokenSaveResponseDto> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<String, AccessTokenSaveResponseDto> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(jsonRedisSerializer);

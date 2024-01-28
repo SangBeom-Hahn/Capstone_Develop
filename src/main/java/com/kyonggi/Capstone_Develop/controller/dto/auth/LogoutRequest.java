@@ -10,7 +10,10 @@ import static com.kyonggi.Capstone_Develop.controller.dto.ValidateMessage.EMPTY_
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RefreshTokenRequest {
+public class LogoutRequest {
+    @NotBlank(message = EMPTY_MESSAGE)
+    private String accessToken;
+
     @NotBlank(message = EMPTY_MESSAGE)
     private String refreshToken;
 }

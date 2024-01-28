@@ -3,7 +3,7 @@ package com.kyonggi.Capstone_Develop.config;
 import com.kyonggi.Capstone_Develop.controller.auth.AdminInterceptor;
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipalArgumentResolver;
 import com.kyonggi.Capstone_Develop.controller.auth.LoginInterceptor;
-import com.kyonggi.Capstone_Develop.service.dto.auth.RefreshTokenSaveResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenSaveResponseDto;
 import com.kyonggi.Capstone_Develop.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AuthenticationPrincipalConfig implements WebMvcConfigurer {
     
     private final JwtTokenProvider jwtTokenProvider;
-    private final RedisTemplate<String, RefreshTokenSaveResponseDto> redisTemplate;
+    private final RedisTemplate<String, AccessTokenSaveResponseDto> redisTemplate;
     
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {

@@ -8,7 +8,7 @@ import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberIdException;
 import com.kyonggi.Capstone_Develop.repository.RefreshTokenRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
-import com.kyonggi.Capstone_Develop.service.dto.auth.RefreshTokenSaveResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenSaveResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import com.kyonggi.Capstone_Develop.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,8 @@ public class AuthService {
     private final StudentRepository studentRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    private final RedisTemplate<String, RefreshTokenSaveResponseDto> redisTemplate;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final RedisTemplate<String, AccessTokenSaveResponseDto> redisTemplate;
     
     public TokenResponseDto login(String loginId, String password) {
         Student findStudent = studentRepository.findByLoginId(loginId)
@@ -47,6 +48,7 @@ public class AuthService {
         Map<String, Object> payload = createPayloadMap(studentId, roleType);
     
         String accessToken = jwtTokenProvider.createToken(payload);
+        saveRefreshToken(accessToken, studentId);
 
         RefreshToken refreshToken = createRefreshToken(studentId);
         return TokenResponseDto.of(accessToken, refreshToken.getTokenValue(), studentId);
@@ -63,22 +65,23 @@ public class AuthService {
         final Student findStudent = studentRepository.findById(studentId)
                 .orElseThrow(() -> new NoSuchMemberException(studentId));
 
-        // 여기서 레디스에 저장
-        final RefreshToken refreshToken = RefreshToken.createBy(findStudent.getId(), () -> UUID.randomUUID().toString());
-        saveRefreshToken(studentId, refreshToken);
+        final RefreshToken refreshToken =
+                RefreshToken.createBy(findStudent.getId(), () -> UUID.randomUUID().toString());
+        refreshTokenRepository.save(refreshToken);
 
         return refreshToken;
     }
 
-    private void saveRefreshToken(Long studentId, RefreshToken refreshToken) {
+    private void saveRefreshToken(String accessToken, Long studentId) {
         redisTemplate.opsForValue()
                 .set(
-                        String.valueOf(studentId),
-                        RefreshTokenSaveResponseDto.from(refreshToken)
+                        accessToken,
+                        AccessTokenSaveResponseDto.of(accessToken, studentId)
                 );
     }
 
-    public void logout(Long id) {
-        redisTemplate.delete(String.valueOf(id));
+    public void logout(String accessToken, String refreshToken) {
+        redisTemplate.delete(accessToken);
+        refreshTokenRepository.deleteByTokenValue(refreshToken);
     }
 }

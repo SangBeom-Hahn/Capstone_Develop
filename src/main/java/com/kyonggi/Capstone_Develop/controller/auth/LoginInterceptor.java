@@ -1,11 +1,10 @@
 package com.kyonggi.Capstone_Develop.controller.auth;
 
 import com.kyonggi.Capstone_Develop.exception.InvalidAuthMemberException;
-import com.kyonggi.Capstone_Develop.service.dto.auth.RefreshTokenSaveResponseDto;
+import com.kyonggi.Capstone_Develop.service.dto.auth.AccessTokenSaveResponseDto;
 import com.kyonggi.Capstone_Develop.support.AuthorizationExtractor;
 import com.kyonggi.Capstone_Develop.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     
     private final JwtTokenProvider jwtTokenProvider;
-    private final RedisTemplate<String, RefreshTokenSaveResponseDto> redisTemplate;
+    private final RedisTemplate<String, AccessTokenSaveResponseDto> redisTemplate;
     
     @Override
     public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response,
@@ -24,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         final String token = AuthorizationExtractor.extract(request);
         String key = jwtTokenProvider.getPayload(token);
 
-        if (hasRefreshToken(key)) {
+        if (hasRefreshToken(token)) {
             jwtTokenProvider.validateAbleToken(token);
         } else {
             throw new InvalidAuthMemberException(key);
@@ -33,14 +32,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private boolean hasRefreshToken(String key) {
-        return redisTemplate.hasKey(key) && getKey(key).equals(key);
+    private boolean hasRefreshToken(String token) {
+        return redisTemplate.hasKey(token) && getValue(token) != null;
     }
 
-    public String getKey(String key) {
+    public AccessTokenSaveResponseDto getValue(String token) {
         return redisTemplate.opsForValue()
-                .get(key)
-                .getMemberId()
-                .toString();
+                .get(token);
     }
 }

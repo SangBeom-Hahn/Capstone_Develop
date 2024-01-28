@@ -1,7 +1,7 @@
 package com.kyonggi.Capstone_Develop.controller.auth;
 
-import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.auth.LogoutRequest;
 import com.kyonggi.Capstone_Develop.service.AuthService;
 import com.kyonggi.Capstone_Develop.service.dto.auth.TokenResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class AuthController {
     }
     
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@AuthenticationPrincipal LoginMemberRequest loginMemberRequest) {
-        authService.logout(loginMemberRequest.getId());
+    public ResponseEntity<Void> logout(@RequestBody @Valid final LogoutRequest logoutRequest) {
+        authService.logout(logoutRequest.getAccessToken(), logoutRequest.getRefreshToken());
         return ResponseEntity.noContent().build();
     }
 }
