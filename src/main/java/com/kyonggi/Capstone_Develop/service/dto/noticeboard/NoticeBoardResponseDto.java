@@ -1,11 +1,10 @@
 package com.kyonggi.Capstone_Develop.service.dto.noticeboard;
 
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

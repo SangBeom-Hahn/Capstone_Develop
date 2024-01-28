@@ -1,6 +1,6 @@
 package com.kyonggi.Capstone_Develop.service.dto.noticeboard;
 
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

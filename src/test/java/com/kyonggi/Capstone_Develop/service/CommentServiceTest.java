@@ -2,12 +2,11 @@ package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.controller.dto.comment.CommentSaveRequest;
 import com.kyonggi.Capstone_Develop.domain.Comment;
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundCommentException;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
-import com.kyonggi.Capstone_Develop.service.dto.comment.CommentSaveResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

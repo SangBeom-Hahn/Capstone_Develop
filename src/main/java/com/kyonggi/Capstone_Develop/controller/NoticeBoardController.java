@@ -19,7 +19,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class NoticeBoardController {
     private final NoticeBoardService noticeBoardService;
-    
+
     @PostMapping("/api/admins/noticeboards")
     public ResponseEntity<NoticeBoardSaveResponseDto> createNoticeBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
@@ -31,17 +31,17 @@ public class NoticeBoardController {
                 .created(URI.create("/api/admins/noticeboards/" + noticeBoardSaveResponseDto.getId()))
                 .body(noticeBoardSaveResponseDto);
     }
-    
+
     @GetMapping("/api/noticeboards/{noticeBoardId}")
     public ResponseEntity<NoticeBoardResponseDto> findNoticeBoard(
-        @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-        @PathVariable Long noticeBoardId
+            @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
+            @PathVariable Long noticeBoardId
     ) {
         NoticeBoardResponseDto noticeBoardResponse =
                 noticeBoardService.findNoticeBoard(noticeBoardId);
         return ResponseEntity.ok(noticeBoardResponse);
     }
-    
+
     @GetMapping("/api/noticeboards")
     public ResponseEntity<NoticeBoardsResponseDto> findAllNoticeBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
@@ -52,7 +52,7 @@ public class NoticeBoardController {
                 noticeBoardService.findAllNoticeBoard(page, count)
         );
     }
-    
+
     @PutMapping("/api/admins/noticeboards/{noticeBoardId}")
     public ResponseEntity<Void> updateNoticeBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
@@ -65,7 +65,7 @@ public class NoticeBoardController {
         );
         return ResponseEntity.noContent().build();
     }
-    
+
     @DeleteMapping("/api/admins/noticeboards/{noticeBoardId}")
     public ResponseEntity<Void> deleteNoticeBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,

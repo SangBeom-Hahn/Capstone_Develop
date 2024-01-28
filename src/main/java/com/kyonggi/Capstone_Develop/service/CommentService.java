@@ -1,15 +1,15 @@
 package com.kyonggi.Capstone_Develop.service;
 
 import com.kyonggi.Capstone_Develop.domain.Comment;
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundCommentException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
 import com.kyonggi.Capstone_Develop.repository.CommentRepository;
-import com.kyonggi.Capstone_Develop.repository.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.repository.StudentRepository;
+import com.kyonggi.Capstone_Develop.repository.noticeboard.NoticeBoardRepository;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.comment.CommentSaveResponseDto;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package com.kyonggi.Capstone_Develop.domain;
 
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.student.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

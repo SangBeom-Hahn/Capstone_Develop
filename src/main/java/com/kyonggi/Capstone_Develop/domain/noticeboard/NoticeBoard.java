@@ -1,5 +1,7 @@
-package com.kyonggi.Capstone_Develop.domain;
+package com.kyonggi.Capstone_Develop.domain.noticeboard;
 
+import com.kyonggi.Capstone_Develop.domain.BaseEntity;
+import com.kyonggi.Capstone_Develop.domain.Comment;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
 import lombok.AccessLevel;
 import lombok.Getter;

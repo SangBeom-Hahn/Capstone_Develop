@@ -1,6 +1,6 @@
-package com.kyonggi.Capstone_Develop.repository;
+package com.kyonggi.Capstone_Develop.repository.noticeboard;
 
-import com.kyonggi.Capstone_Develop.domain.NoticeBoard;
+import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
