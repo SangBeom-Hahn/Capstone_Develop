@@ -2,13 +2,17 @@ package com.kyonggi.Capstone_Develop.controller;
 
 import com.kyonggi.Capstone_Develop.controller.auth.AuthenticationPrincipal;
 import com.kyonggi.Capstone_Develop.controller.dto.auth.LoginMemberRequest;
+import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardDownloadRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.NoticeBoardService;
+import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardDownloadResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardSaveResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardsResponseDto;
+import com.kyonggi.Capstone_Develop.support.file.FileConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,5 +79,18 @@ public class NoticeBoardController {
     ) {
         noticeBoardService.deleteNoticeBoard(noticeBoardId, loginMemberRequest.getId());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/noticeboards/attach")
+    public ResponseEntity<NoticeBoardDownloadResponseDto> downloadAttach(
+            @RequestBody @Valid NoticeBoardDownloadRequest noticeBoardDownloadRequest
+    ) {
+        String disposition = FileConverter.findDisposition(noticeBoardDownloadRequest.getUploadFileName());
+        NoticeBoardDownloadResponseDto noticeBoardDownloadResponseDto =
+                noticeBoardService.downloadAttach(noticeBoardDownloadRequest.getUploadFileId());
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, disposition)
+                .body(noticeBoardDownloadResponseDto);
     }
 }

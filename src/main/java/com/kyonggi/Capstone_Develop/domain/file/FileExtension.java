@@ -34,4 +34,11 @@ public enum FileExtension {
     private static String extractFileExtension(String uploadFileName) {
         return uploadFileName.substring(uploadFileName.lastIndexOf("."));
     }
+
+    public static boolean isValidExtension(final String fileName) {
+        final String fileExtension = extractFileExtension(fileName);
+
+        return Arrays.stream(values())
+                .anyMatch(extension -> extension.value.equals(fileExtension));
+    }
 }

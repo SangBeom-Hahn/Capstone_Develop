@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.domain.file.RawFileData;
 import com.kyonggi.Capstone_Develop.domain.noticeboard.NoticeBoard;
 import com.kyonggi.Capstone_Develop.domain.noticeboard.UploadFile;
 import com.kyonggi.Capstone_Develop.domain.student.Student;
+import com.kyonggi.Capstone_Develop.exception.NoSuchFileIdException;
 import com.kyonggi.Capstone_Develop.exception.NoSuchMemberException;
 import com.kyonggi.Capstone_Develop.exception.NotAuthorException;
 import com.kyonggi.Capstone_Develop.exception.NotFoundNoticeBoardException;
@@ -134,6 +135,13 @@ public class NoticeBoardService {
         if (!noticeBoard.isAuthor(authorId)) {
             throw new NotAuthorException(authorId);
         }
+    }
+
+    public NoticeBoardDownloadResponseDto downloadAttach(Long uploadFileId) {
+        UploadFile findUploadFile = uploadFileRepository.findById(uploadFileId)
+                .orElseThrow(() -> new NoSuchFileIdException(uploadFileId));
+
+        return NoticeBoardDownloadResponseDto.from(findUploadFile);
     }
     
     private List<CommentResponseDto> findCommentResponse(NoticeBoard noticeBoard) {

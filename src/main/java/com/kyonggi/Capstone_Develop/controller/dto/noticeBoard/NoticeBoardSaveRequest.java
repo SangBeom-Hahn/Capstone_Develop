@@ -1,6 +1,8 @@
 package com.kyonggi.Capstone_Develop.controller.dto.noticeBoard;
 
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardSaveRequestDto;
+import com.kyonggi.Capstone_Develop.utils.validator.FileExistsConstraint;
+import com.kyonggi.Capstone_Develop.utils.validator.FileExtensionConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +34,8 @@ public class NoticeBoardSaveRequest {
     @NotNull(message = EMPTY_MESSAGE)
     private Integer views;
 
+    @FileExtensionConstraint
+    @FileExistsConstraint
     private List<MultipartFile> files;
     
     public NoticeBoardSaveRequestDto toServiceDto() {

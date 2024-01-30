@@ -14,9 +14,9 @@ import java.util.List;
 @Component
 public class Uploader {
     @Value("${file.dir}")
-    private String fileDir;
+    private static String fileDir;
 
-    private String getFullPath(String filename) {
+    public static String getFullPath(String filename) {
         return fileDir + filename;
     }
 

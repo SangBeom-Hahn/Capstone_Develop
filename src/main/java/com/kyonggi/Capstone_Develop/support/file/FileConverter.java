@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +53,9 @@ public class FileConverter {
 
     private static String getUUID(UuidHolder uuidHolder) {
         return uuidHolder.random();
+    }
+
+    public static String findDisposition(String uploadFileName) {
+        return "attachment; filename=\"" + UriUtils.encode(uploadFileName, StandardCharsets.UTF_8) + "\"";
     }
 }
