@@ -15,15 +15,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
+
 @RestController
 @RequiredArgsConstructor
 public class NoticeBoardController {
     private final NoticeBoardService noticeBoardService;
 
-    @PostMapping("/api/admins/noticeboards")
+    @PostMapping(value = "/api/admins/noticeboards", consumes = MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<NoticeBoardSaveResponseDto> createNoticeBoard(
             @AuthenticationPrincipal LoginMemberRequest loginMemberRequest,
-            @RequestBody @Valid NoticeBoardSaveRequest noticeBoardSaveRequest
+            @ModelAttribute @Valid NoticeBoardSaveRequest noticeBoardSaveRequest
     ) {
         NoticeBoardSaveResponseDto noticeBoardSaveResponseDto =
                 noticeBoardService.save(noticeBoardSaveRequest.toServiceDto(), loginMemberRequest.getId());

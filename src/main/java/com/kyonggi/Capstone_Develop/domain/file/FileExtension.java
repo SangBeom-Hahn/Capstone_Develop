@@ -1,10 +1,12 @@
 package com.kyonggi.Capstone_Develop.domain.file;
 
 import com.kyonggi.Capstone_Develop.exception.InvalidFileExtensionException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
+@Getter
 @RequiredArgsConstructor
 public enum FileExtension {
     TXT(".txt"),
@@ -18,13 +20,15 @@ public enum FileExtension {
 
     private final String value;
 
-    public static FileExtension getExtensionFromFileName(final String uploadFileName) {
+    public static String getExtensionFromFileName(final String uploadFileName) {
         String fileExtension = extractFileExtension(uploadFileName);
 
-        return Arrays.stream(values())
+        FileExtension findFileExtension = Arrays.stream(values())
                 .filter(extension -> extension.value.equals(fileExtension))
                 .findFirst()
                 .orElseThrow(() -> new InvalidFileExtensionException(fileExtension));
+
+        return findFileExtension.getValue();
     }
 
     private static String extractFileExtension(String uploadFileName) {

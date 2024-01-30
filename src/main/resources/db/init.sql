@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS notice_board_upload_file;
 DROP TABLE IF EXISTS notice_board;
 DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS refresh_token;
@@ -42,6 +43,19 @@ CREATE TABLE `notice_board` (
     CONSTRAINT `fk_notice_board_student`
     FOREIGN KEY (`student_id`)
     REFERENCES `student` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `notice_board_upload_file` (
+    `upload_file_id` bigint NOT NULL AUTO_INCREMENT,
+    `upload_file_name` VARCHAR(255) NULL DEFAULT NULL,
+    `store_file_name` VARCHAR(255) NULL DEFAULT NULL,
+    `notice_board_id` bigint NOT NULL,
+    `created_date` datetime(6) NULL DEFAULT NULL,
+    `last_modified_date` datetime(6) NULL DEFAULT NULL,
+    PRIMARY KEY (`upload_file_id`),
+    CONSTRAINT `fk_upload_file_notice_board`
+        FOREIGN KEY (`notice_board_id`)
+            REFERENCES `notice_board` (`notice_board_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `comment` (

@@ -27,7 +27,7 @@ public class AuthenticationPrincipalConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/logout")
                 .excludePathPatterns("/api/user")
                 .excludePathPatterns("/api/user/duplicate-check");
-    
+
         registry.addInterceptor(new AdminInterceptor(jwtTokenProvider))
                 .order(2)
                 .addPathPatterns("/api/admins/**");

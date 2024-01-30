@@ -5,6 +5,7 @@ import com.kyonggi.Capstone_Develop.exception.CspopException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -61,5 +62,31 @@ public class ControllerAdvice {
         return ResponseEntity
                 .status(e.getHttpStatus())
                 .body(new ErrorResponse(e.getErrorCode(), e.getShowMessage()));
+    }
+
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<ErrorResponse> handleBindException(
+            final BindingResult bindingResult,
+            final HttpServletRequest request,
+            final BindException e
+    ) {
+        final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        final FieldError mainError = fieldErrors.get(0);
+        final String[] errorInfo = Objects
+                .requireNonNull(mainError.getDefaultMessage())
+                .split(":");
+
+        log.error("HandledException: {} {} statusCode={} errMessage={}\n",
+                request.getMethod(),
+                request.getRequestURI(),
+                HttpStatus.BAD_REQUEST.value(),
+                errorInfo[0]
+        );
+
+        log.debug("Error StackTrace: ", e);
+
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorResponse("0", errorInfo[0]));
     }
 }
