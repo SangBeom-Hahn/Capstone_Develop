@@ -6,12 +6,12 @@ import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardDownlo
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardSaveRequest;
 import com.kyonggi.Capstone_Develop.controller.dto.noticeBoard.NoticeBoardUpdateRequest;
 import com.kyonggi.Capstone_Develop.service.NoticeBoardService;
-import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardDownloadResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardSaveResponseDto;
 import com.kyonggi.Capstone_Develop.service.dto.noticeboard.NoticeBoardsResponseDto;
 import com.kyonggi.Capstone_Develop.support.file.FileConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -82,15 +82,15 @@ public class NoticeBoardController {
     }
 
     @GetMapping("/api/noticeboards/attach")
-    public ResponseEntity<NoticeBoardDownloadResponseDto> downloadAttach(
+    public ResponseEntity<UrlResource> downloadAttach(
             @RequestBody @Valid NoticeBoardDownloadRequest noticeBoardDownloadRequest
     ) {
         String disposition = FileConverter.findDisposition(noticeBoardDownloadRequest.getUploadFileName());
-        NoticeBoardDownloadResponseDto noticeBoardDownloadResponseDto =
+        UrlResource urlResource =
                 noticeBoardService.downloadAttach(noticeBoardDownloadRequest.getUploadFileId());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, disposition)
-                .body(noticeBoardDownloadResponseDto);
+                .body(urlResource);
     }
 }

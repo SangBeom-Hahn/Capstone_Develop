@@ -3,7 +3,6 @@ package com.kyonggi.Capstone_Develop.support.file;
 import com.kyonggi.Capstone_Develop.domain.file.RawFileData;
 import com.kyonggi.Capstone_Develop.exception.NotUploadException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -13,11 +12,10 @@ import java.util.List;
 @Slf4j
 @Component
 public class Uploader {
-    @Value("${file.dir}")
-    private static String fileDir;
+    private static final String FILEDIR = "C:/Users/hsb99/";
 
     public static String getFullPath(String filename) {
-        return fileDir + filename;
+        return FILEDIR + filename;
     }
 
     public void uploadFiles(final List<RawFileData> rawFileDatas) {

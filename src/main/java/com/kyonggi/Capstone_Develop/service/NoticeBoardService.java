@@ -18,6 +18,7 @@ import com.kyonggi.Capstone_Develop.support.UuidHolder;
 import com.kyonggi.Capstone_Develop.support.file.FileConverter;
 import com.kyonggi.Capstone_Develop.support.file.Uploader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -101,9 +102,11 @@ public class NoticeBoardService {
         noticeBoard.view();
         
         List<CommentResponseDto> commentResponses = findCommentResponse(noticeBoard);
-        return NoticeBoardResponseDto.of(noticeBoard, commentResponses);
+        List<FileResponseDto> fileResponses = findUploadFile(noticeBoard);
+
+        return NoticeBoardResponseDto.of(noticeBoard, commentResponses, fileResponses);
     }
-    
+
     public void updateNoticeBoard(NoticeBoardUpdateRequestDto noticeUpdateRequestDto, Long id) {
         NoticeBoard findNoticeBoard = noticeBoardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundNoticeBoardException(id));
@@ -137,17 +140,24 @@ public class NoticeBoardService {
         }
     }
 
-    public NoticeBoardDownloadResponseDto downloadAttach(Long uploadFileId) {
+    public UrlResource downloadAttach(Long uploadFileId) {
         UploadFile findUploadFile = uploadFileRepository.findById(uploadFileId)
                 .orElseThrow(() -> new NoSuchFileIdException(uploadFileId));
 
-        return NoticeBoardDownloadResponseDto.from(findUploadFile);
+        return findUploadFile.findResource();
     }
     
     private List<CommentResponseDto> findCommentResponse(NoticeBoard noticeBoard) {
         return noticeBoard.getComments()
                 .stream()
                 .map(comment -> CommentResponseDto.from(comment))
+                .collect(Collectors.toList());
+    }
+
+    private List<FileResponseDto> findUploadFile(NoticeBoard noticeBoard) {
+        return uploadFileRepository.findAllByNoticeBoard(noticeBoard)
+                .stream()
+                .map(uploadFile -> FileResponseDto.from(uploadFile))
                 .collect(Collectors.toList());
     }
 }
