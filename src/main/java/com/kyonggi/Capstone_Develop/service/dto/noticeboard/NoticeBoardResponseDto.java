@@ -5,7 +5,6 @@ import com.kyonggi.Capstone_Develop.service.dto.comment.CommentResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
