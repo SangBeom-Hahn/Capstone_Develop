@@ -5,14 +5,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.List;
 
-public class FileExtensionConstraintValidator implements ConstraintValidator<FileExtensionConstraint, MultipartFile> {
+public class FileExtensionConstraintValidator implements ConstraintValidator<FileExtensionConstraint, List<MultipartFile>> {
     @Override
-    public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
-        if (file == null || file.isEmpty()) {
+    public boolean isValid(List<MultipartFile> files, ConstraintValidatorContext context) {
+        if (files == null || files.isEmpty()) {
             return true;
         }
 
-        return FileExtension.isValidExtension(file.getOriginalFilename());
+        return files.stream()
+                .anyMatch(
+                        file -> FileExtension.isValidExtension(file.getOriginalFilename())
+                );
     }
 }

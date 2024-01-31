@@ -26,8 +26,14 @@ public class NoticeBoardResponseDto {
     private String authorLoginId;
     
     private List<CommentResponseDto> comments;
+
+    private List<FileResponseDto> files;
     
-    public static NoticeBoardResponseDto of(NoticeBoard noticeBoard, List<CommentResponseDto> comments) {
+    public static NoticeBoardResponseDto of(
+            NoticeBoard noticeBoard,
+            List<CommentResponseDto> comments,
+            List<FileResponseDto> files
+    ) {
         return new NoticeBoardResponseDto(
                 noticeBoard.getId(),
                 noticeBoard.getContent(),
@@ -36,7 +42,8 @@ public class NoticeBoardResponseDto {
                 noticeBoard.getViews(),
                 noticeBoard.getCreatedDate(),
                 noticeBoard.getAuthorLoginId(),
-                comments
+                comments,
+                files
         );
     }
 }
